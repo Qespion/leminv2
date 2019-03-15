@@ -1,0 +1,25 @@
+5
+##start
+deb 23 3
+next 16 7
+#commentaire
+3 16 3
+4 16 5
+5 9 34
+6 17 5
+7 4 8
+##end
+fin 9 5
+fin-4
+fin-6
+deb-3
+4-3
+5-next
+3-5
+#autre commentaire
+4-next
+next-deb
+7-6
+7-next
+7-4
+6-5

@@ -1,0 +1,12 @@
+4
+##start
+start 0 0
+##end
+end 1 1
+mid0   4 4
+mid1   5 5
+mid2   6 6
+start-mid0
+start-mid1
+mid1-mid2
+mid2-end

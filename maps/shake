@@ -1,0 +1,16 @@
+#population
+	3
+	##start
+#start room
+	start 0 0
+	##end
+#end room
+	end 3 3
+	mid0 1 1
+#pipe
+	start-mid0
+#other room
+				mid1 2 -2
+#other pipe
+	mid1-mid0
+	end-mid1
