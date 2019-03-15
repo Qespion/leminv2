@@ -6,7 +6,7 @@
 /*   By: avo <avo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/06 16:28:14 by oespion           #+#    #+#             */
-/*   Updated: 2019/03/05 13:45:22 by avo              ###   ########.fr       */
+/*   Updated: 2019/03/15 15:52:17 by avo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ int		find_space(char *str)
 t_map   *get_island(char *str, int *turn, t_map *map, int border)
 {
 	t_node	*new_node;
+	char		*tmp;
 
 	if (str[0] == '#' && str[1] != '#')
 		return (map);
@@ -60,9 +61,8 @@ t_map   *get_island(char *str, int *turn, t_map *map, int border)
 		return (map);
 	if (!(new_node = (t_node*)malloc(sizeof(t_node))))
 		exit(-1);
-	if (!(new_node->name = (char *)malloc(sizeof((char) * ft_strsub(str, 0, find_space(str))))))
-		exit(-1);
-	new_node->name = ft_strsub(str, 0, find_space(str));
+	tmp = ft_strsub(str, 0, find_space(str));
+	new_node->name = tmp;
 	new_node->link = NULL;
 	if (!map->jcpu)
 	{
@@ -159,6 +159,7 @@ t_map   *get_road(char *str, int *turn, t_map *map, int border)
 		tmp2->link->next = new_link2;
 		tmp2->link = startlink;
 	}
+	free(name1);
 	return (map);
 }
 
@@ -209,7 +210,10 @@ t_map	*read_file(t_map *map, char *file)
 		turn = where_am_i(str, turn, map);
 		parse[turn](str, &turn, map, border);
 		border = find_border(str, border);
+		free(str);
 	}
+	if (str)
+		free(str);
 	return (map);
 }
 

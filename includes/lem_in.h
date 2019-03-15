@@ -6,7 +6,7 @@
 /*   By: avo <avo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/06 16:27:53 by oespion           #+#    #+#             */
-/*   Updated: 2019/03/11 20:21:54 by avo              ###   ########.fr       */
+/*   Updated: 2019/03/15 14:01:15 by avo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,15 +65,8 @@ typedef struct		s_wroad
 int			get_max_roads(t_map *map);
 t_map		*get_file(char *file);
 t_solve		*create_base_routes(t_map *map, int max_roads);
-t_solve		*create_routes(t_map *map, int max_roads, t_solve *routes);
-t_solve		*ft_del_solve(t_solve *start, t_solve *todel);
-t_solve 	*ft_del_one_solve(t_solve *start, t_solve *todel);
-t_wroad		*found_finish_line(t_solve *solution, t_map *map, t_wroad *wroad);
-t_solve		*remove_line(t_solve *solution, t_map *map);
 void	print_working_roads(t_wroad *wroad, t_map *map);
-int			enough_wroad(t_wroad *wroad, t_map *map, t_solve *solution, int max_roads);
-t_wroad		*ft_find_conflict(t_wroad *wroad, t_map *map);
-void    ft_create_group(t_wroad *wroad, t_map *map, int max_roads);
-int    *bt_grp(int **tab, int len, int max_roads, int ants);
+void	ft_clean_map(t_map *map);
+void    ft_clean_routes(t_solve *routes);
 
 #endif

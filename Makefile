@@ -9,14 +9,8 @@ SRCS_1	=   srcs/lem_in.c	\
 			srcs/parsing.c	\
 			srcs/base_routes.c	\
 			srcs/max_roads.c	\
-			srcs/create_routes.c\
-			srcs/del_solve.c	\
-			srcs/del_one_solve.c \
-			srcs/found_finish.c	\
-			srcs/print_working_roads.c \
-			srcs/find_conflict.c	\
-			srcs/calc_grp.c		\
-			srcs/comb_grp.c
+			srcs/print_working_roads.c	\
+			srcs/clean_map.c
 
 
 LIBFT	=	libft/libft.a

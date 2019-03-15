@@ -6,7 +6,7 @@
 /*   By: avo <avo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/06 16:27:46 by oespion           #+#    #+#             */
-/*   Updated: 2019/03/04 11:02:22 by avo              ###   ########.fr       */
+/*   Updated: 2019/03/15 15:53:01 by avo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,9 @@ int	main(int ac, char **av)
 	max_roads = get_max_roads(map);
 	ft_printf("\nmax roads %d\n", max_roads);
 	routes = create_base_routes(map, max_roads);
-	routes = create_routes(map, max_roads, routes);
+	// routes = create_routes(map, max_roads, routes);
 	// loop on base unti
+	ft_clean_map(map);
+	ft_clean_routes(routes);
 	return (0);
 }
