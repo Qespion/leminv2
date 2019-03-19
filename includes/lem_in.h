@@ -6,7 +6,7 @@
 /*   By: avo <avo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/06 16:27:53 by oespion           #+#    #+#             */
-/*   Updated: 2019/03/18 16:19:53 by avo              ###   ########.fr       */
+/*   Updated: 2019/03/19 16:14:51 by avo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,12 +67,11 @@ t_map		*get_file(char *file);
 t_solve		*create_base_routes(t_map *map, int max_roads);
 void	print_working_roads(t_wroad *wroad, t_map *map);
 void	ft_clean_map(t_map *map);
-void    ft_clean_routes(t_solve *routes);
 
 t_solve *create_routes(t_map *map, int max_roads, t_solve *routes);
-int			enough_wroad(t_wroad *wroad, t_map *map, t_solve *solution, int max_roads);
+int			enough_wroad(t_wroad *wroad, t_map *map, int turn, int max_roads);
 t_wroad		*found_finish_line(t_solve *solution, t_map *map, t_wroad *wroad);
-
+t_solve	*duplicate_road(t_road *old);
 
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: avo <avo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/15 13:49:19 by avo               #+#    #+#             */
-/*   Updated: 2019/03/19 09:55:56 by avo              ###   ########.fr       */
+/*   Updated: 2019/03/19 15:27:35 by avo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,23 +32,4 @@ void	ft_clean_map(t_map *map)
         map->begin = tmp_node;
     }
     free(map);
-}
-
-void    ft_clean_routes(t_solve *routes)
-{
-    t_solve *tmp_routes;
-    t_road  *tmp_road;
-
-    while (routes)
-    {
-        tmp_routes = routes->next;
-        while (routes->path)
-        {
-            tmp_road = routes->path->prev;
-            free(routes->path);
-            routes->path = tmp_road;
-        }
-        free(routes);
-        routes = tmp_routes;
-    }
 }
