@@ -6,7 +6,7 @@
 /*   By: avo <avo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/06 16:28:14 by oespion           #+#    #+#             */
-/*   Updated: 2019/03/15 15:52:17 by avo              ###   ########.fr       */
+/*   Updated: 2019/03/18 09:35:58 by avo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -247,6 +247,7 @@ t_map	*get_file(char *file)
 	map->jcpu = NULL;
 	map->start = NULL;
 	map->end = NULL;
+	map->begin = NULL;
 	map->nb = -42;
 	map = read_file(map, file);
 	// ft_print_map(map);

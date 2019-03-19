@@ -6,7 +6,7 @@
 /*   By: avo <avo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/06 16:28:22 by oespion           #+#    #+#             */
-/*   Updated: 2019/03/15 13:47:01 by avo              ###   ########.fr       */
+/*   Updated: 2019/03/19 13:52:11 by avo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,12 @@ t_solve     *get_first_roads(t_solve *solution, t_map *map)
 	{
 		if (!(road = (t_road*)malloc(sizeof(t_road))))
 			exit(-1);
-		road-> current = tmp->node;
+		// if (!(road->current = (t_node*)malloc(sizeof(t_node))))
+		// 	exit(-1);
+		// memcpy(road->current, tmp->node, sizeof(tmp->node));
+		road->current = tmp->node;
+		// ft_printf("hgf   %s\n", road->current->name);
+		// exit(-1);
 		road->prev = start_road(map);
 		if (!solution->path)
 			solution->path = road;

@@ -10,7 +10,9 @@ SRCS_1	=   srcs/lem_in.c	\
 			srcs/base_routes.c	\
 			srcs/max_roads.c	\
 			srcs/print_working_roads.c	\
-			srcs/clean_map.c
+			srcs/clean_map.c	\
+			srcs/create_routes.c	\
+			srcs/found_finish.c
 
 
 LIBFT	=	libft/libft.a
