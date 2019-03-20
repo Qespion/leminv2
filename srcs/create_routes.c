@@ -6,7 +6,7 @@
 /*   By: oespion <oespion@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/20 10:00:49 by oespion           #+#    #+#             */
-/*   Updated: 2019/03/20 11:38:42 by oespion          ###   ########.fr       */
+/*   Updated: 2019/03/20 13:38:09 by oespion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -199,6 +199,19 @@ t_solve	*remove_finish_line(t_solve *new_routes, t_map *map)
 	return (new_routes);
 }
 
+int			len_road(t_solve *routes)
+{
+	int	r;
+
+	r = 0;
+	while (routes)
+	{
+		routes = routes->next;
+		r++;
+	}
+	return (r);
+}
+
 t_solve *create_routes(t_map *map, int max_roads, t_solve *routes)
 {
 	int turn;
@@ -235,12 +248,17 @@ t_solve *create_routes(t_map *map, int max_roads, t_solve *routes)
 			// new_routes = remove_finish_line(new_routes, map);
 			// ft_printf("test-> %s\n", new_routes->path->current->name);
 			// read_current(new_routes);
+			// if (len_road(new_routes) == 0)
+			// 	break ;
+			ft_printf("len roads %d\n", len_road(new_routes));
 		}
 	}
-	// print_working_roads(wroad, map);
+	print_working_roads(wroad, map);
 	wroad = ft_find_conflict(wroad, map);
-	new_routes = ft_garbage(new_routes);
+	// new_routes = ft_garbage(new_routes);
+	ft_create_group(wroad, map, max_roads);
 	wroad = ft_garbage_wroad(wroad);
 	ft_printf("found finish !\n");
+	ft_printf("max roads %d !\n", max_roads);
 	return (routes);
 }

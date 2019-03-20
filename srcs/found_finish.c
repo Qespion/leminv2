@@ -6,7 +6,7 @@
 /*   By: oespion <oespion@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/19 21:23:40 by oespion           #+#    #+#             */
-/*   Updated: 2019/03/20 10:20:27 by oespion          ###   ########.fr       */
+/*   Updated: 2019/03/20 14:11:43 by oespion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,9 @@ int			enough_wroad(t_wroad *wroad, t_map *map, int turn, int max_roads)
 		tmp = tmp->next;
 		len_wroad++;
 	}
-	if (len_wroad > max_roads)
+	// if (len_wroad > 300)
+	// 	return (1);
+	if (len_wroad / 2 > max_roads)
 		return (1);
 	if (wroad && turn > (wroad->len + map->nb))
 		return (1);

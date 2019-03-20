@@ -13,7 +13,9 @@ SRCS_1	=   srcs/lem_in.c	\
 			srcs/clean_map.c	\
 			srcs/create_routes.c	\
 			srcs/found_finish.c	\
-			srcs/ft_find_conflict.c
+			srcs/ft_find_conflict.c	\
+			srcs/calc_grp.c	\
+			srcs/comb_grp.c
 
 
 LIBFT	=	libft/libft.a

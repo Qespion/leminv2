@@ -6,7 +6,7 @@
 /*   By: oespion <oespion@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/25 15:43:09 by oespion           #+#    #+#             */
-/*   Updated: 2019/03/20 12:43:15 by oespion          ###   ########.fr       */
+/*   Updated: 2019/03/20 13:29:12 by oespion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,8 +68,8 @@ int		ft_deep_check(t_road *base_road, t_road *tmp_road, t_map *map)
 		len_tmp++;
 		tmp_road = tmp_road->prev;
 	}
-	if (ft_abs(len_base - len_tmp) > (map->nb / 2))
-		return (0);
+	// if (ft_abs(len_base - len_tmp) > (map->nb / 2))
+	// 	return (0);
 	return (1);
 }
 
@@ -94,9 +94,11 @@ t_wroad		*check_conflict(t_wroad *wroad, t_map *map)
 				{
 					if (ft_deep_check(base, compare, map))
 					{
-						ft_printf("base %s\n", base->current->name);
-						ft_printf("compare %s\n", compare->current->name);
+						// ft_printf("base %s\n", base->current->name);
+						// ft_printf("compare %s\n", compare->current->name);
 						ft_add_conflict(wroad, tmp_wroad);
+						// ft_printf("base %s\n", base->current->name);
+						// ft_printf("compare %s\n", compare->current->name);
 					}
 				}
 				compare = compare->prev;
