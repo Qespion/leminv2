@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   clean_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: avo <avo@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: oespion <oespion@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/15 13:49:19 by avo               #+#    #+#             */
-/*   Updated: 2019/03/19 15:27:35 by avo              ###   ########.fr       */
+/*   Updated: 2019/03/20 12:49:37 by oespion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	ft_clean_map(t_map *map)
     t_node  *tmp_node;
     t_link      *tmp_link;
 
-    while (map->begin)
+	while (map->begin)
     {
         tmp_node = map->begin->next;
         while (map->begin->link)

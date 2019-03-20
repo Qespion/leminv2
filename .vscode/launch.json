@@ -9,7 +9,7 @@
             "type": "cppdbg",
             "request": "launch",
             "program": "/home/avo/projects/leminv2/lem-in",
-            "args": ["<", "../../Downloads/bigsuplow"],
+            "args": ["<", "bigsuplow"],
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}",
             "environment": [],

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: avo <avo@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: oespion <oespion@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/06 16:28:14 by oespion           #+#    #+#             */
-/*   Updated: 2019/03/19 15:28:35 by avo              ###   ########.fr       */
+/*   Updated: 2019/03/20 12:49:39 by oespion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ t_map   *get_island(char *str, int *turn, t_map *map, int border)
 	tmp = ft_strsub(str, 0, find_space(str));
 	new_node->name = tmp;
 	new_node->link = NULL;
+	new_node->next = NULL;
 	if (!map->jcpu)
 	{
 		map->begin = new_node;
