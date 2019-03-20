@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   found_finish.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: avo <avo@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: oespion <oespion@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/19 21:23:40 by oespion           #+#    #+#             */
-/*   Updated: 2019/03/19 16:23:09 by avo              ###   ########.fr       */
+/*   Updated: 2019/03/20 10:20:27 by oespion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ t_wroad		*found_finish_line(t_solve *solution, t_map *map, t_wroad *wroad)
 				exit(-1);
 			new_node->path = duplicate_road(solution->path);
 			new_node->next = NULL;
+			new_node->conflict = NULL;
 			new_node->len = ft_len_road(solution->path);
 			if (!wroad)
 			{
@@ -96,7 +97,7 @@ int			enough_wroad(t_wroad *wroad, t_map *map, int turn, int max_roads)
 	}
 	if (len_wroad > max_roads)
 		return (1);
-	if (wroad && turn > (wroad->nb + map->nb))
+	if (wroad && turn > (wroad->len + map->nb))
 		return (1);
 	return (0);
 }

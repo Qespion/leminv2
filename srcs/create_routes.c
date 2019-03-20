@@ -3,12 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   create_routes.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: avo <avo@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: oespion <oespion@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/03/18 09:40:13 by avo               #+#    #+#             */
-/*   Updated: 2019/03/19 16:18:00 by avo              ###   ########.fr       */
+/*   Created: 2019/03/20 10:00:49 by oespion           #+#    #+#             */
+/*   Updated: 2019/03/20 10:39:35 by oespion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 #include "../libft/includes/libft.h"
 #include "lem_in.h"
@@ -63,10 +64,17 @@ t_wroad	*ft_garbage_wroad(t_wroad *wroad)
 {
 	t_wroad	*tmp_wroad;
 	t_road	*tmp_road;
+	t_conflict	*tmp_conflict;
 
 	while (wroad)
 	{
 		tmp_wroad = wroad->next;
+		while (wroad->conflict)
+		{
+			tmp_conflict = wroad->conflict->next;
+			free(wroad->conflict);
+			wroad->conflict = tmp_conflict;
+		}
 		while (wroad->path)
 		{
 			tmp_road = wroad->path->prev;
@@ -196,12 +204,10 @@ t_solve *create_routes(t_map *map, int max_roads, t_solve *routes)
 	int turn;
 	t_solve *tmp;
 	t_solve	*new_routes;
-	t_solve	*garbage;
 	t_wroad	*wroad;
 
 	turn = 0;
 	new_routes = NULL;
-	garbage = NULL;
 	wroad = NULL;
 	wroad = found_finish_line(routes, map, wroad);
 	if (!wroad)
@@ -231,7 +237,8 @@ t_solve *create_routes(t_map *map, int max_roads, t_solve *routes)
 			// read_current(new_routes);
 		}
 	}
-	print_working_roads(wroad, map);
+	// print_working_roads(wroad, map);
+	wroad = ft_find_conflict(wroad, map);
 	new_routes = ft_garbage(new_routes);
 	wroad = ft_garbage_wroad(wroad);
 	ft_printf("found finish !\n");

@@ -1,7 +1,7 @@
 .PHONY: all checker push_swap lib minilibx clean fclean re
 .SUFFIXES:
 CC		=	gcc
-FLAGS   =   -Wall -Wextra -Werror#-fsanitize=address
+FLAGS   =   -Wall -Wextra -Werror #-fsanitize=address
 LIB_DIR =   libft/
 NAME1	=	lem-in
 
@@ -12,7 +12,8 @@ SRCS_1	=   srcs/lem_in.c	\
 			srcs/print_working_roads.c	\
 			srcs/clean_map.c	\
 			srcs/create_routes.c	\
-			srcs/found_finish.c
+			srcs/found_finish.c	\
+			srcs/ft_find_conflict.c
 
 
 LIBFT	=	libft/libft.a

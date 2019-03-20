@@ -6,7 +6,7 @@
 /*   By: avo <avo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/06 16:27:53 by oespion           #+#    #+#             */
-/*   Updated: 2019/03/19 16:14:51 by avo              ###   ########.fr       */
+/*   Updated: 2019/03/19 16:29:12 by avo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,7 @@ t_solve *create_routes(t_map *map, int max_roads, t_solve *routes);
 int			enough_wroad(t_wroad *wroad, t_map *map, int turn, int max_roads);
 t_wroad		*found_finish_line(t_solve *solution, t_map *map, t_wroad *wroad);
 t_solve	*duplicate_road(t_road *old);
+t_wroad		*ft_find_conflict(t_wroad *wroad, t_map *map);
 
 
 #endif
