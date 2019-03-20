@@ -6,7 +6,7 @@
 /*   By: oespion <oespion@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/25 15:43:09 by oespion           #+#    #+#             */
-/*   Updated: 2019/03/20 11:23:54 by oespion          ###   ########.fr       */
+/*   Updated: 2019/03/20 11:41:42 by oespion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ int		ft_deep_check(t_road *base_road, t_road *tmp_road, t_map *map)
 		len_tmp++;
 		tmp_road = tmp_road->prev;
 	}
-	if (abs(len_base - len_tmp) > (map->nb / 2))
+	if (ft_abs(len_base - len_tmp) > (map->nb / 2))
 		return (0);
 	return (1);
 }
