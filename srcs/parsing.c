@@ -6,7 +6,7 @@
 /*   By: oespion <oespion@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/06 16:28:14 by oespion           #+#    #+#             */
-/*   Updated: 2019/03/20 13:01:17 by oespion          ###   ########.fr       */
+/*   Updated: 2019/03/20 15:17:14 by oespion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -251,6 +251,16 @@ t_map	*get_file(char *file)
 	map->begin = NULL;
 	map->nb = -42;
 	map = read_file(map, file);
+	if (!map->end)
+	{
+		ft_printf("no end");
+		exit(-1);
+	}
+	if (!map->end)
+	{
+		ft_printf("no start");
+		exit(-1);
+	}
 	// ft_print_map(map);
 	// exit(-1);
 	return (map);

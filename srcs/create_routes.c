@@ -6,7 +6,7 @@
 /*   By: oespion <oespion@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/20 10:00:49 by oespion           #+#    #+#             */
-/*   Updated: 2019/03/20 13:38:09 by oespion          ###   ########.fr       */
+/*   Updated: 2019/03/20 15:19:55 by oespion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -255,7 +255,7 @@ t_solve *create_routes(t_map *map, int max_roads, t_solve *routes)
 	}
 	print_working_roads(wroad, map);
 	wroad = ft_find_conflict(wroad, map);
-	// new_routes = ft_garbage(new_routes);
+	new_routes = ft_garbage(new_routes);
 	ft_create_group(wroad, map, max_roads);
 	wroad = ft_garbage_wroad(wroad);
 	ft_printf("found finish !\n");

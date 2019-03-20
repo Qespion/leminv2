@@ -6,7 +6,7 @@
 /*   By: oespion <oespion@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/20 13:17:46 by oespion           #+#    #+#             */
-/*   Updated: 2019/03/20 14:19:09 by oespion          ###   ########.fr       */
+/*   Updated: 2019/03/20 15:17:31 by oespion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -153,10 +153,13 @@ int		*try_line(int **tab, int len, int *line, int index, int max_roads, int ants
 		if (tab[index][r] != 0)
 			line = ft_try_nb(len, r, index, tab, max_roads, ants);
 		if (!best || line[len] < best[len])
-			best = line;
+		{
+        	best = line;
+        }
 		r++;
 	}
-	// ft_print_line(best, len);
+    if (line != best)
+        free(line);
 	return (best);
 }
 
@@ -167,10 +170,13 @@ void    bt_grp(int **tab, int len, int max_roads, int ants)
 
 	r = 0;
 	line = NULL;
+    if (!tab[1])
+        exit(1);
 	while (r < len)
 	{
 		line = try_line(tab, len, line, r, max_roads, ants);
 		r++;
 	}
 	ft_printf("number of turn == %d\n", line[len]);
+    free(line);
 }
