@@ -6,7 +6,7 @@
 /*   By: oespion <oespion@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/20 10:00:49 by oespion           #+#    #+#             */
-/*   Updated: 2019/03/20 10:39:35 by oespion          ###   ########.fr       */
+/*   Updated: 2019/03/20 11:38:42 by oespion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,7 @@ t_solve	*ft_garbage(t_solve *routes)
 	return (NULL);
 }
 
-t_solve	*duplicate_road(t_road *old)
+t_road	*duplicate_road(t_road *old)
 {
 	t_road	*start;
 	t_road	*road;
