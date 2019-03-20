@@ -6,7 +6,7 @@
 /*   By: oespion <oespion@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/20 13:17:46 by oespion           #+#    #+#             */
-/*   Updated: 2019/03/20 15:17:31 by oespion          ###   ########.fr       */
+/*   Updated: 2019/03/20 16:46:05 by oespion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,160 +23,99 @@ void	ft_print_line(int *line, int len)
 	ft_printf("\n");
 }
 
-int     *set_zero(int *roads, int len)
+int     *set_zero(int *roads, int len, int **tab, int r)
 {
-	int r;
+	int rr;
 
-	r = 0;
-	while (r <= len)
+	rr = 0;
+	while (rr <= len)
 	{
-		roads[r] = 0;
-		r++;
+		roads[rr] = rr == r ? tab[r][r] : 0;
+		rr++;
 	}
 	return (roads);
 }
 
-int		*copy_tmp_line(int *tmp_line, int len)
+int		*copy_tmp_line(int *try_line, int *tmp_line, int len)
 {
-	int	*try_line;
 	int	r;
 
 	r = 0;
 	while (r <= len)
-		try_line[r] = tmp_line[r++];
+    {
+		try_line[r] = tmp_line[r];
+        r++;
+    }
 	return (try_line);
 }
 
-int		ft_interfere(int **tab, int index, int i, int *try_line, int len)
+int     *ft_solution(int *try, int len, int **tab, int r)
 {
-	int	r;
-	int	j;
-	r = 0;
-	while (r < len)
-	{
-		if (tab[index][r] != 0 && tab[i][r] == 0)
-			return (0);
-		r++;
-	}
-	return (1);
-}
+    int *solution;
 
-int		find_lowest(int *try_line, int len)
-{
-	int		lowest;
-	int		solution;
-	int		r;
-
-	r = 0;
-	lowest = 0;
-	while (r < len)
-	{
-		if (lowest == 0 && try_line[r] != 0)
-		{
-			solution = r;
-			lowest = try_line[r];
-		}
-		else if (try_line[r] != 0 && lowest > try_line[r])
-		{
-			solution = r;
-			lowest = try_line[r];
-		}
-		r++;
-	}
+	if (!(solution = (int*)malloc(sizeof(int) * (len + 1))))
+        exit(-1);
+    solution = set_zero(solution, len, tab, r);
+    ft_print_line(solution, len);
 	return (solution);
 }
 
-int		ft_turn_solution(int *try_line, int len, int max_roads, int ants)
+int     *try_line(int r, int max_roads, int len, int ants, int **tab)
 {
-	int	road_nb;
-	int	r;
-	int	turn;
-	int	lowest;
+    int *try;
+    int *best;
+	int	*solution;
 
-	turn = 0;
-	r = 0;
-	road_nb = 0;
-	while (r < len)
-	{
-		if (try_line[r] != 0)
-			road_nb++;
-		r++;
-	}
-	while (ants > 0)
-	{
-		lowest = find_lowest(try_line, len);
-		try_line[lowest]++;
-		ants--;
-	}
-	// ft_print_line(try_line, len);
-	return (try_line[find_lowest(try_line,len)]);
+    if (!(try = (int*)malloc(sizeof(int) * (len + 1))))
+        exit(-1);
+    try = copy_tmp_line(try, tab[r], len);
+	solution = ft_solution(try, len, tab, r);
+	free(try);
+    return (solution);
 }
 
-int		*ft_try_nb(int len, int r, int index, int **tab, int max_roads, int ants)
+int		*create_malloc_line(int *line, int len)
 {
-	int	*try_line;
-	int	i;
-
-	i = 0;
-	if (!(try_line = (int*)malloc(sizeof(int) * (len + 1))))
-		exit(-1);
-	try_line = set_zero(try_line, len);
-	// ft_printf("index %d\n", index);
-	// ft_printf("r %d\n", r);
-	try_line[index] = tab[index][index];
-	try_line[r] = tab[index][r];
-	while (i <  len)
-	{
-		if (tab[index][i] != 0 && ft_interfere(tab, index, i, try_line, len))
-			try_line[i] = tab[index][i];
-		i++;
-	}
-	try_line[i] = ft_turn_solution(try_line, len, max_roads, ants);
-	// ft_print_line(try_line, len);
-	return (try_line);
-}
-
-int		*try_line(int **tab, int len, int *line, int index, int max_roads, int ants)
-{
+	int	*sol;
 	int	r;
-	r = 0;
-	int	*best;
 
-	best = line;
-	while (r < len)
+	r = 0;
+	if (!(sol = (int*)malloc(sizeof(int) * (len + 1))))
+        exit(-1);
+	while (r <= len)
 	{
-		if (r == index)
-		{
-			r++;
-			continue;
-		}
-		if (tab[index][r] != 0)
-			line = ft_try_nb(len, r, index, tab, max_roads, ants);
-		if (!best || line[len] < best[len])
-		{
-        	best = line;
-        }
+		sol[r] = line[r];
 		r++;
 	}
-    if (line != best)
-        free(line);
-	return (best);
+	return (sol);
 }
 
 void    bt_grp(int **tab, int len, int max_roads, int ants)
 {
-	int *line;
 	int r;
-
-	r = 0;
-	line = NULL;
-    if (!tab[1])
-        exit(1);
-	while (r < len)
-	{
-		line = try_line(tab, len, line, r, max_roads, ants);
-		r++;
-	}
-	ft_printf("number of turn == %d\n", line[len]);
-    free(line);
+    int *line;
+	int	*sol;
+    line = NULL;
+    r = 0;
+    // if (max_roads == 1)
+    // {
+    //     // print first elem of tab
+    //     exit(1);
+    // }
+    while (r < len)
+    {
+		sol = try_line(r, max_roads, len, ants,  tab);
+        if (!line)
+            line = sol;
+        else if (line[len] > sol[len])
+        {
+			free(line);
+			line = create_malloc_line(sol, len);
+		}
+		// free(sol);
+		ft_print_line(line, len);
+        r++;
+    }
+	if (line)
+		free(line);
 }
