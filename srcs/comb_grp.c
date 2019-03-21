@@ -6,7 +6,7 @@
 /*   By: oespion <oespion@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/20 13:17:46 by oespion           #+#    #+#             */
-/*   Updated: 2019/03/20 16:46:05 by oespion          ###   ########.fr       */
+/*   Updated: 2019/03/21 10:17:38 by oespion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int		*copy_tmp_line(int *try_line, int *tmp_line, int len)
 	int	r;
 
 	r = 0;
-	while (r <= len)
+	while (r < len)
     {
 		try_line[r] = tmp_line[r];
         r++;
@@ -80,7 +80,7 @@ int		*create_malloc_line(int *line, int len)
 	int	r;
 
 	r = 0;
-	if (!(sol = (int*)malloc(sizeof(int) * (len + 1))))
+	if (!(sol = (int*)malloc((len + 1) * sizeof(int))))
         exit(-1);
 	while (r <= len)
 	{
@@ -111,8 +111,10 @@ void    bt_grp(int **tab, int len, int max_roads, int ants)
         {
 			free(line);
 			line = create_malloc_line(sol, len);
+			free(sol);
 		}
-		// free(sol);
+		else
+			free(sol);
 		ft_print_line(line, len);
         r++;
     }

@@ -6,7 +6,7 @@
 /*   By: oespion <oespion@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/20 12:58:48 by oespion           #+#    #+#             */
-/*   Updated: 2019/03/20 16:46:52 by oespion          ###   ########.fr       */
+/*   Updated: 2019/03/21 10:14:26 by oespion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ int		**ft_create_tab(t_wroad *wroad, t_map *map, int len)
 
 	current = wroad;
 	err = 0;
-	if (!(tab = (int**)malloc(sizeof(int*) * len + 1)))
+	if (!(tab = (int**)malloc(sizeof(int*) * (len + 1))))
 		exit(-1);
 	while (err < len)
 	{
