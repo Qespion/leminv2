@@ -6,7 +6,7 @@
 /*   By: oespion <oespion@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/06 16:27:53 by oespion           #+#    #+#             */
-/*   Updated: 2019/03/20 13:19:29 by oespion          ###   ########.fr       */
+/*   Updated: 2019/03/21 17:01:35 by oespion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,11 @@ t_wroad		*found_finish_line(t_solve *solution, t_map *map, t_wroad *wroad);
 t_road	*duplicate_road(t_road *old);
 t_wroad		*ft_find_conflict(t_wroad *wroad, t_map *map);
 void    ft_create_group(t_wroad *wroad, t_map *map, int max_roads);
-void	bt_grp(int **tab, int len, int max_roads, int ants);
+int	*bt_grp(int **tab, int len, int ants);
+void    get_best_road(int *line, int ants, int max_roads, t_wroad *wroad);
+int		ft_wroad_len(t_wroad *wroad);
+
+void	ft_print_line(int *line, int len);
 
 
 #endif
