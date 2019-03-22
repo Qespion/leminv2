@@ -6,7 +6,7 @@
 /*   By: oespion <oespion@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/06 16:28:14 by oespion           #+#    #+#             */
-/*   Updated: 2019/03/21 09:39:40 by oespion          ###   ########.fr       */
+/*   Updated: 2019/03/22 11:27:29 by oespion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -201,17 +201,18 @@ t_map	*read_file(t_map *map, char *file)
 
 	turn = 0;
 	border = 0;
-	fd = open(file, 0);
+	fd = open(file, 00);
 	parse[0] = get_ants;
 	parse[1] = get_island;
 	parse[2] = get_road;
 	while (get_next_line(0, &str))
 	{
-		ft_printf("- %s\n", str);
+		ft_printf("%s\n", str);
 		turn = where_am_i(str, turn, map);
 		parse[turn](str, &turn, map, border);
 		border = find_border(str, border);
-		free(str);
+		if (str)
+			free(str);
 	}
 	if (str)
 		free(str);
@@ -261,6 +262,7 @@ t_map	*get_file(char *file)
 		ft_printf("no start");
 		exit(-1);
 	}
+	ft_putchar('\n');
 	// ft_print_map(map);
 	// exit(-1);
 	return (map);

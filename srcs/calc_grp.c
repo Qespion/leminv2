@@ -6,7 +6,7 @@
 /*   By: oespion <oespion@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/20 12:58:48 by oespion           #+#    #+#             */
-/*   Updated: 2019/03/21 16:38:47 by oespion          ###   ########.fr       */
+/*   Updated: 2019/03/22 11:14:41 by oespion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,15 +133,15 @@ void	tab_free(int **tab)
 
 void    ft_create_group(t_wroad *wroad, t_map *map, int max_roads)
 {
-	t_wroad			*tmp;
 	int						len;
 	int						**tab;
 	int						*line;
 
 	len = ft_wroad_len(wroad);
-	tmp = wroad;
+	// ft_printf("len = %d\n", len);
 	tab =  ft_create_tab(wroad, map, len);
-	ft_print_tab(tab, len);
+	// ft_print_tab(tab, len);
+	// ft_print_line(tab[0], len - 1);
 	line = bt_grp(tab,len, map->nb);
 	get_best_road(line, map->nb, max_roads, wroad);
 	free(line);

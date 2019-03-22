@@ -6,7 +6,7 @@
 /*   By: oespion <oespion@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/06 16:27:53 by oespion           #+#    #+#             */
-/*   Updated: 2019/03/21 17:01:35 by oespion          ###   ########.fr       */
+/*   Updated: 2019/03/21 22:02:19 by oespion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,19 @@ typedef struct		s_wroad
 	struct s_wroad 		*next;
 	struct s_conflict	*conflict;
 }								t_wroad;
+
+typedef struct		s_journey
+{
+	int						bib_nb;
+	struct s_wroad	*wroad;
+	struct s_node	*node;
+}							t_journey;
+
+typedef struct		s_pack
+{
+	struct s_journey *player;
+	struct s_pack		*nxt;
+}							t_pack;
 
 int			get_max_roads(t_map *map);
 t_map		*get_file(char *file);

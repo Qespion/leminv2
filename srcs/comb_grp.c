@@ -6,7 +6,7 @@
 /*   By: oespion <oespion@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/20 13:17:46 by oespion           #+#    #+#             */
-/*   Updated: 2019/03/21 17:00:58 by oespion          ###   ########.fr       */
+/*   Updated: 2019/03/22 11:15:56 by oespion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -219,6 +219,8 @@ int    *bt_grp(int **tab, int len, int ants)
 	int	*sol;
 	line = NULL;
 	r = 0;
+	if (len == 1)
+		return(create_malloc_line(tab[0], len - 1));
 	while (r < len - 1)
 	{
 		sol = try_line(r, len, ants,  tab);
@@ -234,6 +236,6 @@ int    *bt_grp(int **tab, int len, int ants)
 			free(sol);
 		r++;
 	}
-	ft_print_line(line, len);
+	// ft_print_line(line, len);
 	return (line);
 }

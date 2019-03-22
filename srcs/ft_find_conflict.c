@@ -6,7 +6,7 @@
 /*   By: oespion <oespion@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/25 15:43:09 by oespion           #+#    #+#             */
-/*   Updated: 2019/03/20 15:10:22 by oespion          ###   ########.fr       */
+/*   Updated: 2019/03/22 10:40:32 by oespion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -200,6 +200,6 @@ t_wroad		*ft_find_conflict(t_wroad *wroad, t_map *map)
 	}
 	wroad = remove_double(wroad);
 	wroad = clean_conflict(wroad);
-	ft_print_conflict(wroad);
+	// ft_print_conflict(wroad);
 	return (wroad);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lem_in.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: avo <avo@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: oespion <oespion@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/06 16:27:46 by oespion           #+#    #+#             */
-/*   Updated: 2019/03/19 16:19:51 by avo              ###   ########.fr       */
+/*   Updated: 2019/03/22 11:27:38 by oespion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,8 @@ int	main(int ac, char **av)
 	}
 	map = get_file(av[1]);
 	max_roads = get_max_roads(map);
-	ft_printf("\nmax roads %d\n", max_roads);
+	// ft_printf("\nmax roads %d\n", max_roads);
+	// exit(-1);
 	routes = create_base_routes(map, max_roads);
 	routes = create_routes(map, max_roads, routes);
 	
