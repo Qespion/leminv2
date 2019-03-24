@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   print_working_roads.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: avo <avo@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: oespion <oespion@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/22 18:13:27 by oespion           #+#    #+#             */
-/*   Updated: 2019/03/04 14:44:59 by avo              ###   ########.fr       */
+/*   Updated: 2019/03/22 12:45:48 by oespion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ void	print_working_roads(t_wroad *wroad, t_map *map)
 
 	tmp = wroad;
 	int		roadnb = 0;
+	(void)map;
 	ft_printf("starting printing working roads \n----\n");
 	while (tmp)
 	{

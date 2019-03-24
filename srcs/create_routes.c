@@ -6,7 +6,7 @@
 /*   By: oespion <oespion@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/20 10:00:49 by oespion           #+#    #+#             */
-/*   Updated: 2019/03/22 11:13:21 by oespion          ###   ########.fr       */
+/*   Updated: 2019/03/22 12:46:40 by oespion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,7 +135,7 @@ t_solve	*create_road(t_solve *tmp, t_solve *new_routes, t_link *link)
 	t_solve	*temp;
 	t_solve	*new_solve;
 	t_road	*new_road;
-	t_road	*old_road;
+
 	if (!(new_solve = (t_solve*)malloc(sizeof(t_solve))))
 		exit(-1);
 	if (!(new_road = (t_road*)malloc(sizeof(t_road))))

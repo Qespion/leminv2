@@ -6,7 +6,7 @@
 /*   By: oespion <oespion@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/20 12:58:48 by oespion           #+#    #+#             */
-/*   Updated: 2019/03/22 11:14:41 by oespion          ###   ########.fr       */
+/*   Updated: 2019/03/22 12:47:48 by oespion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ int		*ft_get_turn(t_wroad *wroad, t_wroad *current, t_map *map, int len)
 	int	*tab;
 	int	r;
 
+	(void)map;
 	if (!(tab = (int*)malloc(sizeof(int) * len)))
 		exit (-1);
 	tab = init_tab(tab, len);

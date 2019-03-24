@@ -6,7 +6,7 @@
 /*   By: oespion <oespion@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/06 16:28:14 by oespion           #+#    #+#             */
-/*   Updated: 2019/03/22 11:27:29 by oespion          ###   ########.fr       */
+/*   Updated: 2019/03/22 12:44:31 by oespion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 
 t_map   *get_ants(char *str, int *turn, t_map *map, int border)
 {
+	(void)turn;
+	(void)border;
 	if (str[0] == '#' && str[1] != '#')
 	{
 		map->nb = -42;
@@ -55,6 +57,7 @@ t_map   *get_island(char *str, int *turn, t_map *map, int border)
 	t_node	*new_node;
 	char		*tmp;
 
+	(void)turn;
 	if (str[0] == '#' && str[1] != '#')
 		return (map);
 	else if (!ft_strcmp(str, "##start") || !ft_strcmp(str, "##end"))
@@ -104,10 +107,10 @@ t_map   *get_road(char *str, int *turn, t_map *map, int border)
 	char	*name2;
 	t_node	*tmp;
 	t_node	*tmp2;
-	t_link	*tmp_link;
-	t_link	*tmp_link2;
 	t_link	*startlink;
 
+	(void)turn;
+	(void)border;
 	tmp = map->begin;
 	tmp2 = map->begin;
 	if (str[0] == '#' && str[1] != '#')
@@ -191,17 +194,15 @@ int		find_border(char *str, int border)
 	return (0);
 }
 
-t_map	*read_file(t_map *map, char *file)
+t_map	*read_file(t_map *map)
 {
 	static int	border;
 	static int	turn;
-	int			fd;
 	char		*str;
 	t_map		*(*parse[3])(char *, int *, t_map *, int border);
 
 	turn = 0;
 	border = 0;
-	fd = open(file, 00);
 	parse[0] = get_ants;
 	parse[1] = get_island;
 	parse[2] = get_road;
@@ -240,7 +241,7 @@ void		ft_print_map(t_map *map)
 	}
 }	
 
-t_map	*get_file(char *file)
+t_map	*get_file()
 {
 	t_map	*map;
 
@@ -251,7 +252,7 @@ t_map	*get_file(char *file)
 	map->end = NULL;
 	map->begin = NULL;
 	map->nb = -42;
-	map = read_file(map, file);
+	map = read_file(map);
 	if (!map->end)
 	{
 		ft_printf("no end");

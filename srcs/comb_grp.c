@@ -6,7 +6,7 @@
 /*   By: oespion <oespion@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/20 13:17:46 by oespion           #+#    #+#             */
-/*   Updated: 2019/03/22 11:15:56 by oespion          ###   ########.fr       */
+/*   Updated: 2019/03/22 12:48:28 by oespion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,7 @@ int     *ft_solution(int *try, int len, int **tab, int r)
 {
 	int *solution;
 
+	(void)try;
 	if (!(solution = (int*)malloc(sizeof(int) * (len + 1))))
 		exit(-1);
 	solution = set_zero(solution, len, tab, r);
@@ -199,9 +200,7 @@ int		*find_group(int *solution, int len, int **tab, int ants, int r)
 int		*try_line(int r, int len, int ants, int **tab)
 {
 	int *try;
-	int *best;
 	int	*solution;
-	int	*tmp;
 
 	if (!(try = (int*)malloc(sizeof(int) * (len + 1))))
 		exit(-1);

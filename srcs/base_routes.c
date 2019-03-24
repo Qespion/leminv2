@@ -6,7 +6,7 @@
 /*   By: oespion <oespion@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/06 16:28:22 by oespion           #+#    #+#             */
-/*   Updated: 2019/03/21 19:55:34 by oespion          ###   ########.fr       */
+/*   Updated: 2019/03/22 12:45:32 by oespion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,7 @@ t_solve    *create_base_routes(t_map *map, int max_roads)
 
 	if (!(solution = (t_solve*)malloc(sizeof(t_solve))))
         exit(-1);
+	(void)max_roads;
     solution->path = NULL;
     solution->next = NULL;
     solution = get_first_roads(solution, map);

@@ -6,12 +6,14 @@
 /*   By: oespion <oespion@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/21 16:30:34 by oespion           #+#    #+#             */
-/*   Updated: 2019/03/22 11:15:00 by oespion          ###   ########.fr       */
+/*   Updated: 2019/03/24 12:43:22 by oespion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libft/includes/libft.h"
 #include "lem_in.h"
+
+int g_turn = 0;
 
 void    print_pack(t_pack *player)
 {
@@ -22,7 +24,7 @@ void    print_pack(t_pack *player)
     }
 }
 
-int     *create_base(int *line, int len)
+int     *create_base(int len)
 {
     int *tmp;
     int r;
@@ -48,10 +50,11 @@ int     *transform_line(int *line, int ants, int max_roads, int len)
     int     ants_left;
     int     road_nb;
 
+    (void)max_roads;
     ants_road = 0;
     ants_left = 0;
     road_nb = 0;
-    tmp = create_base(line, len);
+    tmp = create_base(len);
     r = 0;
     biggest = 0;
     diff = 0;
@@ -176,10 +179,13 @@ t_pack    *print_player(t_pack *pack, t_wroad *wroad)
     t_road  *tmp;
     t_pack  *start;
     t_pack  *next;
+    int         nb_print = 0;
 
     start = pack;
+    (void)wroad;
     while (pack)
     {
+        nb_print++;
         next = pack->nxt;
         ft_printf("L%d-%s", pack->player->bib_nb, pack->player->node->name);
         if (pack->nxt)
@@ -198,6 +204,8 @@ t_pack    *print_player(t_pack *pack, t_wroad *wroad)
         pack = next;
     }
     ft_putchar('\n');
+    // ft_printf("nb_print = %d\n", nb_print);
+    g_turn++;
     return (start);
 }
 
@@ -252,5 +260,6 @@ void    get_best_road(int *line, int ants, int max_roads, t_wroad *wroad)
     line = transform_line(line, ants, max_roads, len);
     // ft_print_line(line, len);
     push_ants(wroad, line, len);
+    // ft_printf("# printed line -> %d\n", g_turn);
     free(line);
 }

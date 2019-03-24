@@ -6,7 +6,7 @@
 /*   By: oespion <oespion@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/25 15:43:09 by oespion           #+#    #+#             */
-/*   Updated: 2019/03/22 10:40:32 by oespion          ###   ########.fr       */
+/*   Updated: 2019/03/22 12:47:28 by oespion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,6 @@ int		ft_deep_check(t_road *base_road, t_road *tmp_road, t_map *map)
 {
 	unsigned int		len_base;
 	unsigned int		len_tmp;
-	t_conflict				*tmp;
 
 	len_base = 0;
 	len_tmp = 0;
@@ -75,12 +74,10 @@ int		ft_deep_check(t_road *base_road, t_road *tmp_road, t_map *map)
 
 t_wroad		*check_conflict(t_wroad *wroad, t_map *map)
 {
-	int	nb;
 	t_wroad	*tmp_wroad;
 	t_road	*base;
 	t_road	*compare;
 
-	nb = 0;
 	base = wroad->path;
 	tmp_wroad = wroad->next;
 	while (base)
@@ -160,7 +157,6 @@ t_wroad		*remove_double(t_wroad *wroad)
 {
 	t_wroad		*tmp_wroad;
 	t_conflict	*tmp;
-	t_conflict	*prev_tmp;
 	t_conflict	*start;
 
 	tmp_wroad = wroad;
@@ -179,7 +175,6 @@ t_wroad		*remove_double(t_wroad *wroad)
 				}
 				start = start->next;
 			}
-			prev_tmp = tmp;
 			if (tmp)
 				tmp = tmp->next;
 		}

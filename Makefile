@@ -39,7 +39,7 @@ lem_in: $(OBJS1)
 	@$(CC) $(FLAGS) $(OBJS1) -L libft/ -lft -o $(NAME1)
 
 %.o: %.c
-	@$(CC) $(CFLAGS) -c $< -o $@ -I includes/
+	@$(CC) $(FLAGS) -c $< -o $@ -I includes/
 	@# @echo "file =" $(C_BLUE){ $< } $(C_BASE)
 
 clean:
