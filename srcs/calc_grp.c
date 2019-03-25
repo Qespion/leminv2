@@ -6,7 +6,7 @@
 /*   By: oespion <oespion@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/20 12:58:48 by oespion           #+#    #+#             */
-/*   Updated: 2019/03/22 12:47:48 by oespion          ###   ########.fr       */
+/*   Updated: 2019/03/25 16:21:37 by oespion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,6 @@ int		**ft_create_tab(t_wroad *wroad, t_map *map, int len)
 		err++; 
 		current = current->next;
 	}
-	tab[err] = '\0';
 	return (tab);
 }
 
