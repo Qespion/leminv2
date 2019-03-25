@@ -6,7 +6,7 @@
 /*   By: oespion <oespion@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/06 16:27:53 by oespion           #+#    #+#             */
-/*   Updated: 2019/03/22 12:44:42 by oespion          ###   ########.fr       */
+/*   Updated: 2019/03/25 15:26:46 by oespion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,6 @@ void    get_best_road(int *line, int ants, int max_roads, t_wroad *wroad);
 int		ft_wroad_len(t_wroad *wroad);
 
 void	ft_print_line(int *line, int len);
-
+t_solve *epur_map(t_solve *solve);
 
 #endif

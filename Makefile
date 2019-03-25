@@ -16,7 +16,8 @@ SRCS_1	=   srcs/lem_in.c	\
 			srcs/ft_find_conflict.c	\
 			srcs/calc_grp.c	\
 			srcs/comb_grp.c	\
-			srcs/print_roads.c
+			srcs/print_roads.c	\
+			srcs/olapping_map.c
 
 
 LIBFT	=	libft/libft.a

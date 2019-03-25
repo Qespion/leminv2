@@ -21,7 +21,6 @@ def message_display(text):
     screen.blit(TextSurf, TextRect)
 
     pygame.display.update()
-
     time.sleep(2)
 
     game_loop()
