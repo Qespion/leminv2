@@ -6,7 +6,7 @@
 /*   By: oespion <oespion@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/20 13:17:46 by oespion           #+#    #+#             */
-/*   Updated: 2019/03/25 15:10:58 by oespion          ###   ########.fr       */
+/*   Updated: 2019/03/28 21:02:45 by oespion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -154,7 +154,7 @@ int		*try_option(int **tab, int len, int *cpy_line, int r, int ants)
 	// 	exit(1);
 	// }
 	// ft_printf("road nb =%d\n", calc_nb_road(cpy_line, len));
-	// ft_printf("line len")
+	// ft_printf("line len");
 	cpy_line[len] = calc_nb_turn(cpy_line, ants, len);
 	// ft_print_line(cpy_line, len);	
 	return (cpy_line);
@@ -218,9 +218,10 @@ int    *bt_grp(int **tab, int len, int ants)
 	int	*sol;
 	line = NULL;
 	r = 0;
+
 	if (len == 1)
 		return(create_malloc_line(tab[0], len - 1));
-	while (r < len - 1)
+	while (r < len)
 	{
 		sol = try_line(r, len, ants,  tab);
 		if (!line)
@@ -236,5 +237,6 @@ int    *bt_grp(int **tab, int len, int ants)
 		r++;
 	}
 	// ft_print_line(line, len);
+	// exit(1);
 	return (line);
 }

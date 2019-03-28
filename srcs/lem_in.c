@@ -6,7 +6,7 @@
 /*   By: oespion <oespion@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/06 16:27:46 by oespion           #+#    #+#             */
-/*   Updated: 2019/03/25 15:19:56 by oespion          ###   ########.fr       */
+/*   Updated: 2019/03/28 21:02:27 by oespion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,14 @@ int	no_path(t_map *map)
 	return (0);
 }
 
+int	is_valid(t_map *map)
+{
+	if (!no_path(map) || !map->start || !map->end || !map->start->link)
+		return (0);
+	return (1);
+}
+
+
 int	main(int ac, char **av)
 {
 	int			max_roads;
@@ -38,9 +46,13 @@ int	main(int ac, char **av)
 		ft_printf("usage: ./lem-in\n");
 		exit(-1);
 	}
-	map = get_file();
-	if (!no_path(map) || !map->start || !map->end)
-		exit(-1);
+	map = nget_file();
+	if (!is_valid(map))
+	{
+		ft_printf("Error: Invalid map\n");
+		ft_clean_map(map);
+		return (-1);		
+	}
 	max_roads = get_max_roads(map);
 	// ft_printf("\nmax roads %d\n", max_roads);
 	// exit(-1);

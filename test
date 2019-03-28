@@ -1,0 +1,28 @@
+6
+##start
+start 1 0
+##end
+end 1 4
+n1 1 2
+n2 1 3
+alt1 0 1
+alt2 0 2
+nalt1 3 1
+nalt2 3 2
+start-n1
+start-alt1
+alt1-alt2
+n1-nalt1
+alt2-n2
+n1-n2
+nalt1-nalt2
+nalt2-end
+n2-end
+
+L1-n1 L2-alt1
+L1-nalt1 L2-alt2 L3-n1 L4-alt1
+L1-nalt2 L2-n2 L3-nalt1 L4-alt2 L5-n1 L6-alt1
+L1-end L2-end L3-nalt2 L4-n2 L5-nalt1 L6-alt2
+L3-end L4-end L5-nalt2 L6-n2
+L5-end L6-end
+# printed line -> 6

@@ -6,7 +6,7 @@
 /*   By: oespion <oespion@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/20 10:00:49 by oespion           #+#    #+#             */
-/*   Updated: 2019/03/25 15:19:02 by oespion          ###   ########.fr       */
+/*   Updated: 2019/03/28 21:02:56 by oespion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -269,6 +269,8 @@ t_solve *create_routes(t_map *map, int max_roads, t_solve *routes)
 			// new_routes = remove_finish_line(new_routes, map);
 			// ft_printf("test-> %s\n", new_routes->path->current->name);
 			// read_current(new_routes);
+			if (len_road(new_routes) == 0 && !wroad)
+				exit(-1);
 			if (len_road(new_routes) == 0)
 				break ;
 			new_routes = epur_map(new_routes);

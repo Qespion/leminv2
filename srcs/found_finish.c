@@ -6,7 +6,7 @@
 /*   By: oespion <oespion@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/19 21:23:40 by oespion           #+#    #+#             */
-/*   Updated: 2019/03/22 11:09:26 by oespion          ###   ########.fr       */
+/*   Updated: 2019/03/28 10:27:12 by oespion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ t_wroad		*found_finish_line(t_solve *solution, t_map *map, t_wroad *wroad)
 				exit(-1);
 			new_node->path = duplicate_road(solution->path);
 			new_node->next = NULL;
+			new_node->prev = NULL;
 			new_node->conflict = NULL;
 			new_node->len = ft_len_road(solution->path);
 			if (!wroad)
@@ -72,6 +73,7 @@ t_wroad		*found_finish_line(t_solve *solution, t_map *map, t_wroad *wroad)
 				while (wroad->next)
 					wroad = wroad->next;
 				wroad->next = new_node;
+				new_node->prev = wroad;
 				wroad->next->nb = wroad->nb + 1;
 			}
 		}

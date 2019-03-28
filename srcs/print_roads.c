@@ -6,7 +6,7 @@
 /*   By: oespion <oespion@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/21 16:30:34 by oespion           #+#    #+#             */
-/*   Updated: 2019/03/25 15:56:57 by oespion          ###   ########.fr       */
+/*   Updated: 2019/03/28 14:23:08 by oespion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #include "lem_in.h"
 
 int g_turn = 0;
+int g_ants = 1;
 
 void    print_pack(t_pack *player)
 {
@@ -67,7 +68,6 @@ int     *transform_line(int *line, int ants, int max_roads, int len)
     }
     // ft_printf("biggest %d\n", biggest);
     r = 0;
-
     // BREAK FT HERE FOR NORMIES RULES
     while (r < len)
     {
@@ -84,7 +84,6 @@ int     *transform_line(int *line, int ants, int max_roads, int len)
     // ft_printf("ants left %d\n", ants);
     ants_road = ants / road_nb;
     ants_left = ants % road_nb;
-    
     
     // BREAK AGAINNN
     r = 0;
@@ -110,9 +109,7 @@ t_pack  *new_player_in_field(t_pack *start, t_wroad *wroad, int r)
     t_pack  *new_player;
     t_journey   *player;
     t_road      *road;
-    int             nb;
 
-    nb = 1;
     if (!(player = (t_journey*)malloc(sizeof(t_journey))))
         exit(-1);
     while (wroad->nb != r)
@@ -140,16 +137,13 @@ t_pack  *new_player_in_field(t_pack *start, t_wroad *wroad, int r)
             exit(-1);
         last_teammember = start;
         while (last_teammember->nxt)
-        {
-            nb++;
             last_teammember = last_teammember->nxt;
-        }
-        nb++;
         last_teammember->nxt = new_player;
         new_player->nxt = NULL;
         new_player->player = player;
     }
-    player->bib_nb = nb;
+    player->bib_nb = g_ants;
+    g_ants++;
     return (start);
 }
 
@@ -158,9 +152,7 @@ t_pack     *remove_from_field(t_pack *start, t_pack *rm)
     t_pack  *tmp;
 
     if (start == rm)
-    {
         start = start->nxt;
-    }
     else
     {
         tmp = start;
@@ -168,9 +160,16 @@ t_pack     *remove_from_field(t_pack *start, t_pack *rm)
             tmp = tmp->nxt;
         tmp->nxt = tmp->nxt->nxt;
     }
-    free(rm->player);
-    free(rm);
-    // print_pack(start);
+    if (rm->player)
+    {
+        free(rm->player);
+        rm->player = NULL;    
+    }
+    if (rm)
+    {
+        free(rm);
+        rm = NULL;
+    }
     return (start);
 }
 
@@ -192,9 +191,7 @@ t_pack    *print_player(t_pack *pack, t_wroad *wroad)
             ft_putchar(' ');
         tmp = pack->player->wroad->path;
         if (tmp->current == pack->player->node)
-        {
             start = remove_from_field(start, pack);
-        }
         else
         {
             while (tmp->prev->current != pack->player->node)
@@ -206,6 +203,8 @@ t_pack    *print_player(t_pack *pack, t_wroad *wroad)
     ft_putchar('\n');
     // ft_printf("nb_print = %d\n", nb_print);
     g_turn++;
+    // if (g_turn == 17)
+    //     exit(1);
     return (start);
 }
 
@@ -244,6 +243,7 @@ void    push_ants(t_wroad *wroad, int *line, int len)
             }
             r++;
         }
+        // ft_print_line(line, len);
         the_pack = print_player(the_pack, wroad);
     }
     while (the_pack)
@@ -255,10 +255,14 @@ void    get_best_road(int *line, int ants, int max_roads, t_wroad *wroad)
     int len;
 
     // ft_printf("wroad %s\n", wroad->path->current->name);
+    // exit(34);
     len = ft_wroad_len(wroad);
     // ft_printf("len %d\n", len);
+    // ft_print_line(line, len);    
+    // ft_printf("test -> %d\n", line[len - 1]);
     line = transform_line(line, ants, max_roads, len);
     // ft_print_line(line, len);
+    // exit(1);
     push_ants(wroad, line, len);
     // ft_printf("# printed line -> %d\n", g_turn);
     free(line);

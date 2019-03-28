@@ -6,7 +6,7 @@
 /*   By: oespion <oespion@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/06 16:27:53 by oespion           #+#    #+#             */
-/*   Updated: 2019/03/25 15:26:46 by oespion          ###   ########.fr       */
+/*   Updated: 2019/03/28 14:31:51 by oespion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ typedef struct		s_wroad
 	struct s_road		*path;
 	struct s_wroad 		*next;
 	struct s_conflict	*conflict;
+	struct s_road		*prev;
 }								t_wroad;
 
 typedef struct		s_journey
@@ -93,5 +94,6 @@ int		ft_wroad_len(t_wroad *wroad);
 
 void	ft_print_line(int *line, int len);
 t_solve *epur_map(t_solve *solve);
+t_map   *nget_file();
 
 #endif

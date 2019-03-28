@@ -1,41 +1,73 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parsing.c                                          :+:      :+:    :+:   */
+/*   new_parsing.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: oespion <oespion@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/02/06 16:28:14 by oespion           #+#    #+#             */
-/*   Updated: 2019/03/28 16:10:50 by oespion          ###   ########.fr       */
+/*   Created: 2019/03/28 14:30:27 by oespion           #+#    #+#             */
+/*   Updated: 2019/03/28 21:04:23 by oespion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libft/includes/libft.h"
 #include "lem_in.h"
 
-t_map   *get_ants(char *str, int *turn, t_map *map, int border)
+void	check_only_nb(char *str, t_map *map)
 {
-	(void)turn;
-	(void)border;
-	if (str[0] == '#' && str[1] != '#')
+	while (*str >= '0' && *str <= '9')
+		str++;
+	if (*str != '\0')
 	{
-		map->nb = -42;
-		return (map);
+		ft_printf("Error: Not a clean numbers of ants\n");
+		free(map);
+		exit(-1);
 	}
+}
+
+void	link_wo_island(t_map *map)
+{
+	ft_printf("Error: No Islands\n");
+	free(map);
+	exit(-1);
+}
+
+t_map   *get_ants(char *str, t_map *map)
+{
 	if (ft_strlen(str) > 13 || ft_atoi(str) > 2147483647
 		|| ft_atoi(str) < -2147483648
 		|| ((ft_atoi(str) == 0 && str[0] != '0')))
 	{
-		ft_printf("404 on lemmins");
+		ft_printf("Error: 404 on lemmins");
 		exit(-1);
 	}
 	else if (ft_atoi(str) < 0)
 	{
-		ft_printf("Negative numbers of lemmins");
+		ft_printf("Error: Negative numbers of lemmins");
 		exit(-1);
 	}
 	map->nb = ft_atoi(str);
+	check_only_nb(str, map);
 	return (map);
+}
+
+void	double_end(t_map *map, int which_end)
+{
+	if (which_end == 0)
+		ft_printf("Error: Double start \n");
+	else if (which_end == 1)
+		ft_printf("Error: Double end\n");
+	else if (which_end == 3)
+		ft_printf("Error: start is end\n");
+	else if (which_end == 4)
+		ft_printf("Error: Invalid island input\n");
+	while (map->begin)
+	{
+		free(map->begin);
+		map->begin = map->begin->next;
+	}
+	free(map);
+	exit(-1);
 }
 
 int		find_space(char *str)
@@ -52,16 +84,48 @@ int		find_space(char *str)
 	return (0);
 }
 
-t_map   *get_island(char *str, int *turn, t_map *map, int border)
+void		check_valid_island(char *str, t_map *map)
+{
+	int	r;
+
+	if (!ft_strcmp(str, "##start") || !ft_strcmp(str, "##end"))
+		return ;
+	if (str[0] == ' ' )
+		double_end(map, 4);
+	r = 1;
+	while ((str[r] >= 48 && str[r] <= 57) || (str[r] >=  65 && str[r] <= 90)
+		|| (str[r] >=  61 && str[r] <= 122))
+		r++;
+	if (str[r] != ' ')
+		double_end(map, 4);
+	r++;
+	while (str[r] >= 48 && str[r] <= 57)
+		r++;
+	if (str[r] != ' ')
+		double_end(map, 4);
+	r++;
+	while (str[r] >= 48 && str[r] <= 57)
+		r++;
+	if (str[r] != '\0')
+		double_end(map, 4);
+}
+
+t_map   *get_island(char *str, t_map *map)
 {
 	t_node	*new_node;
 	char		*tmp;
-
-	(void)turn;
-	if (str[0] == '#' && str[1] != '#')
+	static int	start = 0;
+	static int	end = 0;
+	if (!ft_strcmp(str, "##start"))
+	{
+		start = 1;
 		return (map);
-	else if (!ft_strcmp(str, "##start") || !ft_strcmp(str, "##end"))
+	}
+	if (!ft_strcmp(str, "##end"))
+	{
+		end = 1;
 		return (map);
+	}
 	if (!(new_node = (t_node*)malloc(sizeof(t_node))))
 		exit(-1);
 	tmp = ft_strsub(str, 0, find_space(str));
@@ -78,10 +142,22 @@ t_map   *get_island(char *str, int *turn, t_map *map, int border)
 		map->jcpu->next = new_node;
 		map->jcpu = new_node;
 	}
-	if (border == 1)
+	if (start == 1 && end == 1)
+		double_end(map, 3);
+	if (start == 1)
+	{
+		if (map->start)
+			double_end(map, 0);
 		map->start = new_node;
-	else if (border == 2)
+		start = -1;
+	}
+	else if (end == 1)
+	{
+		if (map->end)
+			double_end(map, 1);
 		map->end = new_node;
+		end = -1;
+	}
 	return (map);
 }
 
@@ -99,7 +175,7 @@ int		find_del(char *str)
 	exit(-1);
 }
 
-t_map   *get_road(char *str, int *turn, t_map *map, int border)
+t_map   *get_road(char *str, t_map *map)
 {
 	t_link	*new_link;
 	t_link	*new_link2;
@@ -109,8 +185,6 @@ t_map   *get_road(char *str, int *turn, t_map *map, int border)
 	t_node	*tmp2;
 	t_link	*startlink;
 
-	(void)turn;
-	(void)border;
 	tmp = map->begin;
 	tmp2 = map->begin;
 	if (str[0] == '#' && str[1] != '#')
@@ -167,53 +241,50 @@ t_map   *get_road(char *str, int *turn, t_map *map, int border)
 	return (map);
 }
 
-int		where_am_i(char *str, int turn, t_map *map)
+t_map	*add_line(char *str, t_map *map, int turn)
 {
-	if (turn == 0 && (map->nb != -42 || !map->nb))
+	if (turn == 0)
+		map = get_ants(str, map);
+	else if (turn == 1)
+	{
+		check_valid_island(str, map);
+		map = get_island(str, map);
+	}
+	else
+	{
+		if (!map->begin)
+			link_wo_island(map);
+		map = get_road(str, map);
+	}
+	return (map);
+}
+
+int			check_turn(char *str, int turn, t_map * map)
+{
+	if (turn == 0 && map->nb != -42)
 		return (1);
-	else if (str[0] == '#' && str[1] != '#')
-		return (turn);
-	else if (turn == 1 && ft_strstr(str, "-"))
+	if (turn == 1 && ft_strchr(str, '-'))
 		return (2);
 	return (turn);
 }
 
-int		find_border(char *str, int border)
+t_map   *read_file(t_map *map)
 {
-	if (!ft_strcmp("##start", str))
-		return (1);
-	else if (!ft_strcmp("##end", str))
-	{
-		if (border == 1)
-		{
-			ft_printf("start is end\n");
-			exit(-1);
-		}
-		return (2);
-	}
-	return (0);
-}
+	int			turn;
+	char	*str;
 
-t_map	*read_file(t_map *map)
-{
-	static int	border;
-	static int	turn;
-	char		*str;
-	t_map		*(*parse[3])(char *, int *, t_map *, int border);
-
+	str = NULL;
 	turn = 0;
-	border = 0;
-	parse[0] = get_ants;
-	parse[1] = get_island;
-	parse[2] = get_road;
 	while (get_next_line(0, &str))
 	{
+		if (str[0] == '#' && str[1] != '#')
+		{
+			free(str);
+			continue ;
+		}
+		turn = check_turn(str, turn, map);
+		map = add_line(str, map, turn);
 		ft_printf("%s\n", str);
-		turn = where_am_i(str, turn, map);
-		parse[turn](str, &turn, map, border);
-		if (str[0] == '#' && str[1] == '#' && turn != 1)
-			exit(1);
-		border = find_border(str, border);
 		if (str)
 			free(str);
 	}
@@ -222,30 +293,9 @@ t_map	*read_file(t_map *map)
 	return (map);
 }
 
-void		ft_print_map(t_map *map)
+t_map   *nget_file()
 {
-	t_node	*tmp;
-	t_link		*tmp_link;
-
-	tmp = map->begin;
-	while (tmp)
-	{
-		ft_printf("%s", tmp->name);
-		ft_printf(" --link -> ");
-		tmp_link = tmp->link;
-		while (tmp_link)
-		{
-			ft_printf(" %s -", tmp_link->node->name);
-			tmp_link = tmp_link->next;
-		}
-		ft_putchar('\n');
-		tmp = tmp->next;
-	}
-}	
-
-t_map	*get_file()
-{
-	t_map	*map;
+     t_map	*map;
 
 	if (!(map = (t_map*)malloc(sizeof(t_map))))
 		exit(-1);
@@ -254,19 +304,7 @@ t_map	*get_file()
 	map->end = NULL;
 	map->begin = NULL;
 	map->nb = -42;
-	map = read_file(map);
-	if (!map->end)
-	{
-		ft_printf("no end");
-		exit(-1);
-	}
-	if (!map->end)
-	{
-		ft_printf("no start");
-		exit(-1);
-	}
+    map = read_file(map);
 	ft_putchar('\n');
-	// ft_print_map(map);
-	// exit(-1);
 	return (map);
 }

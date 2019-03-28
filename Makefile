@@ -1,12 +1,11 @@
 .PHONY: all checker push_swap lib minilibx clean fclean re
 .SUFFIXES:
 CC		=	gcc
-FLAGS   =   -Wall -Wextra -Werror -fsanitize=address
+FLAGS   =   #-Wall -Wextra -Werror -fsanitize=address
 LIB_DIR =   libft/
 NAME1	=	lem-in
 
 SRCS_1	=   srcs/lem_in.c	\
-			srcs/parsing.c	\
 			srcs/base_routes.c	\
 			srcs/max_roads.c	\
 			srcs/print_working_roads.c	\
@@ -17,8 +16,8 @@ SRCS_1	=   srcs/lem_in.c	\
 			srcs/calc_grp.c	\
 			srcs/comb_grp.c	\
 			srcs/print_roads.c	\
-			srcs/olapping_map.c
-
+			srcs/olapping_map.c \
+			srcs/new_parsing.c
 
 LIBFT	=	libft/libft.a
 
