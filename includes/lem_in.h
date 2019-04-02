@@ -6,25 +6,34 @@
 /*   By: oespion <oespion@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/06 16:27:53 by oespion           #+#    #+#             */
-/*   Updated: 2019/03/28 21:06:58 by oespion          ###   ########.fr       */
+/*   Updated: 2019/04/02 10:57:27 by oespion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LEM_IN_H
 # define LEM_IN_H
 
+# define MAXROADS	(1U << 0U)
+# define FIRSTROADS	(1U << 1U)
+# define NBWORKING	(1U << 2U)
+# define GRAPH		(1U << 3U)
+# define ROADGESTION	(1U << 4U)
+# define LINENB	(1U << 5U)
+
+unsigned int	g_flags;
+
 typedef struct		s_link
 {
 	struct s_node	*node;
 	struct s_link	*next;
-}					t_link;
+}							t_link;
 
 typedef struct		s_node
 {
 	char			*name;
 	struct s_link	*link;
 	struct s_node	*next;
-}					t_node;
+}							t_node;
 
 typedef struct		s_map
 {
@@ -45,6 +54,7 @@ typedef struct		s_solve
 {
 	struct s_road	*path;
 	struct s_solve	*next;
+	struct s_solve	*prev;
 }					t_solve;
 
 typedef struct		s_conflict

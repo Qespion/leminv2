@@ -6,7 +6,7 @@
 /*   By: oespion <oespion@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/28 14:30:27 by oespion           #+#    #+#             */
-/*   Updated: 2019/03/28 21:04:23 by oespion          ###   ########.fr       */
+/*   Updated: 2019/03/29 22:04:15 by oespion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -175,6 +175,11 @@ int		find_del(char *str)
 	exit(-1);
 }
 
+// void	check_double_road(t_node *tmp, t_node *dest, t_map *map)
+// {
+
+// }
+
 t_map   *get_road(char *str, t_map *map)
 {
 	t_link	*new_link;
@@ -213,6 +218,7 @@ t_map   *get_road(char *str, t_map *map)
 		}
 		tmp2 = tmp2->next;
 	}
+
 	new_link->node = tmp2;
 	new_link->next = NULL;
 	new_link2->node = tmp;

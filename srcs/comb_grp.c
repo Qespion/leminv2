@@ -6,7 +6,7 @@
 /*   By: oespion <oespion@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/20 13:17:46 by oespion           #+#    #+#             */
-/*   Updated: 2019/03/29 10:09:32 by oespion          ###   ########.fr       */
+/*   Updated: 2019/04/02 11:04:42 by oespion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,11 @@
 void	ft_print_line(int *line, int len)
 {
 	int r = 0;
-	while (r <= len)
+	while (r <= len - 1)
 	{
 		ft_printf("%d - ", line[r++]);
 	}
-	ft_printf("\n");
+	ft_printf("turn: %d\n", line[r]);
 }
 
 int     *set_zero(int *roads, int len, int **tab, int r)
@@ -156,7 +156,8 @@ int		*try_option(int **tab, int len, int *cpy_line, int r, int ants)
 	// ft_printf("road nb =%d\n", calc_nb_road(cpy_line, len));
 	// ft_printf("line len");
 	cpy_line[len] = calc_nb_turn(cpy_line, ants, len);
-	// ft_print_line(cpy_line, len);	
+	if (g_flags & ROADGESTION)
+		ft_print_line(cpy_line, len);	
 	return (cpy_line);
 }
 
@@ -219,6 +220,8 @@ int    *bt_grp(int **tab, int len, int ants)
 	line = NULL;
 	r = 0;
 
+	if (g_flags & ROADGESTION)
+		ft_printf("\n\e[32;40mPOSSIBLE COMBINAISONS OF ROADS:\033[0m\n");
 	if (len == 1)
 		return(create_malloc_line(tab[0], len - 1));
 	while (r < len)
@@ -237,6 +240,5 @@ int    *bt_grp(int **tab, int len, int ants)
 		r++;
 	}
 	// ft_print_line(line, len);
-	// exit(1);
 	return (line);
 }

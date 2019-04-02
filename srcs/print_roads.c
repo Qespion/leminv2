@@ -6,7 +6,7 @@
 /*   By: oespion <oespion@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/21 16:30:34 by oespion           #+#    #+#             */
-/*   Updated: 2019/03/29 10:14:01 by oespion          ###   ########.fr       */
+/*   Updated: 2019/04/02 11:06:07 by oespion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -258,7 +258,7 @@ void    get_best_road(int *line, int ants, int max_roads, t_wroad *wroad)
     // exit(34);
     len = ft_wroad_len(wroad);
     // ft_printf("len %d\n", len);
-    // ft_print_line(line, len);    
+    // ft_print_line(line, len);i plus est, c'est un algorithme maison dont je ne citerai pas le nom ici. J'adore les élève qui se démène pour faire des tests unitaires. ./push_s    
     // ft_printf("test -> %d\n", line[len - 1]);
     line = transform_line(line, ants, max_roads, len);
     // ft_print_line(line, len);
@@ -266,4 +266,6 @@ void    get_best_road(int *line, int ants, int max_roads, t_wroad *wroad)
     push_ants(wroad, line, len);
     // ft_printf("# printed line -> %d\n", g_turn);
     free(line);
+    if (g_flags & LINENB)
+        ft_printf("\n\e[32;40mNUMBER OF LINES:\033[0m\n%d\n", g_turn);
 }

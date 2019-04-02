@@ -6,7 +6,7 @@
 /*   By: oespion <oespion@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/20 10:00:49 by oespion           #+#    #+#             */
-/*   Updated: 2019/03/29 10:09:31 by oespion          ###   ########.fr       */
+/*   Updated: 2019/04/02 10:56:00 by oespion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -150,6 +150,7 @@ t_solve	*create_road(t_solve *tmp, t_solve *new_routes, t_link *link)
 	while (temp->next)
 		temp = temp->next;
 	temp->next = new_solve;
+	new_solve->prev = temp;
 	return (new_routes);
 }
 
@@ -235,6 +236,8 @@ t_solve *create_routes(t_map *map, int max_roads, t_solve *routes)
 	t_wroad	*wroad;
 
 	turn = 0;
+	if (g_flags & NBWORKING)
+		ft_printf("\e[32;40mWORKING ROADS FOUND IN BFS:\033[0m\n");
 	new_routes = NULL;
 	wroad = NULL;
 	wroad = found_finish_line(routes, map, wroad);
@@ -276,7 +279,8 @@ t_solve *create_routes(t_map *map, int max_roads, t_solve *routes)
 			new_routes = epur_map(new_routes);
 			// if (len_road)
 			// ft_printf("len roads %d\n", len_road(new_routes));
-			// ft_printf("len Wroads %d\n", len_wroad(wroad));
+			if (g_flags & NBWORKING)
+				ft_printf("len of working roads: %d\n", len_wroad(wroad));
 		}
 		if (!wroad)
 			exit(2);
