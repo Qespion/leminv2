@@ -6,7 +6,7 @@
 /*   By: oespion <oespion@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/28 14:30:27 by oespion           #+#    #+#             */
-/*   Updated: 2019/03/29 22:04:15 by oespion          ###   ########.fr       */
+/*   Updated: 2019/04/02 11:32:55 by oespion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	check_only_nb(char *str, t_map *map)
 		str++;
 	if (*str != '\0')
 	{
-		ft_printf("Error: Not a clean numbers of ants\n");
+		ft_printf("\e[31;1mError: Not a clean numbers of ants\033[0m\n");
 		free(map);
 		exit(-1);
 	}
@@ -27,7 +27,7 @@ void	check_only_nb(char *str, t_map *map)
 
 void	link_wo_island(t_map *map)
 {
-	ft_printf("Error: No Islands\n");
+	ft_printf("\e[31;1mError: No Islands\033[0m\n");
 	free(map);
 	exit(-1);
 }
@@ -38,12 +38,12 @@ t_map   *get_ants(char *str, t_map *map)
 		|| ft_atoi(str) < -2147483648
 		|| ((ft_atoi(str) == 0 && str[0] != '0')))
 	{
-		ft_printf("Error: 404 on lemmins");
+		ft_printf("\e[31;1mError: 404 on lemmins\033[0m\n");
 		exit(-1);
 	}
 	else if (ft_atoi(str) < 0)
 	{
-		ft_printf("Error: Negative numbers of lemmins");
+		ft_printf("\e[31;1mError: Negative numbers of lemmins\033[0m\n");
 		exit(-1);
 	}
 	map->nb = ft_atoi(str);
@@ -54,13 +54,13 @@ t_map   *get_ants(char *str, t_map *map)
 void	double_end(t_map *map, int which_end)
 {
 	if (which_end == 0)
-		ft_printf("Error: Double start \n");
+		ft_printf("\e[31;1mError: Double start \033[0m\n");
 	else if (which_end == 1)
-		ft_printf("Error: Double end\n");
+		ft_printf("\e[31;1mError: Double end\033[0m\n");
 	else if (which_end == 3)
-		ft_printf("Error: start is end\n");
+		ft_printf("\e[31;1mError: start is end\033[0m\n");
 	else if (which_end == 4)
-		ft_printf("Error: Invalid island input\n");
+		ft_printf("\e[31;1mError: Invalid island input\033[0m\n");
 	while (map->begin)
 	{
 		free(map->begin);
@@ -175,10 +175,22 @@ int		find_del(char *str)
 	exit(-1);
 }
 
-// void	check_double_road(t_node *tmp, t_node *dest, t_map *map)
-// {
+void	check_double_road(t_node *tmp, t_link *last_link, t_map *map)
+{
+	t_link	*link;
 
-// }
+	link = tmp->link;
+	while (link->next)
+	{
+		if (link->node == last_link->node)
+		{
+			ft_printf("\e[31;1mError: link twice between %s and %s\033[0m\n", link->node->name, tmp->name);
+			ft_clean_map(map);
+			exit(-1);
+		}
+		link = link->next;
+	}
+}
 
 t_map   *get_road(char *str, t_map *map)
 {
@@ -218,7 +230,6 @@ t_map   *get_road(char *str, t_map *map)
 		}
 		tmp2 = tmp2->next;
 	}
-
 	new_link->node = tmp2;
 	new_link->next = NULL;
 	new_link2->node = tmp;
@@ -244,6 +255,7 @@ t_map   *get_road(char *str, t_map *map)
 		tmp2->link = startlink;
 	}
 	free(name1);
+	check_double_road(tmp, new_link, map);
 	return (map);
 }
 
