@@ -6,13 +6,35 @@
 /*   By: oespion <oespion@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/20 10:00:49 by oespion           #+#    #+#             */
-/*   Updated: 2019/04/02 10:56:00 by oespion          ###   ########.fr       */
+/*   Updated: 2019/04/03 10:54:32 by oespion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 
 #include "../libft/includes/libft.h"
 #include "lem_in.h"
+
+void		malloc_fail_create(t_solve *routes, t_map *map)
+{
+	t_road	*tmp_road;
+	t_solve	*tmp;
+
+	while (routes)
+	{
+		tmp = routes->next;
+		while (routes->path)
+		{
+			tmp_road = routes->path->prev;
+			free(routes->path);
+			routes->path = tmp_road;
+		}
+		free(routes);
+		routes = tmp;
+	}
+	ft_clean_map(map);
+	ft_printf("\e[31;1mMalloc failed\033[0m\n");	
+	exit(-1);
+}
 
 int            found_finish(t_solve *routes, t_map *map)
 {
@@ -145,7 +167,10 @@ t_solve	*create_road(t_solve *tmp, t_solve *new_routes, t_link *link)
 	new_road->current = link->node;
 	new_road->prev = duplicate_road(tmp->path);
 	if (!new_routes)
+	{
+		new_solve->prev = NULL;
 		return (new_solve);
+	}
 	temp = new_routes;
 	while (temp->next)
 		temp = temp->next;
@@ -255,8 +280,6 @@ t_solve *create_routes(t_map *map, int max_roads, t_solve *routes)
 				routes = new_routes;
 			tmp = routes;
 			new_routes = NULL;
-			// ft_printf("turn %d\n", ++turn);
-			// new_routes = ft_jcompren_pa(routes);
 			while(tmp)
 			{
 				if (tmp->path->current == map->end)
@@ -269,21 +292,26 @@ t_solve *create_routes(t_map *map, int max_roads, t_solve *routes)
 			}
 			routes = ft_garbage(routes);
 			wroad = found_finish_line(new_routes, map, wroad);
-			// new_routes = remove_finish_line(new_routes, map);
-			// ft_printf("test-> %s\n", new_routes->path->current->name);
-			// read_current(new_routes);
-			if (len_road(new_routes) == 0 && !wroad)
-				exit(-1);
 			if (len_road(new_routes) == 0)
 				break ;
 			new_routes = epur_map(new_routes);
-			// if (len_road)
-			// ft_printf("len roads %d\n", len_road(new_routes));
 			if (g_flags & NBWORKING)
 				ft_printf("len of working roads: %d\n", len_wroad(wroad));
+			
+			// while (new_routes->next)
+			// 	new_routes = new_routes->next;
+			// while (new_routes->prev)
+			// {
+			// 	ft_printf("solve %s\n", new_routes->path->current->name);
+			// 	new_routes = new_routes->prev;
+			// }
+
 		}
 		if (!wroad)
+		{
+			ft_printf("\e[31;1mError: No working roads \033[0m\n");
 			exit(2);
+		}
 		wroad = ft_find_conflict(wroad, map);
 		new_routes = ft_garbage(new_routes);
 		ft_create_group(wroad, map, max_roads);

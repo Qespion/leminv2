@@ -1,4 +1,4 @@
-634f
+634
 ##start
 start 1 0
 ##end
@@ -11,7 +11,7 @@ nalt1 3 1
 nalt2 3 2
 start-n1
 start-alt1
-alt1-alt2
 n1-nalt1
 nalt2-end
 n2-end
+start-end

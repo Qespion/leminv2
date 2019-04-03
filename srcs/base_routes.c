@@ -6,23 +6,41 @@
 /*   By: oespion <oespion@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/06 16:28:22 by oespion           #+#    #+#             */
-/*   Updated: 2019/04/02 10:43:01 by oespion          ###   ########.fr       */
+/*   Updated: 2019/04/02 14:17:48 by oespion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libft/includes/libft.h"
 #include "lem_in.h"
 
-/*
-**  create base routes at start
-*/
+void	malloc_fail_base(t_map *map, t_solve *solution)
+{
+	t_road	*tmp;
+	t_solve	*tmp_sol;
 
-t_road	*start_road(t_map *map)
+	while (solution)
+	{
+		tmp_sol = solution->next;
+		while (solution->path)
+		{
+			tmp = solution->path->prev;
+			free(solution->path);
+			solution->path = tmp;
+		}
+		free(solution);
+		solution = tmp_sol;
+	}
+	ft_clean_map(map);
+	ft_printf("\e[31;1mMalloc failed\033[0m\n");
+	exit(-1);
+}
+
+t_road	*start_road(t_map *map, t_solve *solution)
 {
 	t_road	*road;
 
 	if (!(road = (t_road*)malloc(sizeof(t_road))))
-		exit(-1);
+		malloc_fail_base(map, solution);
 	road->prev = NULL;
 	road->current = map->start;
 	return (road);
@@ -40,15 +58,15 @@ t_solve     *get_first_roads(t_solve *solution, t_map *map)
 	while (tmp)
 	{
 		if (!(road = (t_road*)malloc(sizeof(t_road))))
-			exit(-1);
+			malloc_fail_base(map, solution);
 		road->current = tmp->node;
-		road->prev = start_road(map);
+		road->prev = start_road(map, solution);
 		if (!solution->path)
 			solution->path = road;
 		else
 		{
 			if (!(next_sol = (t_solve*)malloc(sizeof(t_solve))))
-				exit(-1);
+				malloc_fail_base(map, solution);
 			solution->next = next_sol;
 			next_sol->prev = solution;
 			next_sol->path = road;
@@ -75,13 +93,12 @@ void	ft_print_solution(t_solve * solution)
 	ft_putchar('\n');
 }
 
-t_solve    *create_base_routes(t_map *map, int max_roads)
+t_solve    *create_base_routes(t_map *map)
 {
     t_solve   *solution;
 
 	if (!(solution = (t_solve*)malloc(sizeof(t_solve))))
-        exit(-1);
-	(void)max_roads;
+        malloc_fail_base(map, solution);
     solution->path = NULL;
     solution->next = NULL;
 	solution = get_first_roads(solution, map);

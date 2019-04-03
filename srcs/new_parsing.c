@@ -6,7 +6,7 @@
 /*   By: oespion <oespion@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/28 14:30:27 by oespion           #+#    #+#             */
-/*   Updated: 2019/04/02 11:32:55 by oespion          ###   ########.fr       */
+/*   Updated: 2019/04/03 10:54:36 by oespion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,11 +38,13 @@ t_map   *get_ants(char *str, t_map *map)
 		|| ft_atoi(str) < -2147483648
 		|| ((ft_atoi(str) == 0 && str[0] != '0')))
 	{
+		free(map);
 		ft_printf("\e[31;1mError: 404 on lemmins\033[0m\n");
 		exit(-1);
 	}
 	else if (ft_atoi(str) < 0)
 	{
+		free(map);
 		ft_printf("\e[31;1mError: Negative numbers of lemmins\033[0m\n");
 		exit(-1);
 	}
@@ -53,6 +55,8 @@ t_map   *get_ants(char *str, t_map *map)
 
 void	double_end(t_map *map, int which_end)
 {
+	t_node	*tmp;
+
 	if (which_end == 0)
 		ft_printf("\e[31;1mError: Double start \033[0m\n");
 	else if (which_end == 1)
@@ -63,8 +67,9 @@ void	double_end(t_map *map, int which_end)
 		ft_printf("\e[31;1mError: Invalid island input\033[0m\n");
 	while (map->begin)
 	{
+		tmp = map->begin->next;
 		free(map->begin);
-		map->begin = map->begin->next;
+		map->begin = tmp;
 	}
 	free(map);
 	exit(-1);
@@ -93,8 +98,7 @@ void		check_valid_island(char *str, t_map *map)
 	if (str[0] == ' ' )
 		double_end(map, 4);
 	r = 1;
-	while ((str[r] >= 48 && str[r] <= 57) || (str[r] >=  65 && str[r] <= 90)
-		|| (str[r] >=  61 && str[r] <= 122))
+	while (str[r] != ' ' && str[r])
 		r++;
 	if (str[r] != ' ')
 		double_end(map, 4);
@@ -216,7 +220,7 @@ t_map   *get_road(char *str, t_map *map)
 	{
 		if (!tmp->next)
 		{
-			ft_printf("%s road not found\n", name1);
+			ft_printf("\e[31;1m%s road not found\033[0m\n", name1);
 			exit(-1);
 		}
 		tmp = tmp->next;
@@ -225,7 +229,7 @@ t_map   *get_road(char *str, t_map *map)
 	{
 		if (!tmp2->next)
 		{
-			ft_printf("%s road not found\n", name2);
+			ft_printf("\e[31;1m%s road not found\033[0m\n", name2);
 			exit(-1);
 		}
 		tmp2 = tmp2->next;

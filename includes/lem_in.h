@@ -6,7 +6,7 @@
 /*   By: oespion <oespion@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/06 16:27:53 by oespion           #+#    #+#             */
-/*   Updated: 2019/04/02 10:57:27 by oespion          ###   ########.fr       */
+/*   Updated: 2019/04/03 10:52:55 by oespion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ typedef struct		s_pack
 
 int			get_max_roads(t_map *map);
 t_map		*get_file();
-t_solve		*create_base_routes(t_map *map, int max_roads);
+t_solve		*create_base_routes(t_map *map);
 void	print_working_roads(t_wroad *wroad, t_map *map);
 void	ft_clean_map(t_map *map);
 

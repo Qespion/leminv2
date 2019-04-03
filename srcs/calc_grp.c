@@ -6,7 +6,7 @@
 /*   By: oespion <oespion@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/20 12:58:48 by oespion           #+#    #+#             */
-/*   Updated: 2019/04/02 10:57:52 by oespion          ###   ########.fr       */
+/*   Updated: 2019/04/03 10:01:54 by oespion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,9 +105,9 @@ void	ft_print_tab(int **tab, int len)
 	ft_printf("\n\e[32;40mGRAPH:\033[0m\n");
 	while (r < len - 1)
 	{
-		while (err < len)
+		while (err < len - 1)
 		{
-			ft_printf(" %d ", tab[r][err]);
+			ft_printf("%4d ", tab[r][err]);
 			err++;
 		}
 		ft_putchar('\n');

@@ -6,7 +6,7 @@
 /*   By: oespion <oespion@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/06 16:27:46 by oespion           #+#    #+#             */
-/*   Updated: 2019/04/02 11:11:48 by oespion          ###   ########.fr       */
+/*   Updated: 2019/04/03 11:22:02 by oespion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,34 @@ void	print_help()
 // print roads gestion
 // print nb line
 
+void	short_usage(char *str)
+{
+	str++;
+	while (*str)
+	{
+		if (*str == 'm')
+			g_flags |= MAXROADS;
+		else if (*str == 'f')
+			g_flags |= FIRSTROADS;
+		else if (*str == 'n')
+			g_flags |= NBWORKING;
+		else if (*str == 'g')
+			g_flags |= GRAPH;
+		else if (*str == 'r')
+			g_flags |= ROADGESTION;
+		else if (*str == 'l')
+			g_flags |= LINENB;
+		else if(*str == 'h')
+			print_help();
+		else
+		{
+			ft_printf("\e[31;1mError: '%c' is not a proper argument\033[0m\n", *str);
+			print_help();
+		}
+		str++;
+	}
+}
+
 void	usage(int ac, char **av)
 {
 	int	r;
@@ -65,19 +93,23 @@ void	usage(int ac, char **av)
 	r = 1;
 	while (r < ac)
 	{
-		if (!ft_strcmp(av[r], "-m") || !ft_strcmp(av[r], "--max_roads"))
+		if (!ft_strcmp(av[r], "--max_roads"))
 			g_flags |= MAXROADS;
-		else if (!ft_strcmp(av[r], "-f") || !ft_strcmp(av[r], "--first_roads"))
+		else if (!ft_strcmp(av[r], "--first_roads"))
 			g_flags |= FIRSTROADS;
-		else if (!ft_strcmp(av[r], "-n") || !ft_strcmp(av[r], "--nb_working"))
+		else if (!ft_strcmp(av[r], "--nb_working"))
 			g_flags |= NBWORKING;
-		else if (!ft_strcmp(av[r], "-g") || !ft_strcmp(av[r], "--graph"))
+		else if  (!ft_strcmp(av[r], "--graph"))
 			g_flags |= GRAPH;
-		else if (!ft_strcmp(av[r], "-r") || !ft_strcmp(av[r], "--road_gestion"))
+		else if (!ft_strcmp(av[r], "--road_gestion"))
 			g_flags |= ROADGESTION;
-		else if (!ft_strcmp(av[r], "-l") || !ft_strcmp(av[r], "--line_nb"))
+		else if (!ft_strcmp(av[r], "--line_nb"))
 			g_flags |= LINENB;
-		else if (!ft_strcmp(av[r], "-h") || !ft_strcmp(av[r], "--help"))
+		else if (!ft_strcmp(av[r], "--help"))
+			print_help();
+		else if (av[r][0] == '-' && av[r][1])
+			short_usage(av[r]);
+		else
 			print_help();
 		r++;
 	}
@@ -102,7 +134,7 @@ int	main(int ac, char **av)
 	max_roads = get_max_roads(map);
 	if (g_flags & MAXROADS)
 		ft_printf("\n\e[32;40mMAX ROADS IN GRAPH\033[0m\n%d\n", max_roads);
-	routes = create_base_routes(map, max_roads);
+	routes = create_base_routes(map);
 	routes = create_routes(map, max_roads, routes);
 	ft_clean_map(map);
 	return (0);
