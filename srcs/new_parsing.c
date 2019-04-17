@@ -6,7 +6,7 @@
 /*   By: oespion <oespion@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/28 14:30:27 by oespion           #+#    #+#             */
-/*   Updated: 2019/04/03 10:54:36 by oespion          ###   ########.fr       */
+/*   Updated: 2019/04/17 15:31:59 by oespion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,12 +114,15 @@ void		check_valid_island(char *str, t_map *map)
 		double_end(map, 4);
 }
 
+
+
 t_map   *get_island(char *str, t_map *map)
 {
 	t_node	*new_node;
 	char		*tmp;
 	static int	start = 0;
 	static int	end = 0;
+
 	if (!ft_strcmp(str, "##start"))
 	{
 		start = 1;
@@ -327,6 +330,6 @@ t_map   *nget_file()
 	map->begin = NULL;
 	map->nb = -42;
     map = read_file(map);
-	ft_putchar('\n');
+	// ft_putchar('\n');
 	return (map);
 }

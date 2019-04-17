@@ -6,7 +6,7 @@
 /*   By: oespion <oespion@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/21 16:30:34 by oespion           #+#    #+#             */
-/*   Updated: 2019/04/03 11:39:46 by oespion          ###   ########.fr       */
+/*   Updated: 2019/04/17 14:07:00 by oespion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,66 +41,41 @@ int     *create_base(int len)
     return (tmp);
 }
 
-int     *transform_line(int *line, int ants, int max_roads, int len)
+int		find_r_increase(int *line, int len)
 {
-    int     *tmp;
-    int     r;
-    int     biggest;
-    int     diff;
-    int     ants_road;
-    int     ants_left;
-    int     road_nb;
+	int	r;
+	int	after;
 
-    (void)max_roads;
-    ants_road = 0;
-    ants_left = 0;
-    road_nb = 0;
-    tmp = create_base(len);
-    r = 0;
-    biggest = 0;
-    diff = 0;
+	r = 0;
+	while (r < len)
+	{
+		while (line[r] == 0)
+			r++;
+		after = r + 1;
+		while (line[after] == 0 && after < len)
+			after++;
+		if (line[r] < line[after])
+			return (r);
+		else
+			r++;
+	}
+	return (r - 1);
+}
 
-    while (r < len)
-    {
-        if (line[r] > biggest)
-            biggest = line[r];
-        r++;
-    }
-    // ft_printf("biggest %d\n", biggest);
-    r = 0;
-    // BREAK FT HERE FOR NORMIES RULES
-    while (r < len)
-    {
-        if (line[r] != 0)
-        {
-            road_nb++;
-            tmp[r] = biggest - line[r];
-            diff += tmp[r]; 
-        }
-        r++;
-    }
-    ants -= diff;
-    // ft_printf("diff %d\n", diff);
-    // ft_printf("ants left %d\n", ants);
-    ants_road = ants / road_nb;
-    ants_left = ants % road_nb;
-    
-    // BREAK AGAINNN
-    r = 0;
-    while (r < len)
-    {
-        if (line[r] != 0)
-        {
-            tmp[r] += ants_road;
-            if (ants_left > 0)
-            {
-                tmp[r]++;
-                ants_left--;
-            }
-        }
-        r++;
-    }
-    return (tmp);
+int     *transform_line(int *line, int ants, int len)
+{
+	int	r;
+	int	*new_line;
+
+	new_line = create_base(len);
+	while (ants)
+	{
+		r = find_r_increase(line, len);
+		ants--;
+		new_line[r]++;
+		line[r]++;
+	}
+	return (new_line);
 }
 
 t_pack  *new_player_in_field(t_pack *start, t_wroad *wroad, int r)
@@ -254,14 +229,14 @@ void    get_best_road(int *line, int ants, int max_roads, t_wroad *wroad)
 {
     int len;
 
+    (void)max_roads;
     // ft_printf("wroad %s\n", wroad->path->current->name);
     // exit(34);
     len = ft_wroad_len(wroad);
     // ft_printf("len %d\n", len);
     // ft_print_line(line, len);i plus est, c'est un algorithme maison dont je ne citerai pas le nom ici. J'adore les élève qui se démène pour faire des tests unitaires. ./push_s    
     // ft_printf("test -> %d\n", line[len - 1]);
-    line = transform_line(line, ants, max_roads, len);
-    // ft_print_line(line, len);
+	line = transform_line(line, ants, len);
     // exit(1);
     push_ants(wroad, line, len);
     // ft_printf("# printed line -> %d\n", g_turn);
