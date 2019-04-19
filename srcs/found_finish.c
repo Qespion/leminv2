@@ -6,7 +6,7 @@
 /*   By: oespion <oespion@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/19 21:23:40 by oespion           #+#    #+#             */
-/*   Updated: 2019/03/29 16:33:01 by oespion          ###   ########.fr       */
+/*   Updated: 2019/04/19 15:22:42 by oespion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,8 @@ t_solve		*remove_line(t_solve *solution, t_map *map)
 {
 	t_solve	*tmp;
 
-	while (solution->path->current == map->end || solution->path->current == map->start)
+	while (solution->path->current == map->end
+		|| solution->path->current == map->start)
 		solution = solution->next;
 	tmp = solution;
 	while (tmp)
@@ -31,9 +32,9 @@ t_solve		*remove_line(t_solve *solution, t_map *map)
 	return (solution);
 }
 
-int					ft_len_road(t_road *road)
+int			ft_len_road(t_road *road)
 {
-	int			len;
+	int		len;
 	t_road	*tmp;
 
 	tmp = road;
@@ -46,10 +47,28 @@ int					ft_len_road(t_road *road)
 	return (len);
 }
 
+void		finish_line_wroad(t_wroad **wroad, t_wroad **nnode, t_wroad **tmp)
+{
+	if (!(*wroad))
+	{
+		*wroad = *nnode;
+		(*wroad)->nb = 0;
+		*tmp = *nnode;
+	}
+	else
+	{
+		while ((*wroad)->next)
+			*wroad = (*wroad)->next;
+		(*wroad)->next = *nnode;
+		(*wroad)->next->nb = (*wroad)->nb + 1;
+	}
+}
+
 t_wroad		*found_finish_line(t_solve *solution, t_map *map, t_wroad *wroad)
 {
 	t_wroad	*new_node;
 	t_wroad	*tmp;
+
 	tmp = wroad;
 	while (solution)
 	{
@@ -61,19 +80,7 @@ t_wroad		*found_finish_line(t_solve *solution, t_map *map, t_wroad *wroad)
 			new_node->next = NULL;
 			new_node->conflict = NULL;
 			new_node->len = ft_len_road(solution->path);
-			if (!wroad)
-			{
-				wroad = new_node;
-				wroad->nb = 0;
-				tmp = new_node;
-			}
-			else
-			{
-				while (wroad->next)
-					wroad = wroad->next;
-				wroad->next = new_node;
-				wroad->next->nb = wroad->nb + 1;
-			}
+			finish_line_wroad(&wroad, &new_node, &tmp);
 		}
 		solution = solution->next;
 	}
@@ -82,22 +89,17 @@ t_wroad		*found_finish_line(t_solve *solution, t_map *map, t_wroad *wroad)
 
 int			enough_wroad(t_wroad *wroad, t_map *map, int turn, int max_roads)
 {
-	// change len wroad to find len of conflict road > maxroads 
-	int	len_wroad;
-	t_wroad  *tmp;
-	len_wroad = 0;
+	int		len_wroad;
+	t_wroad	*tmp;
 
+	len_wroad = 0;
 	tmp = wroad;
-	// if (wroad)
-	// 	return (1);
 	while (tmp)
 	{
 		tmp = tmp->next;
 		len_wroad++;
 	}
-	// if (len_wroad > 100)
-	// 	return (1);
-	if (len_wroad  /  4 > max_roads)
+	if (len_wroad / 4 > max_roads)
 		return (1);
 	if (wroad && turn > (wroad->len + map->nb))
 		return (1);

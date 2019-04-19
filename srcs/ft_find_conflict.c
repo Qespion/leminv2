@@ -6,18 +6,32 @@
 /*   By: oespion <oespion@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/25 15:43:09 by oespion           #+#    #+#             */
-/*   Updated: 2019/04/02 10:51:20 by oespion          ###   ########.fr       */
+/*   Updated: 2019/04/19 15:26:06 by oespion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libft/includes/libft.h"
 #include "lem_in.h"
 
+void		ft_list_conflict(t_conflict **tmp, t_wroad **list, t_conflict **lbs)
+{
+	*tmp = (*list)->conflict;
+	if (!(*list)->conflict)
+		(*list)->conflict = *lbs;
+	else
+	{
+		while ((*tmp)->next)
+			*tmp = (*tmp)->next;
+		(*tmp)->next = *lbs;
+	}
+}
+
 void		ft_add_conflict(t_wroad *wroad, t_wroad *list)
 {
 	t_conflict	*base;
 	t_conflict	*linked_base;
 	t_conflict	*tmp;
+
 	if (!(base = (t_conflict*)malloc(sizeof(t_conflict))))
 		exit(-1);
 	if (!(linked_base = (t_conflict*)malloc(sizeof(t_conflict))))
@@ -35,19 +49,10 @@ void		ft_add_conflict(t_wroad *wroad, t_wroad *list)
 			tmp = tmp->next;
 		tmp->next = base;
 	}
-	
-	tmp = list->conflict;
-	if (!list->conflict)
-		list->conflict = linked_base;
-	else
-	{
-		while (tmp->next)
-			tmp = tmp->next;
-		tmp->next = linked_base;
-	}
+	ft_list_conflict(&tmp, &list, &linked_base);
 }
 
-int		ft_deep_check(t_road *base_road, t_road *tmp_road, t_map *map)
+int			ft_deep_check(t_road *base_road, t_road *tmp_road, t_map *map)
 {
 	unsigned int		len_base;
 	unsigned int		len_tmp;
@@ -67,8 +72,6 @@ int		ft_deep_check(t_road *base_road, t_road *tmp_road, t_map *map)
 		len_tmp++;
 		tmp_road = tmp_road->prev;
 	}
-	// if (ft_abs(len_base - len_tmp) > (map->nb / 2))
-	// 	return (0);
 	return (1);
 }
 
@@ -87,17 +90,9 @@ t_wroad		*check_conflict(t_wroad *wroad, t_map *map)
 			compare = tmp_wroad->path;
 			while (compare)
 			{
-				if (base->current == compare->current)
-				{
-					if (ft_deep_check(base, compare, map))
-					{
-						// ft_printf("base %s\n", base->current->name);
-						// ft_printf("compare %s\n", compare->current->name);
-						ft_add_conflict(wroad, tmp_wroad);
-						// ft_printf("base %s\n", base->current->name);
-						// ft_printf("compare %s\n", compare->current->name);
-					}
-				}
+				if (base->current == compare->current
+					&& ft_deep_check(base, compare, map))
+					ft_add_conflict(wroad, tmp_wroad);
 				compare = compare->prev;
 			}
 			tmp_wroad = tmp_wroad->next;
@@ -108,10 +103,12 @@ t_wroad		*check_conflict(t_wroad *wroad, t_map *map)
 	return (wroad);
 }
 
-void			ft_print_conflict(t_wroad *wroad)
+void		ft_print_conflict(t_wroad *wroad)
 {
-	t_conflict *tmp;
-	int		raod = 0;
+	int			raod;
+	t_conflict	*tmp;
+
+	raod = 0;
 	while (wroad)
 	{
 		ft_printf("\nnb %d -=", raod++);
@@ -128,7 +125,7 @@ void			ft_print_conflict(t_wroad *wroad)
 
 t_wroad		*clean_conflict(t_wroad *wroad)
 {
-	t_wroad		*tmp_wroad;
+	t_wroad			*tmp_wroad;
 	t_conflict		*prev;
 	t_conflict		*tmp;
 
@@ -175,8 +172,7 @@ t_wroad		*remove_double(t_wroad *wroad)
 				}
 				start = start->next;
 			}
-			if (tmp)
-				tmp = tmp->next;
+			tmp = tmp ? tmp->next : tmp;
 		}
 		tmp_wroad = tmp_wroad->next;
 	}
@@ -194,9 +190,5 @@ t_wroad		*ft_find_conflict(t_wroad *wroad, t_map *map)
 		tmp = tmp->next;
 	}
 	wroad = remove_double(wroad);
-	// wroad = clean_conflict(wroad);
-	// if (g_flags & )
-	// ft_print_conflict(wroad);
-	// exit(1);
 	return (wroad);
 }

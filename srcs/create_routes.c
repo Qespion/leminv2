@@ -6,15 +6,14 @@
 /*   By: oespion <oespion@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/20 10:00:49 by oespion           #+#    #+#             */
-/*   Updated: 2019/04/03 10:54:32 by oespion          ###   ########.fr       */
+/*   Updated: 2019/04/19 14:45:02 by oespion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #include "../libft/includes/libft.h"
 #include "lem_in.h"
 
-void		malloc_fail_create(t_solve *routes, t_map *map)
+void	malloc_fail_create(t_solve *routes, t_map *map)
 {
 	t_road	*tmp_road;
 	t_solve	*tmp;
@@ -32,11 +31,11 @@ void		malloc_fail_create(t_solve *routes, t_map *map)
 		routes = tmp;
 	}
 	ft_clean_map(map);
-	ft_printf("\e[31;1mMalloc failed\033[0m\n");	
+	ft_printf("\e[31;1mMalloc failed\033[0m\n");
 	exit(-1);
 }
 
-int            found_finish(t_solve *routes, t_map *map)
+int		found_finish(t_solve *routes, t_map *map)
 {
 	while (routes)
 	{
@@ -47,9 +46,9 @@ int            found_finish(t_solve *routes, t_map *map)
 	return (0);
 }
 
-void        free_node(t_solve *del)
+void	free_node(t_solve *del)
 {
-	t_road  *tmp;
+	t_road	*tmp;
 
 	while (del->path)
 	{
@@ -60,7 +59,7 @@ void        free_node(t_solve *del)
 	free(del);
 }
 
-int			check_loop(t_node *dest, t_road *road)
+int		check_loop(t_node *dest, t_road *road)
 {
 	while (road)
 	{
@@ -71,7 +70,7 @@ int			check_loop(t_node *dest, t_road *road)
 	return (0);
 }
 
-void		read_current(t_solve *solution)
+void	read_current(t_solve *solution)
 {
 	ft_printf("--current state\n");
 	while (solution)
@@ -84,8 +83,8 @@ void		read_current(t_solve *solution)
 
 t_wroad	*ft_garbage_wroad(t_wroad *wroad)
 {
-	t_wroad	*tmp_wroad;
-	t_road	*tmp_road;
+	t_wroad		*tmp_wroad;
+	t_road		*tmp_road;
 	t_conflict	*tmp_conflict;
 
 	while (wroad)
@@ -100,8 +99,8 @@ t_wroad	*ft_garbage_wroad(t_wroad *wroad)
 		while (wroad->path)
 		{
 			tmp_road = wroad->path->prev;
-            free(wroad->path);
-            wroad->path = tmp_road;
+			free(wroad->path);
+			wroad->path = tmp_road;
 		}
 		free(wroad);
 		wroad = tmp_wroad;
@@ -112,20 +111,20 @@ t_wroad	*ft_garbage_wroad(t_wroad *wroad)
 t_solve	*ft_garbage(t_solve *routes)
 {
 	t_solve *tmp_routes;
-    t_road  *tmp_road;
+	t_road	*tmp_road;
 
-    while (routes)
-    {
-        tmp_routes = routes->next;
-        while (routes->path)
-        {
-            tmp_road = routes->path->prev;
-            free(routes->path);
-            routes->path = tmp_road;
-        }
-        free(routes);
-        routes = tmp_routes;
-    }
+	while (routes)
+	{
+		tmp_routes = routes->next;
+		while (routes->path)
+		{
+			tmp_road = routes->path->prev;
+			free(routes->path);
+			routes->path = tmp_road;
+		}
+		free(routes);
+		routes = tmp_routes;
+	}
 	return (NULL);
 }
 
@@ -179,7 +178,7 @@ t_solve	*create_road(t_solve *tmp, t_solve *new_routes, t_link *link)
 	return (new_routes);
 }
 
-t_solve	*add_routes(t_solve *new_routes,  t_solve *tmp, t_map *map)
+t_solve	*add_routes(t_solve *new_routes, t_solve *tmp, t_map *map)
 {
 	t_link	*link_node;
 
@@ -198,7 +197,7 @@ t_solve	*add_routes(t_solve *new_routes,  t_solve *tmp, t_map *map)
 	return (new_routes);
 }
 
-int			check_roads(t_road	*road, t_node *end)
+int		check_roads(t_road *road, t_node *end)
 {
 	while (road)
 	{
@@ -225,8 +224,7 @@ t_solve	*remove_finish_line(t_solve *new_routes, t_map *map)
 	return (new_routes);
 }
 
-
-int			len_wroad(t_wroad *wroad)
+int		len_wroad(t_wroad *wroad)
 {
 	int	r;
 
@@ -239,8 +237,7 @@ int			len_wroad(t_wroad *wroad)
 	return (r);
 }
 
-
-int			len_road(t_solve *routes)
+int		len_road(t_solve *routes)
 {
 	int	r;
 
@@ -253,72 +250,78 @@ int			len_road(t_solve *routes)
 	return (r);
 }
 
-t_solve *create_routes(t_map *map, int max_roads, t_solve *routes)
+void	init_wroad(t_wroad **wroad, t_solve **routes, int max_roads, t_map *map)
 {
-	int turn;
+	*wroad = NULL;
+	*wroad = found_finish_line(*routes, map, *wroad);
+	if (*wroad)
+	{
+		*wroad = ft_find_conflict(*wroad, map);
+		ft_create_group(*wroad, map, max_roads);
+		*routes = ft_garbage(*routes);
+	}
+}
+
+void	init_new_routes(t_solve **new_routes, t_solve **routes, t_solve **tmp)
+{
+	if (*new_routes)
+		*routes = *new_routes;
+	*tmp = *routes;
+	*new_routes = NULL;
+}
+
+void	loop_tmp(t_solve **tmp, t_solve **nroutes, t_map *map, t_solve **routes)
+{
+	while (*tmp)
+	{
+		if ((*tmp)->path->current == map->end)
+		{
+			*tmp = (*tmp)->next;
+			continue ;
+		}
+		*nroutes = add_routes(*nroutes, *tmp, map);
+		*tmp = (*tmp)->next;
+	}
+	*routes = ft_garbage(*routes);
+}
+
+void	check_err_road(t_wroad **wroad, t_map *map, t_solve **nr, int max_roads)
+{
+	if (!(*wroad))
+	{
+		ft_printf("\e[31;1mError: No working roads \033[0m\n");
+		exit(2);
+	}
+	*wroad = ft_find_conflict(*wroad, map);
+	*nr = ft_garbage(*nr);
+	ft_create_group(*wroad, map, max_roads);
+}
+
+t_solve	*create_routes(t_map *map, int m, t_solve *routes)
+{
+	int		turn;
 	t_solve *tmp;
 	t_solve	*new_routes;
 	t_wroad	*wroad;
 
 	turn = 0;
-	if (g_flags & NBWORKING)
-		ft_printf("\e[32;40mWORKING ROADS FOUND IN BFS:\033[0m\n");
 	new_routes = NULL;
-	wroad = NULL;
-	wroad = found_finish_line(routes, map, wroad);
-	if (wroad)
-	{
-		wroad = ft_find_conflict(wroad, map);
-		ft_create_group(wroad, map, max_roads);
-		routes = ft_garbage(routes);
-	}
+	init_wroad(&wroad, &routes, m, map);
 	if (!wroad)
 	{
-		while ((new_routes || routes) && !enough_wroad(wroad, map, turn, max_roads))
+		while ((new_routes || routes) && !enough_wroad(wroad, map, turn, m))
 		{
-			if (new_routes)
-				routes = new_routes;
-			tmp = routes;
-			new_routes = NULL;
-			while(tmp)
-			{
-				if (tmp->path->current == map->end)
-				{
-					tmp = tmp->next;
-					continue ;
-				}
-				new_routes = add_routes(new_routes, tmp, map);
-				tmp = tmp->next;
-			}
-			routes = ft_garbage(routes);
+			init_new_routes(&new_routes, &routes, &tmp);
+			loop_tmp(&tmp, &new_routes, map, &routes);
 			wroad = found_finish_line(new_routes, map, wroad);
 			if (len_road(new_routes) == 0)
 				break ;
 			new_routes = epur_map(new_routes);
 			if (g_flags & NBWORKING)
 				ft_printf("len of working roads: %d\n", len_wroad(wroad));
-			
-			// while (new_routes->next)
-			// 	new_routes = new_routes->next;
-			// while (new_routes->prev)
-			// {
-			// 	ft_printf("solve %s\n", new_routes->path->current->name);
-			// 	new_routes = new_routes->prev;
-			// }
-
 		}
-		if (!wroad)
-		{
-			ft_printf("\e[31;1mError: No working roads \033[0m\n");
-			exit(2);
-		}
-		wroad = ft_find_conflict(wroad, map);
-		new_routes = ft_garbage(new_routes);
-		ft_create_group(wroad, map, max_roads);
+		check_err_road(&wroad, map, &new_routes, m);
 	}
-	// print_working_roads(wroad, map);
 	wroad = ft_garbage_wroad(wroad);
-	// ft_printf("found finish !\n");
-	// ft_printf("max roads %d !\n", max_roads);
 	return (routes);
 }

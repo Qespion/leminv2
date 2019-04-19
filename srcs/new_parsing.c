@@ -6,7 +6,7 @@
 /*   By: oespion <oespion@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/28 14:30:27 by oespion           #+#    #+#             */
-/*   Updated: 2019/04/17 15:31:59 by oespion          ###   ########.fr       */
+/*   Updated: 2019/04/19 14:14:37 by oespion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	link_wo_island(t_map *map)
 	exit(-1);
 }
 
-t_map   *get_ants(char *str, t_map *map)
+t_map	*get_ants(char *str, t_map *map)
 {
 	if (ft_strlen(str) > 13 || ft_atoi(str) > 2147483647
 		|| ft_atoi(str) < -2147483648
@@ -89,13 +89,13 @@ int		find_space(char *str)
 	return (0);
 }
 
-void		check_valid_island(char *str, t_map *map)
+void	check_valid_island(char *str, t_map *map)
 {
 	int	r;
 
 	if (!ft_strcmp(str, "##start") || !ft_strcmp(str, "##end"))
 		return ;
-	if (str[0] == ' ' )
+	if (str[0] == ' ')
 		double_end(map, 4);
 	r = 1;
 	while (str[r] != ' ' && str[r])
@@ -114,25 +114,51 @@ void		check_valid_island(char *str, t_map *map)
 		double_end(map, 4);
 }
 
-
-
-t_map   *get_island(char *str, t_map *map)
+int		start_end(int *start, int *end, t_map *map, char *str)
 {
-	t_node	*new_node;
-	char		*tmp;
-	static int	start = 0;
-	static int	end = 0;
-
 	if (!ft_strcmp(str, "##start"))
 	{
-		start = 1;
-		return (map);
+		*start = 1;
+		return (1);
 	}
 	if (!ft_strcmp(str, "##end"))
 	{
-		end = 1;
-		return (map);
+		*end = 1;
+		return (1);
 	}
+	return (0);
+}
+
+t_map	*error_case(t_map *map, int *start, int *end, t_node *new_node)
+{
+	if (*start == 1 && *end == 1)
+		double_end(map, 3);
+	if (*start == 1)
+	{
+		if (map->start)
+			double_end(map, 0);
+		map->start = new_node;
+		*start = -1;
+	}
+	else if (*end == 1)
+	{
+		if (map->end)
+			double_end(map, 1);
+		map->end = new_node;
+		*end = -1;
+	}
+	return (map);
+}
+
+t_map	*get_island(char *str, t_map *map)
+{
+	static int	start = 0;
+	static int	end = 0;
+	char		*tmp;
+	t_node		*new_node;
+
+	if (start_end(&start, &end, map, str))
+		return (map);
 	if (!(new_node = (t_node*)malloc(sizeof(t_node))))
 		exit(-1);
 	tmp = ft_strsub(str, 0, find_space(str));
@@ -149,22 +175,7 @@ t_map   *get_island(char *str, t_map *map)
 		map->jcpu->next = new_node;
 		map->jcpu = new_node;
 	}
-	if (start == 1 && end == 1)
-		double_end(map, 3);
-	if (start == 1)
-	{
-		if (map->start)
-			double_end(map, 0);
-		map->start = new_node;
-		start = -1;
-	}
-	else if (end == 1)
-	{
-		if (map->end)
-			double_end(map, 1);
-		map->end = new_node;
-		end = -1;
-	}
+	map = error_case(map, &start, &end, new_node);
 	return (map);
 }
 
@@ -191,7 +202,8 @@ void	check_double_road(t_node *tmp, t_link *last_link, t_map *map)
 	{
 		if (link->node == last_link->node)
 		{
-			ft_printf("\e[31;1mError: link twice between %s and %s\033[0m\n", link->node->name, tmp->name);
+			ft_printf("\e[31;1mError: link twice between ");
+			ft_printf("%s and %s\033[0m\n", link->node->name, tmp->name);
 			ft_clean_map(map);
 			exit(-1);
 		}
@@ -199,70 +211,85 @@ void	check_double_road(t_node *tmp, t_link *last_link, t_map *map)
 	}
 }
 
-t_map   *get_road(char *str, t_map *map)
+void	error_road(char *name1, char *name2, t_node **tmp, t_node **tmp2)
+{
+	while (ft_strcmp((*tmp)->name, name1))
+	{
+		if (!(*tmp)->next)
+		{
+			ft_printf("\e[31;1m%s road not found\033[0m\n", name1);
+			exit(-1);
+		}
+		(*tmp) = (*tmp)->next;
+	}
+	while (ft_strcmp((*tmp2)->name, name2))
+	{
+		if (!(*tmp2)->next)
+		{
+			ft_printf("\e[31;1m%s road not found\033[0m\n", name2);
+			exit(-1);
+		}
+		(*tmp2) = (*tmp2)->next;
+	}
+}
+
+void	link_on_tmp2(t_node ***tmp2, t_link **startlink, t_link **new_link2)
+{
+	if (!(**tmp2)->link)
+		(**tmp2)->link = *new_link2;
+	else
+	{
+		*startlink = (**tmp2)->link;
+		while ((**tmp2)->link->next)
+			(**tmp2)->link = (**tmp2)->link->next;
+		(**tmp2)->link->next = *new_link2;
+		(**tmp2)->link = *startlink;
+	}
+}
+
+void	link_on_road(t_node **tmp, t_node **tmp2)
 {
 	t_link	*new_link;
 	t_link	*new_link2;
+	t_link	*startlink;
+
+	if (!(new_link = (t_link*)malloc(sizeof(t_link))))
+		exit(-1);
+	if (!(new_link2 = (t_link*)malloc(sizeof(t_link))))
+		exit(-1);
+	new_link->node = *tmp2;
+	new_link->next = NULL;
+	new_link2->node = *tmp;
+	new_link2->next = NULL;
+	if (!(*tmp)->link)
+		(*tmp)->link = new_link;
+	else
+	{
+		startlink = (*tmp)->link;
+		while ((*tmp)->link->next)
+			(*tmp)->link = (*tmp)->link->next;
+		(*tmp)->link->next = new_link;
+		(*tmp)->link = startlink;
+	}
+	link_on_tmp2(&tmp2, &startlink, &new_link2);
+}
+
+t_map	*get_road(char *str, t_map *map)
+{
 	char	*name1;
 	char	*name2;
 	t_node	*tmp;
 	t_node	*tmp2;
-	t_link	*startlink;
 
 	tmp = map->begin;
 	tmp2 = map->begin;
 	if (str[0] == '#' && str[1] != '#')
 		return (map);
-	if (!(new_link = (t_link*)malloc(sizeof(t_link))))
-		exit(-1);
-	if (!(new_link2 = (t_link*)malloc(sizeof(t_link))))
-		exit(-1);
 	name1 = ft_strsub(str, 0, find_del(str));
 	name2 = ft_strchr(str, '-') + 1;
-	while (ft_strcmp(tmp->name, name1))
-	{
-		if (!tmp->next)
-		{
-			ft_printf("\e[31;1m%s road not found\033[0m\n", name1);
-			exit(-1);
-		}
-		tmp = tmp->next;
-	}
-	while (ft_strcmp(tmp2->name, name2))
-	{
-		if (!tmp2->next)
-		{
-			ft_printf("\e[31;1m%s road not found\033[0m\n", name2);
-			exit(-1);
-		}
-		tmp2 = tmp2->next;
-	}
-	new_link->node = tmp2;
-	new_link->next = NULL;
-	new_link2->node = tmp;
-	new_link2->next = NULL;
-	if (!tmp->link)
-		tmp->link = new_link;
-	else
-	{
-		startlink = tmp->link;
-		while (tmp->link->next)
-			tmp->link = tmp->link->next;
-		tmp->link->next = new_link;
-		tmp->link = startlink;
-	}
-	if (!tmp2->link)
-		tmp2->link = new_link2;
-	else
-	{
-		startlink = tmp2->link;
-		while (tmp2->link->next)
-			tmp2->link = tmp2->link->next;
-		tmp2->link->next = new_link2;
-		tmp2->link = startlink;
-	}
+	error_road(name1, name2, &tmp, &tmp2);
+	link_on_road(&tmp, &tmp2);
 	free(name1);
-	check_double_road(tmp, new_link, map);
 	return (map);
 }
 
@@ -284,7 +311,7 @@ t_map	*add_line(char *str, t_map *map, int turn)
 	return (map);
 }
 
-int			check_turn(char *str, int turn, t_map * map)
+int		check_turn(char *str, int turn, t_map *map)
 {
 	if (turn == 0 && map->nb != -42)
 		return (1);
@@ -293,9 +320,9 @@ int			check_turn(char *str, int turn, t_map * map)
 	return (turn);
 }
 
-t_map   *read_file(t_map *map)
+t_map	*read_file(t_map *map)
 {
-	int			turn;
+	int		turn;
 	char	*str;
 
 	str = NULL;
@@ -318,9 +345,9 @@ t_map   *read_file(t_map *map)
 	return (map);
 }
 
-t_map   *nget_file()
+t_map	*nget_file(void)
 {
-     t_map	*map;
+	t_map	*map;
 
 	if (!(map = (t_map*)malloc(sizeof(t_map))))
 		exit(-1);
@@ -329,7 +356,7 @@ t_map   *nget_file()
 	map->end = NULL;
 	map->begin = NULL;
 	map->nb = -42;
-    map = read_file(map);
-	// ft_putchar('\n');
+	map = read_file(map);
+	ft_putchar('\n');
 	return (map);
 }

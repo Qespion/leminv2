@@ -6,7 +6,7 @@
 /*   By: oespion <oespion@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/20 12:58:48 by oespion           #+#    #+#             */
-/*   Updated: 2019/04/03 10:01:54 by oespion          ###   ########.fr       */
+/*   Updated: 2019/04/19 14:22:32 by oespion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int		ft_wroad_len(t_wroad *wroad)
 		wroad = wroad->next;
 		nb++;
 	}
-	return nb;
+	return (nb);
 }
 
 int		*init_tab(int *tab, int len)
@@ -50,7 +50,7 @@ int		ft_check_conflict(t_conflict *current, int r)
 	return (1);
 }
 
-int		ft_get_len(int	r, t_wroad *wroad)
+int		ft_get_len(int r, t_wroad *wroad)
 {
 	while (r != wroad->nb)
 		wroad = wroad->next;
@@ -64,14 +64,14 @@ int		*ft_get_turn(t_wroad *wroad, t_wroad *current, t_map *map, int len)
 
 	(void)map;
 	if (!(tab = (int*)malloc(sizeof(int) * len)))
-		exit (-1);
+		exit(-1);
 	tab = init_tab(tab, len);
 	r = 0;
 	while (r < len)
 	{
-		if (ft_check_conflict(current->conflict , r))
+		if (ft_check_conflict(current->conflict, r))
 			tab[r] = ft_get_len(r, wroad);
-		r++; 
+		r++;
 	}
 	return (tab);
 }
@@ -80,7 +80,7 @@ int		**ft_create_tab(t_wroad *wroad, t_map *map, int len)
 {
 	int			**tab;
 	int			err;
-	t_wroad	*current;
+	t_wroad		*current;
 
 	current = wroad;
 	err = 0;
@@ -88,8 +88,8 @@ int		**ft_create_tab(t_wroad *wroad, t_map *map, int len)
 		exit(-1);
 	while (err < len)
 	{
-		tab[err] =ft_get_turn(wroad, current, map, len);
-		err++; 
+		tab[err] = ft_get_turn(wroad, current, map, len);
+		err++;
 		current = current->next;
 	}
 	return (tab);
@@ -114,7 +114,6 @@ void	ft_print_tab(int **tab, int len)
 		err = 0;
 		r++;
 	}
-	// ft_printf("-> %d\n", tab[len - 1][len -1]);
 }
 
 void	tab_free(int **tab, int len)
@@ -132,19 +131,19 @@ void	tab_free(int **tab, int len)
 	free(tab);
 }
 
-void    ft_create_group(t_wroad *wroad, t_map *map, int max_roads)
+void	ft_create_group(t_wroad *wroad, t_map *map, int max_roads)
 {
 	int						len;
 	int						**tab;
 	int						*line;
 
 	len = ft_wroad_len(wroad);
-	// ft_printf("len = %d\n", len);
-	tab =  ft_create_tab(wroad, map, len);
+	tab = ft_create_tab(wroad, map, len);
 	if (g_flags & GRAPH)
 		ft_print_tab(tab, len);
-	// ft_print_line(tab[0], len - 1);
-	line = bt_grp(tab,len, map->nb);
+	if (g_flags & ROADGESTION)
+		ft_printf("\n\e[32;40mPOSSIBLE COMBINAISONS OF ROADS:\033[0m\n");
+	line = bt_grp(tab, len, map->nb);
 	get_best_road(line, map->nb, max_roads, wroad);
 	free(line);
 	tab_free(tab, len);

@@ -6,14 +6,14 @@
 /*   By: oespion <oespion@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/06 16:28:22 by oespion           #+#    #+#             */
-/*   Updated: 2019/04/02 14:17:48 by oespion          ###   ########.fr       */
+/*   Updated: 2019/04/19 14:17:29 by oespion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libft/includes/libft.h"
 #include "lem_in.h"
 
-void	malloc_fail_base(t_map *map, t_solve *solution)
+void		malloc_fail_base(t_map *map, t_solve *solution)
 {
 	t_road	*tmp;
 	t_solve	*tmp_sol;
@@ -35,7 +35,7 @@ void	malloc_fail_base(t_map *map, t_solve *solution)
 	exit(-1);
 }
 
-t_road	*start_road(t_map *map, t_solve *solution)
+t_road		*start_road(t_map *map, t_solve *solution)
 {
 	t_road	*road;
 
@@ -46,7 +46,18 @@ t_road	*start_road(t_map *map, t_solve *solution)
 	return (road);
 }
 
-t_solve     *get_first_roads(t_solve *solution, t_map *map)
+void		add_first_road(t_solve **sol, t_solve **nsol, t_map *m, t_road **r)
+{
+	if (!(*nsol = (t_solve*)malloc(sizeof(t_solve))))
+		malloc_fail_base(m, *sol);
+	(*sol)->next = *nsol;
+	(*nsol)->prev = (*sol);
+	(*nsol)->path = *r;
+	(*nsol)->next = NULL;
+	(*sol) = (*nsol);
+}
+
+t_solve		*get_first_roads(t_solve *solution, t_map *map)
 {
 	t_link		*tmp;
 	t_road		*road;
@@ -64,22 +75,14 @@ t_solve     *get_first_roads(t_solve *solution, t_map *map)
 		if (!solution->path)
 			solution->path = road;
 		else
-		{
-			if (!(next_sol = (t_solve*)malloc(sizeof(t_solve))))
-				malloc_fail_base(map, solution);
-			solution->next = next_sol;
-			next_sol->prev = solution;
-			next_sol->path = road;
-			next_sol->next = NULL;
-			solution = next_sol;
-		}
+			add_first_road(&solution, &next_sol, map, &road);
 		tmp = tmp->next;
 	}
 	start->prev = NULL;
 	return (start);
 }
 
-void	ft_print_solution(t_solve * solution)
+void		ft_print_solution(t_solve *solution)
 {
 	t_solve	*tmp;
 
@@ -93,16 +96,16 @@ void	ft_print_solution(t_solve * solution)
 	ft_putchar('\n');
 }
 
-t_solve    *create_base_routes(t_map *map)
+t_solve		*create_base_routes(t_map *map)
 {
-    t_solve   *solution;
+	t_solve	*solution;
 
 	if (!(solution = (t_solve*)malloc(sizeof(t_solve))))
-        malloc_fail_base(map, solution);
-    solution->path = NULL;
-    solution->next = NULL;
+		malloc_fail_base(map, solution);
+	solution->path = NULL;
+	solution->next = NULL;
 	solution = get_first_roads(solution, map);
 	if (g_flags & FIRSTROADS)
 		ft_print_solution(solution);
-	return solution;
+	return (solution);
 }

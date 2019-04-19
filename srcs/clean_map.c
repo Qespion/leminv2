@@ -6,7 +6,7 @@
 /*   By: oespion <oespion@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/15 13:49:19 by avo               #+#    #+#             */
-/*   Updated: 2019/03/21 09:44:33 by oespion          ###   ########.fr       */
+/*   Updated: 2019/04/19 14:20:59 by oespion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,21 +15,21 @@
 
 void	ft_clean_map(t_map *map)
 {
-    t_node  *tmp_node;
-    t_link      *tmp_link;
+	t_node	*tmp_node;
+	t_link	*tmp_link;
 
 	while (map->begin)
-    {
-        tmp_node = map->begin->next;
-        while (map->begin->link)
-        {
-            tmp_link = map->begin->link->next;
-            free(map->begin->link);
-            map->begin->link = tmp_link;
-        }
-        free(map->begin->name);
-        free(map->begin);
-        map->begin = tmp_node;
-    }
-    free(map);
+	{
+		tmp_node = map->begin->next;
+		while (map->begin->link)
+		{
+			tmp_link = map->begin->link->next;
+			free(map->begin->link);
+			map->begin->link = tmp_link;
+		}
+		free(map->begin->name);
+		free(map->begin);
+		map->begin = tmp_node;
+	}
+	free(map);
 }

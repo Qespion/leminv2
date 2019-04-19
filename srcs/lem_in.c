@@ -6,14 +6,14 @@
 /*   By: oespion <oespion@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/06 16:27:46 by oespion           #+#    #+#             */
-/*   Updated: 2019/04/17 14:24:48 by oespion          ###   ########.fr       */
+/*   Updated: 2019/04/19 16:02:10 by oespion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libft/includes/libft.h"
 #include "lem_in.h"
 
-int	no_path(t_map *map)
+int		no_path(t_map *map)
 {
 	t_node	*begin;
 
@@ -27,14 +27,14 @@ int	no_path(t_map *map)
 	return (0);
 }
 
-int	is_valid(t_map *map)
+int		is_valid(t_map *map)
 {
 	if (!no_path(map) || !map->start || !map->end || !map->start->link)
 		return (0);
 	return (1);
 }
 
-void	print_help()
+void	print_help(void)
 {
 	ft_printf(" \e[32;40mNAME\033[0m\n");
 	ft_printf("	lem_in -- flow network simulator\n\n");
@@ -42,21 +42,19 @@ void	print_help()
 	ft_printf("	./lem_in [-mfngrl] < map\n\n");
 	ft_printf(" \e[32;40mOPTIONS\033[0m\n");
 	ft_printf("	%-20s%-6s%s\n", "--help", "-h", "display help.");
-	ft_printf("	%-20s%-6s%s\n", "--max_roads", "-m", "display max_roads in graph.");
-	ft_printf("	%-20s%-6s%s\n", "--first_roads", "-f", "display first roads in graph.");
-	ft_printf("	%-20s%-6s%s\n", "--nb_working", "-n", "display numbers of working roads found with BFS.");
+	ft_printf("	%-20s", "--max_roads");
+	ft_printf("%-6s%s\n", "-m", "display max_roads in graph.");
+	ft_printf("	%-20s", "--first_roads");
+	ft_printf("%-6s%s\n", "-f", "display first roads in graph.");
+	ft_printf("	%-20s", "--nb_working");
+	ft_printf("%-6s%s\n", "-n", "numbers of working roads found with BFS.");
 	ft_printf("	%-20s%-6s%s\n", "--graph", "-g", "display graph.");
-	ft_printf("	%-20s%-6s%s\n", "--road_gestion", "-r", "display possible combinaison of roads.");
-	ft_printf("	%-20s%-6s%s\n", "--line_nb", "-l", "display the number of line written.");
+	ft_printf("	%-20s", "--road_gestion");
+	ft_printf("%-6s%s\n", "-r", "display possible combinaison of roads.");
+	ft_printf("	%-20s", "--line_nb");
+	ft_printf("%-6s%s\n", "-l", "display the number of line written.");
 	exit(0);
 }
-
-// print max roads
-// print first roads
-// print nb working roads
-// print graph
-// print roads gestion
-// print nb line
 
 void	short_usage(char *str)
 {
@@ -75,11 +73,12 @@ void	short_usage(char *str)
 			g_flags |= ROADGESTION;
 		else if (*str == 'l')
 			g_flags |= LINENB;
-		else if(*str == 'h')
+		else if (*str == 'h')
 			print_help();
 		else
 		{
-			ft_printf("\e[31;1mError: '%c' is not a proper argument\033[0m\n", *str);
+			ft_printf("\e[31;1mError: '%c' ", *str);
+			ft_printf("is not a proper argument\033[0m\n");
 			print_help();
 		}
 		str++;
@@ -99,7 +98,7 @@ void	usage(int ac, char **av)
 			g_flags |= FIRSTROADS;
 		else if (!ft_strcmp(av[r], "--nb_working"))
 			g_flags |= NBWORKING;
-		else if  (!ft_strcmp(av[r], "--graph"))
+		else if (!ft_strcmp(av[r], "--graph"))
 			g_flags |= GRAPH;
 		else if (!ft_strcmp(av[r], "--road_gestion"))
 			g_flags |= ROADGESTION;
@@ -115,13 +114,13 @@ void	usage(int ac, char **av)
 	}
 }
 
-int	main(int ac, char **av)
+int		main(int ac, char **av)
 {
-	int			max_roads;
+	int		max_roads;
 	t_map	*map;
 	t_solve	*routes;
-	
-	g_flags =  0U;
+
+	g_flags = 0U;
 	if (ac > 1)
 		usage(ac, av);
 	map = nget_file();
@@ -129,11 +128,13 @@ int	main(int ac, char **av)
 	{
 		ft_printf("Error: Invalid map\n");
 		ft_clean_map(map);
-		return (-1);		
+		return (-1);
 	}
 	max_roads = get_max_roads(map);
 	if (g_flags & MAXROADS)
 		ft_printf("\n\e[32;40mMAX ROADS IN GRAPH\033[0m\n%d\n", max_roads);
+	if (g_flags & NBWORKING)
+		ft_printf("\e[32;40mWORKING ROADS FOUND IN BFS:\033[0m\n");
 	routes = create_base_routes(map);
 	routes = create_routes(map, max_roads, routes);
 	ft_clean_map(map);

@@ -6,7 +6,7 @@
 /*   By: oespion <oespion@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/06 16:27:53 by oespion           #+#    #+#             */
-/*   Updated: 2019/04/17 14:21:38 by oespion          ###   ########.fr       */
+/*   Updated: 2019/04/19 12:57:41 by oespion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,10 +38,10 @@ typedef struct		s_node
 typedef struct		s_map
 {
 	int				nb;
-	struct s_node	*jcpu;  // argh
-	struct s_node	*start; //starting point
+	struct s_node	*jcpu;
+	struct s_node	*start;
 	struct s_node	*end;
-	struct s_node	*begin;	//start of chain
+	struct s_node	*begin;
 }					t_map;
 
 typedef struct		s_road

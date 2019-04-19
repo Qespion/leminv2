@@ -6,16 +6,18 @@
 /*   By: oespion <oespion@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/20 13:17:46 by oespion           #+#    #+#             */
-/*   Updated: 2019/04/02 11:13:32 by oespion          ###   ########.fr       */
+/*   Updated: 2019/04/19 14:32:29 by oespion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libft/includes/libft.h"
 #include "lem_in.h"
-//to rm
+
 void	ft_print_line(int *line, int len)
 {
-	int r = 0;
+	int r;
+
+	r = 0;
 	while (r <= len - 1)
 	{
 		ft_printf("%d - ", line[r++]);
@@ -23,7 +25,7 @@ void	ft_print_line(int *line, int len)
 	ft_printf("turn: %d\n", line[r]);
 }
 
-int     *set_zero(int *roads, int len, int **tab, int r)
+int		*set_zero(int *roads, int len, int **tab, int r)
 {
 	int rr;
 
@@ -65,7 +67,7 @@ int		*copy_tmp_line(int *try_line, int *tmp_line, int len)
 	return (try_line);
 }
 
-int     *ft_solution(int *try, int len, int **tab, int r)
+int		*ft_solution(int *try, int len, int **tab, int r)
 {
 	int *solution;
 
@@ -90,7 +92,7 @@ int		check_lines(int *l_one, int *l_two, int len)
 	return (1);
 }
 
-int 	calc_nb_road(int *line, int len)
+int		calc_nb_road(int *line, int len)
 {
 	int nb;
 	int	r;
@@ -122,7 +124,7 @@ int		calc_nb_turn(int *line, int ants, int len)
 		r++;
 	}
 	r = 0;
-	while (r <  len - 1)
+	while (r < len - 1)
 	{
 		if (line[r] != 0)
 			diff += find_biggest - line[r];
@@ -132,69 +134,58 @@ int		calc_nb_turn(int *line, int ants, int len)
 	return ((ants / calc_nb_road(line, len)) + find_biggest);
 }
 
-int		*try_option(int **tab, int len, int *cpy_line, int r, int ants)
+int		*try_option(int **tab, int len, int *cpy_line, int *util)
 {
 	int	i;
 
 	i = 0;
-	while (i < len -  1)
+	while (i < len - 1)
 	{
-		if (tab[r][i] != 0)
+		if (tab[util[1]][i] != 0)
 		{
 			if (check_lines(cpy_line, tab[i], len))
-				cpy_line[i] = tab[r][i];
+				cpy_line[i] = tab[util[1]][i];
 		}
 		i++;
 	}
-	// if (calc_nb_road(cpy_line,len) == 5)
-	// {
-	// 	ft_printf("road nb =%d\n", calc_nb_road(cpy_line, len));
-	// 	cpy_line[len] = calc_nb_turn(cpy_line, ants, len);
-	// 	ft_print_line(cpy_line, len);
-	// 	exit(1);
-	// }
-	// ft_printf("road nb =%d\n", calc_nb_road(cpy_line, len));
-	// ft_printf("line len");
-	cpy_line[len] = calc_nb_turn(cpy_line, ants, len);
+	cpy_line[len] = calc_nb_turn(cpy_line, util[0], len);
 	if (g_flags & ROADGESTION)
-		ft_print_line(cpy_line, len);	
+		ft_print_line(cpy_line, len);
 	return (cpy_line);
 }
 
-int		*find_group(int *solution, int len, int **tab, int ants, int r)
+void	group_check_line(int **sol, int len, int **tmp)
+{
+	if ((*sol)[len] == 0 || ((*sol)[len] != 0 && (*tmp)[len] < (*sol)[len]))
+	{
+		free((*sol));
+		(*sol) = (*tmp);
+	}
+	else
+		free((*tmp));
+}
+
+int		*find_group(int *solution, int len, int **tab, int *util)
 {
 	int	i;
-	int	*cpy_line; 
+	int	*cpy_line;
 	int	*tmp;
-	i = 0;
 
+	i = 0;
 	cpy_line = create_malloc_line(solution, len);
-	// cpy_line[r] = 0;
 	while (i < len - 1)
 	{
-		if (tab[r][i] != 0)
+		if (tab[util[1]][i] != 0 && check_lines(cpy_line, tab[i], len))
 		{
-			if (check_lines(cpy_line, tab[i], len))
-			{
-				tmp = create_malloc_line(cpy_line, len);
-				tmp[i] = tab[i][i];
-				tmp = try_option(tab, len, tmp, r, ants);
-				cpy_line[i] = 0; 
-				// ft_print_line(tmp, len);
-				if (solution[len] == 0 || (solution[len] != 0 && tmp[len] < solution[len]))
-				{
-					free(solution);
-					solution = tmp;
-				}
-				else
-					free(tmp);
-			}
+			tmp = create_malloc_line(cpy_line, len);
+			tmp[i] = tab[i][i];
+			tmp = try_option(tab, len, tmp, util);
+			cpy_line[i] = 0;
+			group_check_line(&solution, len, &tmp);
 		}
 		i++;
 	}
 	free(cpy_line);
-	// ft_printf("road nb =%d\n", calc_nb_road(cpy_line, len));
-	// ft_print_line(solution, len);
 	return (solution);
 }
 
@@ -202,31 +193,32 @@ int		*try_line(int r, int len, int ants, int **tab)
 {
 	int *try;
 	int	*solution;
+	int util[2];
 
 	if (!(try = (int*)malloc(sizeof(int) * (len + 1))))
 		exit(-1);
 	try = copy_tmp_line(try, tab[r], len);
 	solution = ft_solution(try, len, tab, r);
-	solution = find_group(solution, len, tab, ants, r);
+	util[0] = ants;
+	util[1] = r;
+	solution = find_group(solution, len, tab, util);
 	free(try);
 	return (solution);
 }
 
-int    *bt_grp(int **tab, int len, int ants)
+int		*bt_grp(int **tab, int len, int ants)
 {
 	int r;
 	int *line;
 	int	*sol;
+
 	line = NULL;
 	r = 0;
-
-	if (g_flags & ROADGESTION)
-		ft_printf("\n\e[32;40mPOSSIBLE COMBINAISONS OF ROADS:\033[0m\n");
 	if (len == 1)
-		return(create_malloc_line(tab[0], len - 1));
+		return (create_malloc_line(tab[0], len - 1));
 	while (r < len)
 	{
-		sol = try_line(r, len, ants,  tab);
+		sol = try_line(r, len, ants, tab);
 		if (!line)
 			line = sol;
 		else if (line[len] > sol[len] && sol[len] != 0)
@@ -239,6 +231,5 @@ int    *bt_grp(int **tab, int len, int ants)
 			free(sol);
 		r++;
 	}
-	// ft_print_line(line, len);
 	return (line);
 }

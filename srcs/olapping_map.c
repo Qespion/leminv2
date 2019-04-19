@@ -6,7 +6,7 @@
 /*   By: oespion <oespion@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/25 14:05:42 by oespion           #+#    #+#             */
-/*   Updated: 2019/04/03 10:52:45 by oespion          ###   ########.fr       */
+/*   Updated: 2019/04/19 13:18:55 by oespion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,6 +109,5 @@ t_solve *epur_map(t_solve *solve)
     count = count_solve(solve);
     if (count > 1000)
         return(epured_solve(solve));
-    // ft_printf("solve nb -> %d\n", count);
     return (solve);
 }
