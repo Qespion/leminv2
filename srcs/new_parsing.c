@@ -6,7 +6,7 @@
 /*   By: oespion <oespion@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/28 14:30:27 by oespion           #+#    #+#             */
-/*   Updated: 2019/04/19 14:14:37 by oespion          ###   ########.fr       */
+/*   Updated: 2019/04/19 16:04:25 by oespion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ void	double_end(t_map *map, int which_end)
 {
 	t_node	*tmp;
 
+	(void)map;
 	if (which_end == 0)
 		ft_printf("\e[31;1mError: Double start \033[0m\n");
 	else if (which_end == 1)
@@ -65,13 +66,6 @@ void	double_end(t_map *map, int which_end)
 		ft_printf("\e[31;1mError: start is end\033[0m\n");
 	else if (which_end == 4)
 		ft_printf("\e[31;1mError: Invalid island input\033[0m\n");
-	while (map->begin)
-	{
-		tmp = map->begin->next;
-		free(map->begin);
-		map->begin = tmp;
-	}
-	free(map);
 	exit(-1);
 }
 
