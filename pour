@@ -1,0 +1,16 @@
+20
+##start
+start 1 0
+##end
+end 1 4
+room1 0 2
+room2 0 1
+ter1 23 4
+ter2 54 654
+start-room1
+start-room2
+room2-ter1
+room1-end
+ter1-end
+ter1-ter2
+ter2-start

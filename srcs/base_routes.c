@@ -6,34 +6,12 @@
 /*   By: oespion <oespion@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/06 16:28:22 by oespion           #+#    #+#             */
-/*   Updated: 2019/04/19 14:17:29 by oespion          ###   ########.fr       */
+/*   Updated: 2019/04/19 18:27:08 by oespion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libft/includes/libft.h"
 #include "lem_in.h"
-
-void		malloc_fail_base(t_map *map, t_solve *solution)
-{
-	t_road	*tmp;
-	t_solve	*tmp_sol;
-
-	while (solution)
-	{
-		tmp_sol = solution->next;
-		while (solution->path)
-		{
-			tmp = solution->path->prev;
-			free(solution->path);
-			solution->path = tmp;
-		}
-		free(solution);
-		solution = tmp_sol;
-	}
-	ft_clean_map(map);
-	ft_printf("\e[31;1mMalloc failed\033[0m\n");
-	exit(-1);
-}
 
 t_road		*start_road(t_map *map, t_solve *solution)
 {

@@ -6,33 +6,12 @@
 /*   By: oespion <oespion@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/06 16:27:46 by oespion           #+#    #+#             */
-/*   Updated: 2019/04/19 16:02:10 by oespion          ###   ########.fr       */
+/*   Updated: 2019/04/19 18:55:04 by oespion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libft/includes/libft.h"
 #include "lem_in.h"
-
-int		no_path(t_map *map)
-{
-	t_node	*begin;
-
-	begin = map->begin;
-	while (begin)
-	{
-		if (begin->link)
-			return (1);
-		begin = begin->next;
-	}
-	return (0);
-}
-
-int		is_valid(t_map *map)
-{
-	if (!no_path(map) || !map->start || !map->end || !map->start->link)
-		return (0);
-	return (1);
-}
 
 void	print_help(void)
 {
@@ -133,9 +112,9 @@ int		main(int ac, char **av)
 	max_roads = get_max_roads(map);
 	if (g_flags & MAXROADS)
 		ft_printf("\n\e[32;40mMAX ROADS IN GRAPH\033[0m\n%d\n", max_roads);
+	routes = create_base_routes(map);
 	if (g_flags & NBWORKING)
 		ft_printf("\e[32;40mWORKING ROADS FOUND IN BFS:\033[0m\n");
-	routes = create_base_routes(map);
 	routes = create_routes(map, max_roads, routes);
 	ft_clean_map(map);
 	return (0);
