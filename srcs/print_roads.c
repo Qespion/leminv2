@@ -6,7 +6,7 @@
 /*   By: oespion <oespion@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/21 16:30:34 by oespion           #+#    #+#             */
-/*   Updated: 2019/04/21 16:00:38 by oespion          ###   ########.fr       */
+/*   Updated: 2019/04/21 17:37:02 by oespion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,43 +41,64 @@ int		*create_base(int len)
 	return (tmp);
 }
 
-int		find_r_increase(int *line, int len)
+int     *transform_line(int *line, int ants, int len)
 {
+    int	*tmp;
 	int	r;
-	int	after;
+	int	next;
 
-	r = 0;
-	while (r < len)
-	{
-		while (line[r] == 0 && r < len)
-			r++;
-		// if (r == len)
-		// 	break ;
-		after = r + 1;
-		while (line[after] == 0)
-			after++;
-		if (line[r] < line[after])
-			return (r);
-		else
-			r++;
-	}
-	return (r - 1);
-}
-
-int		*transform_line(int *line, int ants, int len)
-{
-	int	r;
-	int	*new_line;
-
-	new_line = create_base(len);
+	tmp = create_base(len);
 	while (ants)
 	{
-		r = find_r_increase(line, len);
-		ants--;
-		new_line[r]++;
-		line[r]++;
+		r = 0;
+		while (line[r] == 0)
+			r++;
+		next = r + 1;
+		while (next < len && line[next] == 0)
+			next++;
+		if (next == len || line[r] < line[next])
+		{
+			ants--;
+			line[r]++;
+			tmp[r]++;
+			if (!ants)
+				return (tmp);
+		}
+		while (line[r] >= line[next])
+		{
+			r++;
+			while (r < len && line[r] == 0)
+				r++;
+			if (r == len)
+			{
+				r--;
+				while (line[r] == 0)
+					r--;
+				ants--;
+				line[r]++;
+				tmp[r]++;
+				break ;
+			}
+			next = r + 1;
+			while (next < len && line[next] == 0)
+				next++;
+			if (next == len)
+			{
+				ants--;
+				line[r]++;
+				tmp[r]++;
+				break ;
+			}
+			if (line[r] < line[next])
+			{
+				ants--;
+				line[r]++;
+				tmp[r]++;
+				break ;	
+			}
+		}
 	}
-	return (new_line);
+	return (tmp);
 }
 
 void	send_player(t_pack **start, t_pack **np, t_pack **lt, t_journey **play)
@@ -236,6 +257,8 @@ void	get_best_road(int *line, int ants, t_wroad *wroad)
 	int	len;
 
 	len = ft_wroad_len(wroad);
+	// ft_print_line(line, len);
+	// exit(32);
 	line = transform_line(line, ants, len);
 	push_ants(wroad, line, len);
 	free(line);
