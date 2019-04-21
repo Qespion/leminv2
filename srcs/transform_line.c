@@ -6,7 +6,7 @@
 /*   By: oespion <oespion@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/21 20:52:05 by oespion           #+#    #+#             */
-/*   Updated: 2019/04/21 21:13:51 by oespion          ###   ########.fr       */
+/*   Updated: 2019/04/21 21:24:01 by oespion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,15 @@ void	add_ants_line(int **line, int **tmp, int *ants, int r)
 
 // FACKING FUNCTION TO NORMALIEZ
 //FUYCK
+void	util_move(int *util, int *util_one, int **line, int len)
+{
+		*util = 0;
+		while ((*line)[*util] == 0)
+			(*util)++;
+		*util_one = *util + 1;
+		while (*util_one < len && (*line)[*util_one] == 0)
+			(*util_one)++;
+}
 
 int		*transform_line(int *line, int ants, int len)
 {
@@ -31,12 +40,7 @@ int		*transform_line(int *line, int ants, int len)
 	tmp = create_base(len);
 	while (ants)
 	{
-		util[0] = 0;
-		while (line[util[0]] == 0)
-			util[0]++;
-		util[1] = util[0] + 1;
-		while (util[1] < len && line[util[1]] == 0)
-			util[1]++;
+		util_move(&(util[0]), &(util[1]), &line, len);
 		if (util[1] == len || line[util[0]] < line[util[1]])
 		{
 			add_ants_line(&line, &tmp, &ants, util[0]);
