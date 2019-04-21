@@ -6,7 +6,7 @@
 /*   By: oespion <oespion@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/25 14:05:42 by oespion           #+#    #+#             */
-/*   Updated: 2019/04/21 13:16:49 by oespion          ###   ########.fr       */
+/*   Updated: 2019/04/21 19:44:01 by oespion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ t_solve	*epur_map(t_solve *solve)
 	int count;
 
 	count = count_solve(solve);
-	if (count > 1000)
+	if (count > 2000)
 		return (epured_solve(solve));
 	return (solve);
 }

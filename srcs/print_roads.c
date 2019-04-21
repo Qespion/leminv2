@@ -6,7 +6,7 @@
 /*   By: oespion <oespion@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/21 16:30:34 by oespion           #+#    #+#             */
-/*   Updated: 2019/04/21 17:37:02 by oespion          ###   ########.fr       */
+/*   Updated: 2019/04/21 20:56:39 by oespion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,166 +15,6 @@
 
 int g_turn = 0;
 int g_ants = 1;
-
-void	print_pack(t_pack *player)
-{
-	while (player)
-	{
-		ft_printf("player => L%d\n", player->player->bib_nb);
-		player = player->nxt;
-	}
-}
-
-int		*create_base(int len)
-{
-	int	*tmp;
-	int	r;
-
-	r = 0;
-	if (!(tmp = (int*)malloc(sizeof(int) * (len + 1))))
-		exit(1);
-	while (r <= len)
-	{
-		tmp[r] = 0;
-		r++;
-	}
-	return (tmp);
-}
-
-int     *transform_line(int *line, int ants, int len)
-{
-    int	*tmp;
-	int	r;
-	int	next;
-
-	tmp = create_base(len);
-	while (ants)
-	{
-		r = 0;
-		while (line[r] == 0)
-			r++;
-		next = r + 1;
-		while (next < len && line[next] == 0)
-			next++;
-		if (next == len || line[r] < line[next])
-		{
-			ants--;
-			line[r]++;
-			tmp[r]++;
-			if (!ants)
-				return (tmp);
-		}
-		while (line[r] >= line[next])
-		{
-			r++;
-			while (r < len && line[r] == 0)
-				r++;
-			if (r == len)
-			{
-				r--;
-				while (line[r] == 0)
-					r--;
-				ants--;
-				line[r]++;
-				tmp[r]++;
-				break ;
-			}
-			next = r + 1;
-			while (next < len && line[next] == 0)
-				next++;
-			if (next == len)
-			{
-				ants--;
-				line[r]++;
-				tmp[r]++;
-				break ;
-			}
-			if (line[r] < line[next])
-			{
-				ants--;
-				line[r]++;
-				tmp[r]++;
-				break ;	
-			}
-		}
-	}
-	return (tmp);
-}
-
-void	send_player(t_pack **start, t_pack **np, t_pack **lt, t_journey **play)
-{
-	if (!(*start))
-	{
-		if (!(*start = (t_pack*)malloc(sizeof(t_pack))))
-			exit(-1);
-		(*start)->player = *play;
-		(*start)->nxt = NULL;
-	}
-	else
-	{
-		if (!(*np = (t_pack*)malloc(sizeof(t_pack))))
-			exit(-1);
-		*lt = *start;
-		while ((*lt)->nxt)
-			*lt = (*lt)->nxt;
-		(*lt)->nxt = *np;
-		(*np)->nxt = NULL;
-		(*np)->player = *play;
-	}
-}
-
-t_pack	*new_player_in_field(t_pack *start, t_wroad *wroad, int r)
-{
-	t_pack		*last_teammember;
-	t_pack		*new_player;
-	t_journey	*player;
-	t_road		*road;
-
-	if (!(player = (t_journey*)malloc(sizeof(t_journey))))
-		exit(-1);
-	while (wroad->nb != r)
-		wroad = wroad->next;
-	road = wroad->path;
-	if (!road->prev->prev)
-		road = road->prev;
-	else
-	{
-		while (road->prev->prev)
-			road = road->prev;
-	}
-	player->node = road->current;
-	player->wroad = wroad;
-	send_player(&start, &new_player, &last_teammember, &player);
-	player->bib_nb = g_ants;
-	g_ants++;
-	return (start);
-}
-
-t_pack	*remove_from_field(t_pack *start, t_pack *rm)
-{
-	t_pack	*tmp;
-
-	if (start == rm)
-		start = start->nxt;
-	else
-	{
-		tmp = start;
-		while (tmp->nxt != rm)
-			tmp = tmp->nxt;
-		tmp->nxt = tmp->nxt->nxt;
-	}
-	if (rm->player)
-	{
-		free(rm->player);
-		rm->player = NULL;
-	}
-	if (rm)
-	{
-		free(rm);
-		rm = NULL;
-	}
-	return (start);
-}
 
 void	print_line_lemin(t_road **tmp, t_pack **pack, t_pack **start)
 {
@@ -213,15 +53,31 @@ t_pack	*print_player(t_pack *pack)
 	return (start);
 }
 
-int		check_end(t_pack *the_pack)
+t_pack	*new_player_in_field(t_pack *start, t_wroad *wroad, int r)
 {
-	while (the_pack)
+	t_pack		*last_teammember;
+	t_pack		*new_player;
+	t_journey	*player;
+	t_road		*road;
+
+	if (!(player = (t_journey*)malloc(sizeof(t_journey))))
+		exit(-1);
+	while (wroad->nb != r)
+		wroad = wroad->next;
+	road = wroad->path;
+	if (!road->prev->prev)
+		road = road->prev;
+	else
 	{
-		if (the_pack->player->node != the_pack->player->wroad->path->current)
-			return (1);
-		the_pack = the_pack->nxt;
+		while (road->prev->prev)
+			road = road->prev;
 	}
-	return (0);
+	player->node = road->current;
+	player->wroad = wroad;
+	send_player(&start, &new_player, &last_teammember, &player);
+	player->bib_nb = g_ants;
+	g_ants++;
+	return (start);
 }
 
 void	push_ants(t_wroad *wroad, int *line, int len)
@@ -257,8 +113,6 @@ void	get_best_road(int *line, int ants, t_wroad *wroad)
 	int	len;
 
 	len = ft_wroad_len(wroad);
-	// ft_print_line(line, len);
-	// exit(32);
 	line = transform_line(line, ants, len);
 	push_ants(wroad, line, len);
 	free(line);
