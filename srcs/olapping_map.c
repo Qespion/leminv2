@@ -6,7 +6,7 @@
 /*   By: oespion <oespion@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/25 14:05:42 by oespion           #+#    #+#             */
-/*   Updated: 2019/04/19 18:18:20 by oespion          ###   ########.fr       */
+/*   Updated: 2019/04/21 13:16:49 by oespion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,18 +24,6 @@ int		count_solve(t_solve *solve)
 		nb++;
 	}
 	return (nb);
-}
-
-void	free_road(t_road *road)
-{
-	t_road	*tmp;
-
-	while (road)
-	{
-		tmp = road->prev;
-		free(road);
-		road = tmp;
-	}
 }
 
 t_solve	*del_tmp(t_solve *tmp, t_solve *solve)

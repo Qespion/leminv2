@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   new_parsing.c                                      :+:      :+:    :+:   */
+/*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: oespion <oespion@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/28 14:30:27 by oespion           #+#    #+#             */
-/*   Updated: 2019/04/19 19:24:13 by oespion          ###   ########.fr       */
+/*   Updated: 2019/04/21 15:30:45 by oespion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,11 +53,8 @@ t_map	*get_ants(char *str, t_map *map)
 	return (map);
 }
 
-void	double_end(t_map *map, int which_end)
+void	double_end(int which_end)
 {
-	t_node	*tmp;
-
-	(void)map;
 	if (which_end == 0)
 		ft_printf("\e[31;1mError: Double start \033[0m\n");
 	else if (which_end == 1)
@@ -66,6 +63,10 @@ void	double_end(t_map *map, int which_end)
 		ft_printf("\e[31;1mError: start is end\033[0m\n");
 	else if (which_end == 4)
 		ft_printf("\e[31;1mError: Invalid island input\033[0m\n");
+	else if (which_end == 5)
+		ft_printf("\e[31;1mError: Island can't start with 'L'\033[0m\n");
+	else if (which_end == 6)
+		ft_printf("\e[31;1mError: Island can't start with '#'\033[0m\n");
 	exit(-1);
 }
 
@@ -83,32 +84,32 @@ int		find_space(char *str)
 	return (0);
 }
 
-void	check_valid_island(char *str, t_map *map)
+void	check_valid_island(char *str)
 {
 	int	r;
 
 	if (!ft_strcmp(str, "##start") || !ft_strcmp(str, "##end"))
 		return ;
 	if (str[0] == ' ')
-		double_end(map, 4);
+		double_end(4);
 	r = 1;
 	while (str[r] != ' ' && str[r])
 		r++;
 	if (str[r] != ' ')
-		double_end(map, 4);
+		double_end(4);
 	r++;
 	while (str[r] >= 48 && str[r] <= 57)
 		r++;
 	if (str[r] != ' ')
-		double_end(map, 4);
+		double_end(4);
 	r++;
 	while (str[r] >= 48 && str[r] <= 57)
 		r++;
 	if (str[r] != '\0')
-		double_end(map, 4);
+		double_end(4);
 }
 
-int		start_end(int *start, int *end, t_map *map, char *str)
+int		start_end(int *start, int *end, char *str)
 {
 	if (!ft_strcmp(str, "##start"))
 	{
@@ -125,19 +126,21 @@ int		start_end(int *start, int *end, t_map *map, char *str)
 
 t_map	*error_case(t_map *map, int *start, int *end, t_node *new_node)
 {
+	if (new_node->name[0] == 'L')
+		double_end(5);
 	if (*start == 1 && *end == 1)
-		double_end(map, 3);
+		double_end(3);
 	if (*start == 1)
 	{
 		if (map->start)
-			double_end(map, 0);
+			double_end(0);
 		map->start = new_node;
 		*start = -1;
 	}
 	else if (*end == 1)
 	{
 		if (map->end)
-			double_end(map, 1);
+			double_end(1);
 		map->end = new_node;
 		*end = -1;
 	}
@@ -151,7 +154,7 @@ t_map	*get_island(char *str, t_map *map)
 	char		*tmp;
 	t_node		*new_node;
 
-	if (start_end(&start, &end, map, str))
+	if (start_end(&start, &end, str))
 		return (map);
 	if (!(new_node = (t_node*)malloc(sizeof(t_node))))
 		exit(-1);
@@ -196,7 +199,7 @@ void	check_double_road(t_node *tmp, t_link *last_link, t_map *map)
 	{
 		if (link->node == last_link->node)
 		{
-			ft_printf("\e[31;1mError: link twice between ");
+			ft_printf("\n\e[31;1mError: link twice between ");
 			ft_printf("%s and %s\033[0m\n", link->node->name, tmp->name);
 			ft_clean_map(map);
 			exit(-1);
@@ -211,7 +214,10 @@ void	error_road(char *name1, char *name2, t_node **tmp, t_node **tmp2)
 	{
 		if (!(*tmp)->next)
 		{
-			ft_printf("\e[31;1m%s road not found\033[0m\n", name1);
+			if (name1[0] == '#')
+				ft_printf("\e[31;1mError: Island can't start with #\033[0m\n");
+			else
+				ft_printf("\e[31;1m%s road not found\033[0m\n", name1);
 			exit(-1);
 		}
 		(*tmp) = (*tmp)->next;
@@ -220,7 +226,10 @@ void	error_road(char *name1, char *name2, t_node **tmp, t_node **tmp2)
 	{
 		if (!(*tmp2)->next)
 		{
-			ft_printf("\e[31;1m%s road not found\033[0m\n", name2);
+			if (name2[0] == '#')
+				ft_printf("\e[31;1mError: Island can't start with #\033[0m\n");
+			else
+				ft_printf("\e[31;1m%s road not found\033[0m\n", name2);
 			exit(-1);
 		}
 		(*tmp2) = (*tmp2)->next;
@@ -241,7 +250,7 @@ void	link_on_tmp2(t_node ***tmp2, t_link **startlink, t_link **new_link2)
 	}
 }
 
-void	link_on_road(t_node **tmp, t_node **tmp2)
+void	link_on_road(t_node **tmp, t_node **tmp2, t_map *map)
 {
 	t_link	*new_link;
 	t_link	*new_link2;
@@ -265,6 +274,7 @@ void	link_on_road(t_node **tmp, t_node **tmp2)
 		(*tmp)->link->next = new_link;
 		(*tmp)->link = startlink;
 	}
+	check_double_road(*tmp, new_link, map);
 	link_on_tmp2(&tmp2, &startlink, &new_link2);
 }
 
@@ -282,7 +292,7 @@ t_map	*get_road(char *str, t_map *map)
 	name1 = ft_strsub(str, 0, find_del(str));
 	name2 = ft_strchr(str, '-') + 1;
 	error_road(name1, name2, &tmp, &tmp2);
-	link_on_road(&tmp, &tmp2);
+	link_on_road(&tmp, &tmp2, map);
 	free(name1);
 	return (map);
 }
@@ -293,7 +303,7 @@ t_map	*add_line(char *str, t_map *map, int turn)
 		map = get_ants(str, map);
 	else if (turn == 1)
 	{
-		check_valid_island(str, map);
+		check_valid_island(str);
 		map = get_island(str, map);
 	}
 	else
@@ -323,8 +333,10 @@ t_map	*read_file(t_map *map)
 	turn = 0;
 	while (get_next_line(0, &str))
 	{
-		if (str[0] == '#' && str[1] != '#')
+		if ((str[0] == '#' && str[1] != '#') || ((str[0] == '#' && str[1] == '#'
+			&& (ft_strcmp(str, "##start") && ft_strcmp(str, "##end")))))
 		{
+			ft_printf("%s\n", str);
 			free(str);
 			continue ;
 		}

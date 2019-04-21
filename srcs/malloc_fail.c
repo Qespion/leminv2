@@ -6,7 +6,7 @@
 /*   By: oespion <oespion@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/19 18:26:26 by oespion           #+#    #+#             */
-/*   Updated: 2019/04/19 19:24:02 by oespion          ###   ########.fr       */
+/*   Updated: 2019/04/21 13:15:35 by oespion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,4 +54,16 @@ int		is_valid(t_map *map)
 	if (!no_path(map) || !map->start || !map->end || !map->start->link)
 		return (0);
 	return (1);
+}
+
+void	free_road(t_road *road)
+{
+	t_road	*tmp;
+
+	while (road)
+	{
+		tmp = road->prev;
+		free(road);
+		road = tmp;
+	}
 }

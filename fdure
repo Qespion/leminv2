@@ -1,8 +1,16 @@
-634
+3
 ##start
 start 1 0
 ##end
 end 1 4
-start-end
-start-end
-start-end
+n1 1 1
+##gfdsgfds 
+n2 2 2
+#block 32 32
+block1 34 443
+start-n1
+start-n2
+n2-#block
+n1-block1
+block1-end
+#block-end

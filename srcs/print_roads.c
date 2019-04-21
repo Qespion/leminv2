@@ -6,7 +6,7 @@
 /*   By: oespion <oespion@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/21 16:30:34 by oespion           #+#    #+#             */
-/*   Updated: 2019/04/19 18:24:43 by oespion          ###   ########.fr       */
+/*   Updated: 2019/04/21 16:00:38 by oespion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,10 +49,12 @@ int		find_r_increase(int *line, int len)
 	r = 0;
 	while (r < len)
 	{
-		while (line[r] == 0)
+		while (line[r] == 0 && r < len)
 			r++;
+		// if (r == len)
+		// 	break ;
 		after = r + 1;
-		while (line[after] == 0 && after < len)
+		while (line[after] == 0)
 			after++;
 		if (line[r] < line[after])
 			return (r);
@@ -229,11 +231,10 @@ void	push_ants(t_wroad *wroad, int *line, int len)
 		the_pack = print_player(the_pack);
 }
 
-void	get_best_road(int *line, int ants, int max_roads, t_wroad *wroad)
+void	get_best_road(int *line, int ants, t_wroad *wroad)
 {
 	int	len;
 
-	(void)max_roads;
 	len = ft_wroad_len(wroad);
 	line = transform_line(line, ants, len);
 	push_ants(wroad, line, len);
