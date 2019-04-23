@@ -6,7 +6,7 @@
 /*   By: oespion <oespion@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/21 20:52:05 by oespion           #+#    #+#             */
-/*   Updated: 2019/04/23 11:24:22 by oespion          ###   ########.fr       */
+/*   Updated: 2019/04/23 12:47:43 by oespion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ int		break_loop_line(int ****lists, int ***util, int **ants, int len)
 		(**lists)[1][(**util)[0]]++;
 		return (1);
 	}
+	return (0);
 }
 
 void	loop_transform_line(int ***lists, int **util, int *ants, int len)
