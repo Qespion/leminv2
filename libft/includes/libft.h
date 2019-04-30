@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: avo <avo@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: oespion <oespion@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/19 13:50:29 by oespion           #+#    #+#             */
-/*   Updated: 2019/03/15 14:35:09 by avo              ###   ########.fr       */
+/*   Updated: 2019/04/30 12:59:46 by oespion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@
 # include <string.h>
 # include <limits.h>
 # include <stdarg.h>
-# include <stdio.h>
 # include <stdint.h>
+
 typedef struct	s_struct
 {
 	char		*str;
@@ -60,7 +60,6 @@ typedef	struct	s_list
 	struct s_list	*prev;
 	struct s_list	*next;
 }				t_list;
-
 
 char			*ft_strchr(const char *s, int c);
 char			*ft_strstr(const char *s1, const char *s2);
