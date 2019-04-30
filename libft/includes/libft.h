@@ -6,7 +6,7 @@
 /*   By: oespion <oespion@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/19 13:50:29 by oespion           #+#    #+#             */
-/*   Updated: 2019/04/30 12:59:46 by oespion          ###   ########.fr       */
+/*   Updated: 2019/04/30 14:55:27 by oespion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 # include <limits.h>
 # include <stdarg.h>
 # include <stdint.h>
-
+# include <stdio.h>
 typedef struct	s_struct
 {
 	char		*str;
