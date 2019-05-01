@@ -6,7 +6,7 @@
 /*   By: oespion <oespion@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/21 18:05:59 by oespion           #+#    #+#             */
-/*   Updated: 2019/05/01 12:32:40 by oespion          ###   ########.fr       */
+/*   Updated: 2019/05/01 12:39:20 by oespion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,6 @@ t_map	*get_island(char *str, t_map *map)
 {
 	static int	start = 0;
 	static int	end = 0;
-	char		*tmp;
 	t_node		*new_node;
 
 	if (start_end(&start, &end, str))

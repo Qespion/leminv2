@@ -1,7 +1,7 @@
 .PHONY: all checker push_swap lib minilibx clean fclean re
 .SUFFIXES:
 CC		=	gcc
-FLAGS   =   -fsanitize=address
+FLAGS   =   -Wall -Wextra -Werror
 LIB_DIR =   libft/
 NAME1	=	lem-in
 
