@@ -6,7 +6,7 @@
 /*   By: oespion <oespion@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/21 18:08:42 by oespion           #+#    #+#             */
-/*   Updated: 2019/04/21 18:09:54 by oespion          ###   ########.fr       */
+/*   Updated: 2019/05/01 12:53:04 by oespion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,8 @@ t_map	*get_road(char *str, t_map *map)
 		return (map);
 	name1 = ft_strsub(str, 0, find_del(str));
 	name2 = ft_strchr(str, '-') + 1;
-	error_road(name1, name2, &tmp, &tmp2);
+	if (!error_road(name1, name2, &tmp, &tmp2))
+		map->valid = 0;
 	link_on_road(&tmp, &tmp2, map);
 	free(name1);
 	return (map);

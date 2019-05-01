@@ -6,7 +6,7 @@
 /*   By: oespion <oespion@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/28 14:30:27 by oespion           #+#    #+#             */
-/*   Updated: 2019/04/23 15:16:31 by oespion          ###   ########.fr       */
+/*   Updated: 2019/05/01 12:55:19 by oespion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	check_double_road(t_node *tmp, t_link *last_link, t_map *map)
 	{
 		if (link->node == last_link->node)
 		{
-			ft_printf("\n\e[31;1mError: link twice between ");
+			ft_printf("\n\e[31;1mERROR: link twice between ");
 			ft_printf("%s and %s\033[0m\n", link->node->name, tmp->name);
 			ft_clean_map(map);
 			exit(-1);
@@ -66,6 +66,8 @@ t_map	*read_file(t_map *map)
 		ft_printf("%s\n", str);
 		if (str)
 			free(str);
+		if (!map->valid)
+			return (map);
 	}
 	if (str)
 		free(str);
@@ -78,6 +80,7 @@ t_map	*nget_file(void)
 
 	if (!(map = (t_map*)malloc(sizeof(t_map))))
 		exit(-1);
+	map->valid = 1;
 	map->jcpu = NULL;
 	map->start = NULL;
 	map->end = NULL;

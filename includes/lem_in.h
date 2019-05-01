@@ -6,7 +6,7 @@
 /*   By: oespion <oespion@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/06 16:27:53 by oespion           #+#    #+#             */
-/*   Updated: 2019/05/01 11:34:32 by oespion          ###   ########.fr       */
+/*   Updated: 2019/05/01 12:53:03 by oespion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ void	init_wroad(t_wroad **wroad, t_solve **routes, t_map *map);
 t_map	*get_ants(char *str, t_map *map);
 void	double_end(int which_end);
 t_map	*error_case(t_map *map, int *start, int *end, t_node *new_node);
-void	error_road(char *name1, char *name2, t_node **tmp, t_node **tmp2);
+int		error_road(char *name1, char *name2, t_node **tmp, t_node **tmp2);
 void	link_wo_island(t_map *map);
 void	check_valid_island(char *str);
 t_map	*get_island(char *str, t_map *map);

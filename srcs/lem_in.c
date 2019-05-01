@@ -6,7 +6,7 @@
 /*   By: oespion <oespion@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/06 16:27:46 by oespion           #+#    #+#             */
-/*   Updated: 2019/05/01 12:15:36 by oespion          ###   ########.fr       */
+/*   Updated: 2019/05/01 12:52:06 by oespion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ void	short_usage(char *str)
 			print_help();
 		else
 		{
-			ft_printf("\e[31;1mError: '%c' ", *str);
+			ft_printf("\e[31;1mERROR: '%c' ", *str);
 			ft_printf("is not a proper argument\033[0m\n");
 			print_help();
 		}

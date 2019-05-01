@@ -6,7 +6,7 @@
 /*   By: oespion <oespion@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/20 10:00:49 by oespion           #+#    #+#             */
-/*   Updated: 2019/04/30 17:17:34 by oespion          ###   ########.fr       */
+/*   Updated: 2019/05/01 12:51:58 by oespion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	check_err_road(t_wroad **wroad, t_map *map, t_solve **nr)
 {
 	if (!(*wroad))
 	{
-		ft_printf("\e[31;1mError: No working roads \033[0m\n");
+		ft_printf("\e[31;1mERROR: No working roads \033[0m\n");
 		exit(2);
 	}
 	*wroad = ft_find_conflict(*wroad, map);

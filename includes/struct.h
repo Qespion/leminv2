@@ -6,7 +6,7 @@
 /*   By: oespion <oespion@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/06 16:27:53 by oespion           #+#    #+#             */
-/*   Updated: 2019/04/30 16:30:57 by oespion          ###   ########.fr       */
+/*   Updated: 2019/05/01 12:46:12 by oespion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ typedef struct			s_node
 
 typedef struct			s_map
 {
+	int					valid;
 	int					nb;
 	struct s_node		*jcpu;
 	struct s_node		*start;
