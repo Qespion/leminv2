@@ -1,5 +1,4 @@
-.PHONY: all checker push_swap lib minilibx clean fclean re
-.SUFFIXES:
+.PHONY: all lem_in lib clean fclean re
 CC		=	gcc
 FLAGS   =   -Wall -Wextra -Werror
 LIB_DIR =   libft/
