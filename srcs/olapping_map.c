@@ -6,7 +6,7 @@
 /*   By: oespion <oespion@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/25 14:05:42 by oespion           #+#    #+#             */
-/*   Updated: 2019/04/21 19:44:01 by oespion          ###   ########.fr       */
+/*   Updated: 2019/05/01 12:32:46 by oespion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,14 +15,18 @@
 
 int		count_solve(t_solve *solve)
 {
-	int	nb;
+	static int	turn = 2;
+	int			nb;
 
 	nb = 0;
 	while (solve)
 	{
+		if (!solve->path->current->bfs)
+			solve->path->current->bfs = turn;
 		solve = solve->next;
 		nb++;
 	}
+	turn++;
 	return (nb);
 }
 
@@ -47,38 +51,35 @@ t_solve	*del_tmp(t_solve *tmp, t_solve *solve)
 	return (start);
 }
 
-int		check_road(t_solve *check, t_solve *start)
+int		get_lowest_number(t_solve *solve)
 {
-	t_road	*cmp;
+	int	nb;
 
-	while (start)
+	while (!solve->path->current->bfs)
+		solve = solve->next;
+	nb = solve->path->current->bfs;
+	while (solve)
 	{
-		if (start == check)
-		{
-			start = start->next;
-			continue ;
-		}
-		cmp = start->path->prev;
-		while (cmp)
-		{
-			if (cmp->current == check->path->current)
-				return (0);
-			cmp = cmp->prev;
-		}
-		start = start->next;
+		if (!nb && solve->path->current->bfs)
+			nb = solve->path->current->bfs;
+		else if (solve->path->current->bfs && solve->path->current->bfs < nb)
+			nb = solve->path->current->bfs;
+		solve = solve->next;
 	}
-	return (1);
+	return (nb);
 }
 
 t_solve	*epured_solve(t_solve *solve)
 {
+	int		number;
 	t_solve *tmp;
 	t_solve *tmped_tmp;
 
 	tmp = solve;
+	number = get_lowest_number(solve);
 	while (tmp)
 	{
-		if (!check_road(tmp, solve))
+		if (tmp->path->current->bfs == number)
 		{
 			tmped_tmp = tmp->next;
 			solve = del_tmp(tmp, solve);
@@ -92,10 +93,7 @@ t_solve	*epured_solve(t_solve *solve)
 
 t_solve	*epur_map(t_solve *solve)
 {
-	int count;
-
-	count = count_solve(solve);
-	if (count > 2000)
-		return (epured_solve(solve));
+	while (count_solve(solve) > 500)
+		solve = epured_solve(solve);
 	return (solve);
 }

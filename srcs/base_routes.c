@@ -6,7 +6,7 @@
 /*   By: oespion <oespion@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/06 16:28:22 by oespion           #+#    #+#             */
-/*   Updated: 2019/04/21 14:40:22 by oespion          ###   ########.fr       */
+/*   Updated: 2019/05/01 11:30:19 by oespion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ t_solve		*get_first_roads(t_solve *solution, t_map *map)
 		if (!(road = (t_road*)malloc(sizeof(t_road))))
 			malloc_fail_base(map, solution);
 		road->current = tmp->node;
+		tmp->node->bfs = 1;
 		road->prev = start_road(map, solution);
 		if (!solution->path)
 			solution->path = road;

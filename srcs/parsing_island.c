@@ -6,7 +6,7 @@
 /*   By: oespion <oespion@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/21 18:05:59 by oespion           #+#    #+#             */
-/*   Updated: 2019/04/21 19:55:58 by oespion          ###   ########.fr       */
+/*   Updated: 2019/05/01 12:32:40 by oespion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,8 +85,8 @@ t_map	*get_island(char *str, t_map *map)
 		return (map);
 	if (!(new_node = (t_node*)malloc(sizeof(t_node))))
 		exit(-1);
-	tmp = ft_strsub(str, 0, find_space(str));
-	new_node->name = tmp;
+	new_node->name = ft_strsub(str, 0, find_space(str));
+	new_node->bfs = 0;
 	new_node->link = NULL;
 	new_node->next = NULL;
 	if (!map->jcpu)
