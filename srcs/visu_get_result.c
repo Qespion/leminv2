@@ -6,7 +6,7 @@
 /*   By: ratin <ratin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/02 19:09:09 by ratin             #+#    #+#             */
-/*   Updated: 2019/05/03 19:58:31 by ratin            ###   ########.fr       */
+/*   Updated: 2019/05/03 22:31:58 by ratin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void		parse(t_visu *visu, char *str, int turn)
 		if (ft_strcmp(str, "") == 0)
 			visu->tube_finished = 1;
 		else
-			get_tube(visu, str);
+			get_link(visu, str);
 	}
 }
 
@@ -72,7 +72,7 @@ int			get_result(t_visu *visu)
 	char 	*result;
 
 	result = read_result(visu);
-	//ft_printf("%s", result);
+	ft_printf("%s", result);
 	print_rooms(visu);
 	visu->result = result;
 	return (1);

@@ -37,8 +37,14 @@ SRCS_2	=	srcs/visu.c \
 			srcs/visu_fill_map.c \
 			srcs/visu_get_tube.c \
 			srcs/visu_link.c \
+			srcs/visu_bresenham.c \
+			srcs/visu_pixel.c \
+			srcs/visu_mlx.c \
 
 LIBFT	=	libft/libft.a
+INC		= 	-I mlx/
+X 		= 	-I /System/Library/Frameworks/Tk.framework/Versions/8.5/Headers/X11/
+MLX 	=	mlx/ -lmlx -framework OpenGL -framework AppKit
 
 C_GREEN	=	"\033[32m"
 C_BLUE	=	"\033[36m"
@@ -57,7 +63,7 @@ lib:
 lem_in: $(OBJS1) $(OBJS2)
 	@ @echo $(C_GREEN)"----" $(C_BASE)
 	@$(CC) $(FLAGS) $(OBJS1) -L libft/ -lft -o $(NAME1)
-	@$(CC) $(FLAGS) $(OBJS2) -L libft/ -lft -o $(NAME2)
+	@$(CC) $(FLAGS) $(X) $(OBJS2) -L $(MLX) -L libft/ -lft -o $(NAME2)
 
 %.o: %.c
 	@$(CC) $(FLAGS) -c $< -o $@ -I includes/

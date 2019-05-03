@@ -6,7 +6,7 @@
 /*   By: ratin <ratin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/06 16:27:53 by oespion           #+#    #+#             */
-/*   Updated: 2019/05/03 20:51:35 by ratin            ###   ########.fr       */
+/*   Updated: 2019/05/04 00:15:27 by ratin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define LEM_IN_H
 
 # include "struct.h"
+# include <mlx.h>
 
 # define MAXROADS		(1U << 0U)
 # define FIRSTROADS		(1U << 1U)
@@ -21,6 +22,9 @@
 # define GRAPH			(1U << 3U)
 # define ROADGESTION	(1U << 4U)
 # define LINENB			(1U << 5U)
+# define WIDTH			2560
+# define HEIGHT			1440
+# define BACKSCREEN		1
 
 int		get_max_roads(t_map *map);
 t_solve	*create_base_routes(t_map *map);
@@ -78,8 +82,14 @@ int		get_result(t_visu *visu);
 void	fill_map(t_visu *visu, char *str);
 void	add_room(t_visu *visu, char *str, int special);
 void	print_rooms(t_visu *visu);
-int		get_tube(t_visu *visu, char *str);
 void	count_room(t_visu *visu);
 t_room	*get_room_by_name(t_visu *visu, char *name);
 void	add_link(t_visu *visu, t_room *room, char *name);
+void	get_link(t_visu *visu, char *str);
+int		ft_put_pixel(t_mlx *mlx, int x, int y, int color);
+void	vertical_limit(t_point *point1, t_point *point2, t_mlx *mlx, int color);
+int		put_line(t_point *point1, t_point *point2, t_mlx *mlx, int color);
+int		quit_visu(t_party *party);
+int		init_mlx(t_party *party);
+int		draw(t_party *party, t_visu *visu);
 #endif

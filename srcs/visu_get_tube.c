@@ -6,7 +6,7 @@
 /*   By: ratin <ratin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/03 16:58:31 by ratin             #+#    #+#             */
-/*   Updated: 2019/05/03 20:52:46 by ratin            ###   ########.fr       */
+/*   Updated: 2019/05/03 22:31:49 by ratin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,8 @@ void		get_link(t_visu *visu, char *str)
 	char	**name;
 	t_room	*room;
 
+	if (str[0] == '#')
+		return ;
 	name = get_both_name(str);
 	room = get_room_by_name(visu, name[0]);
 	add_link(visu, room, name[1]);
@@ -48,10 +50,4 @@ void		get_link(t_visu *visu, char *str)
 	free(name[0]);
 	free(name[1]);
 	free(name);
-}
-
-int			get_tube(t_visu *visu, char *str)
-{
-	get_link(visu, str);
-	return (1);
 }

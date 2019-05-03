@@ -6,7 +6,7 @@
 /*   By: ratin <ratin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/06 16:27:53 by oespion           #+#    #+#             */
-/*   Updated: 2019/05/03 19:40:05 by ratin            ###   ########.fr       */
+/*   Updated: 2019/05/03 23:09:30 by ratin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,5 +109,44 @@ typedef struct			s_visu
 	struct s_room		*room;
 	int					nbr_room;
 }						t_visu;
+
+typedef struct 			s_point
+{
+	int					x;
+	int 				y;
+}						t_point;
+
+typedef struct			s_img
+{
+	void				*img_ptr;
+	int					*data;
+	int					bpp;
+	int					size_l;
+	int					endian;
+}						t_img;
+
+typedef struct 			s_mlx
+{
+	void				*mlx_ptr;
+	void				*win_ptr;
+	t_img				img;
+}						t_mlx;
+
+typedef	struct			s_party
+{
+	int					turn;
+	int					pause;
+	int					i;
+	struct s_mlx		mlx;
+}						t_party;
+
+typedef struct			s_line
+{
+	int					dx;
+	int					dy;
+	int					dp;
+	int					delta_e;
+	int					delta_ne;
+}						t_line;
 
 #endif
