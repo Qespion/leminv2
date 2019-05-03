@@ -6,7 +6,7 @@
 /*   By: ratin <ratin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/06 16:27:53 by oespion           #+#    #+#             */
-/*   Updated: 2019/05/03 02:00:32 by ratin            ###   ########.fr       */
+/*   Updated: 2019/05/03 20:51:35 by ratin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,4 +78,8 @@ int		get_result(t_visu *visu);
 void	fill_map(t_visu *visu, char *str);
 void	add_room(t_visu *visu, char *str, int special);
 void	print_rooms(t_visu *visu);
+int		get_tube(t_visu *visu, char *str);
+void	count_room(t_visu *visu);
+t_room	*get_room_by_name(t_visu *visu, char *name);
+void	add_link(t_visu *visu, t_room *room, char *name);
 #endif

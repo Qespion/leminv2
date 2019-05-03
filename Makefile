@@ -35,6 +35,8 @@ SRCS_2	=	srcs/visu.c \
 			srcs/visu_get_result.c \
 			srcs/visu_room.c \
 			srcs/visu_fill_map.c \
+			srcs/visu_get_tube.c \
+			srcs/visu_link.c \
 
 LIBFT	=	libft/libft.a
 

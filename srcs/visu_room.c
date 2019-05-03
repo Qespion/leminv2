@@ -6,37 +6,38 @@
 /*   By: ratin <ratin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/02 23:52:21 by ratin             #+#    #+#             */
-/*   Updated: 2019/05/03 02:08:11 by ratin            ###   ########.fr       */
+/*   Updated: 2019/05/03 20:56:01 by ratin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libft/includes/libft.h"
 #include "lem_in.h"
 
-t_room		*create_room(int special)
+t_room			*create_room(int special)
 {
-	t_room	*room;
+	t_room		*room;
+	static int	index = 0;
 
 	if (!(room = malloc(sizeof(*room))))
 		return (0);
 	room->start = 0;
 	room->end = 0;
 	if (special == 1)
-	{
 		room->start = 1;
-	}
 	if (special == 2)
 		room->end = 1;
+	room->index = index++;
 	room->x = 0;
 	room->y = 0;
 	room->name = NULL;
+	room->link = NULL;
 	room->next = NULL;
 	return (room);
 }
 
-void		fill_room(char *str, t_room *room)
+void			fill_room(char *str, t_room *room)
 {
-	int		i;
+	int			i;
 
 	i = 0;
 	while(str[i] && str[i] != ' ')
@@ -50,10 +51,10 @@ void		fill_room(char *str, t_room *room)
 	room->y = ft_atoi(&str[i]);
 }
 
-void		add_room(t_visu *visu, char *str, int special)
+void			add_room(t_visu *visu, char *str, int special)
 {
-	t_room	*new_room;
-	t_room	*last;
+	t_room		*new_room;
+	t_room		*last;
 
 	last = visu->room;
 	new_room = create_room(special);
@@ -68,15 +69,35 @@ void		add_room(t_visu *visu, char *str, int special)
 	}
 }
 
-void		print_rooms(t_visu *visu)
+void			count_room(t_visu *visu)
 {
-	t_room	*last;
+	t_room		*last;
 
 	last = visu->room;
 	while (last->next)
 	{
-		printf("room %s: start = %d end = %d cordo = {%d, %d}\n"
-		, last->name, last->start, last->end, last->x, last->y);
+		visu->nbr_room++;
+		last = last->next;
+	}
+	visu->nbr_room++;
+}
+
+void			print_rooms(t_visu *visu)
+{
+	t_room		*last;
+	t_tube		*link;
+
+	last = visu->room;
+	while (last)
+	{
+		printf("room %s r%d: start = %d end = %d cordo = {%d, %d} linked with:\n"
+		, last->name, last->index, last->start, last->end, last->x, last->y);
+		link = last->link;
+		while(link)
+		{
+			printf("%s\n", link->room->name);
+			link = link->next;
+		}
 		last = last->next;
 	}
 }

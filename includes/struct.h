@@ -6,7 +6,7 @@
 /*   By: ratin <ratin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/06 16:27:53 by oespion           #+#    #+#             */
-/*   Updated: 2019/05/02 23:51:53 by ratin            ###   ########.fr       */
+/*   Updated: 2019/05/03 19:40:05 by ratin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,20 +83,31 @@ typedef struct			s_pack
 typedef struct			s_room
 {
 	char				*name;
+	int					index;
 	int					x;
 	int					y;
 	int					start;
 	int					end;
 	struct s_room		*next;
+	struct s_tube		*link;
 }						t_room;
+
+typedef	struct			s_tube
+{
+	struct s_room		*room;				
+	struct s_tube		*next;
+	int					test;
+}						t_tube;
 
 typedef struct			s_visu
 {
 	char				**turn;
 	char				*result;
-	int					ant_nbr;
+	int					nbr_of_ants;
 	int					map_finished;
+	int					tube_finished;
 	struct s_room		*room;
+	int					nbr_room;
 }						t_visu;
 
 #endif
