@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_island.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oespion <oespion@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ratin <ratin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/21 18:05:59 by oespion           #+#    #+#             */
-/*   Updated: 2019/05/01 12:52:12 by oespion          ###   ########.fr       */
+/*   Updated: 2019/05/02 23:10:00 by ratin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 void	link_wo_island(t_map *map)
 {
 	ft_printf("\e[31;1mERROR: No Islands\033[0m\n");
+	ft_printf("\n\e[32;40mFINISHED\033[0m\n");
 	free(map);
 	exit(-1);
 }

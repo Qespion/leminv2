@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lem_in.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oespion <oespion@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ratin <ratin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/06 16:27:46 by oespion           #+#    #+#             */
-/*   Updated: 2019/05/01 12:52:06 by oespion          ###   ########.fr       */
+/*   Updated: 2019/05/02 23:13:59 by ratin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ void	print_help(void)
 	ft_printf("%-6s%s\n", "-r", "display possible combinaison of roads.");
 	ft_printf("	%-20s", "--line_nb");
 	ft_printf("%-6s%s\n", "-l", "display the number of line written.");
+	ft_printf("\n\e[32;40mFINISHED\033[0m\n");
 	exit(0);
 }
 
@@ -117,5 +118,6 @@ int		main(int ac, char **av)
 		ft_printf("\e[32;40mWORKING ROADS FOUND IN BFS:\033[0m\n");
 	routes = create_routes(map, max_roads, routes);
 	ft_clean_map(map);
+	ft_printf("\n\e[32;40mFINISHED\033[0m\n");
 	return (0);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_err.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oespion <oespion@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ratin <ratin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/21 18:11:34 by oespion           #+#    #+#             */
-/*   Updated: 2019/05/01 12:51:39 by oespion          ###   ########.fr       */
+/*   Updated: 2019/05/02 23:08:27 by ratin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ void	check_only_nb(char *str, t_map *map)
 	if (*str != '\0')
 	{
 		ft_printf("\e[31;1mERROR: Not a clean numbers of ants\033[0m\n");
+		ft_printf("\n\e[32;40mFINISHED\033[0m\n");
 		free(map);
 		exit(-1);
 	}
@@ -33,12 +34,14 @@ t_map	*get_ants(char *str, t_map *map)
 	{
 		free(map);
 		ft_printf("\e[31;1mERROR: 404 on lemmins\033[0m\n");
+		ft_printf("\n\e[32;40mFINISHED\033[0m\n");
 		exit(-1);
 	}
 	else if (ft_atoi(str) < 0)
 	{
 		free(map);
 		ft_printf("\e[31;1mERROR: Negative numbers of lemmins\033[0m\n");
+		ft_printf("\n\e[32;40mFINISHED\033[0m\n");
 		exit(-1);
 	}
 	map->nb = ft_atoi(str);
@@ -60,6 +63,7 @@ void	double_end(int which_end)
 		ft_printf("\e[31;1mERROR: Island can't start with 'L'\033[0m\n");
 	else if (which_end == 6)
 		ft_printf("\e[31;1mERROR: Island can't start with '#'\033[0m\n");
+	ft_printf("\n\e[32;40mFINISHED\033[0m\n");
 	exit(-1);
 }
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lem_in.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oespion <oespion@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ratin <ratin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/06 16:27:53 by oespion           #+#    #+#             */
-/*   Updated: 2019/05/01 12:53:03 by oespion          ###   ########.fr       */
+/*   Updated: 2019/05/03 02:00:32 by ratin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,4 +70,12 @@ int		*create_base(int len);
 void	send_player(t_pack **start, t_pack **np, t_pack **lt, t_journey **play);
 t_pack	*remove_from_field(t_pack *start, t_pack *rm);
 
+/*
+**	visu
+*/
+
+int		get_result(t_visu *visu);
+void	fill_map(t_visu *visu, char *str);
+void	add_room(t_visu *visu, char *str, int special);
+void	print_rooms(t_visu *visu);
 #endif

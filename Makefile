@@ -3,6 +3,7 @@ CC		=	gcc
 FLAGS   =   -Wall -Wextra -Werror
 LIB_DIR =   libft/
 NAME1	=	lem-in
+NAME2	=	visu
 
 SRCS_1	=   srcs/lem_in.c	\
 			srcs/base_routes.c	\
@@ -30,6 +31,11 @@ SRCS_1	=   srcs/lem_in.c	\
 			srcs/transform_line.c	\
 			srcs/get_pack.c
 
+SRCS_2	=	srcs/visu.c \
+			srcs/visu_get_result.c \
+			srcs/visu_room.c \
+			srcs/visu_fill_map.c \
+
 LIBFT	=	libft/libft.a
 
 C_GREEN	=	"\033[32m"
@@ -37,17 +43,19 @@ C_BLUE	=	"\033[36m"
 C_BASE	=	"\033[00m"
 PRINTF=test $(VERBOSE)$(TRAVIS) || printf
 OBJS1    =   $(SRCS_1:.c=.o)
+OBJS2    =   $(SRCS_2:.c=.o)
 
-all:	lib lem_in
+all:	lib lem_in visu
 
 lib:
 	@make -C libft/
 	@ @$(PRINTF) "Libft:	"
 	@ @$(PRINTF) "\x1b[32m✔\x1b[0m\n\n"
 
-lem_in: $(OBJS1)
+lem_in: $(OBJS1) $(OBJS2)
 	@ @echo $(C_GREEN)"----" $(C_BASE)
 	@$(CC) $(FLAGS) $(OBJS1) -L libft/ -lft -o $(NAME1)
+	@$(CC) $(FLAGS) $(OBJS2) -L libft/ -lft -o $(NAME2)
 
 %.o: %.c
 	@$(CC) $(FLAGS) -c $< -o $@ -I includes/
@@ -55,9 +63,9 @@ lem_in: $(OBJS1)
 
 clean:
 	@make -C libft/ clean
-	@rm -f $(OBJS1)
+	@rm -f $(OBJS1) $(OBJS2)
 
 fclean:     clean
-	@rm -f $(NAME1) $(LIBFT)
+	@rm -f $(NAME1) $(NAME2) $(LIBFT)
 
 re:         fclean all

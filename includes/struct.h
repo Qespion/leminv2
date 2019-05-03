@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   struct.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oespion <oespion@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ratin <ratin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/06 16:27:53 by oespion           #+#    #+#             */
-/*   Updated: 2019/05/01 12:46:12 by oespion          ###   ########.fr       */
+/*   Updated: 2019/05/02 23:51:53 by ratin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,5 +79,24 @@ typedef struct			s_pack
 	struct s_journey	*player;
 	struct s_pack		*nxt;
 }						t_pack;
+
+typedef struct			s_room
+{
+	char				*name;
+	int					x;
+	int					y;
+	int					start;
+	int					end;
+	struct s_room		*next;
+}						t_room;
+
+typedef struct			s_visu
+{
+	char				**turn;
+	char				*result;
+	int					ant_nbr;
+	int					map_finished;
+	struct s_room		*room;
+}						t_visu;
 
 #endif
