@@ -6,7 +6,7 @@
 /*   By: ratin <ratin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/24 18:39:11 by ratin             #+#    #+#             */
-/*   Updated: 2019/05/04 00:09:47 by ratin            ###   ########.fr       */
+/*   Updated: 2019/05/05 03:56:07 by ratin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,5 +38,43 @@ void	vertical_limit(t_point *point1, t_point *point2, t_mlx *mlx, int color)
 	{
 		ft_put_pixel(mlx, point1->x, y, color);
 		y++;
+	}
+}
+
+void DrawCircle(t_party *party, int centreX, int centreY, int radius)
+{
+	int	diameter = (radius * 2);
+
+	int	x = (radius - 1);
+	int	y = 0;
+	int	tx = 1;
+	int	ty = 1;
+	int	error = (tx - diameter);
+
+	while (x >= y)
+	{
+		ft_put_pixel(&party->mlx, centreX + x, centreY - y, ROOM);
+		ft_put_pixel(&party->mlx, centreX + x, centreY + y, ROOM);
+
+		ft_put_pixel(&party->mlx, centreX - x, centreY - y, ROOM);
+		ft_put_pixel(&party->mlx, centreX - x, centreY + y, ROOM);
+
+		ft_put_pixel(&party->mlx, centreX + y, centreY - x, ROOM);
+		ft_put_pixel(&party->mlx, centreX - y, centreY - x, ROOM);
+
+		ft_put_pixel(&party->mlx, centreX + y, centreY + x, ROOM);
+		ft_put_pixel(&party->mlx, centreX - y, centreY + x, ROOM);
+		if (error <= 0)
+		{
+			++y;
+			error += ty;
+	//		ty += 2;
+		}
+		if (error > 0)
+		{
+			--x;
+			tx += 2;
+			error += (tx - diameter);
+		}
 	}
 }

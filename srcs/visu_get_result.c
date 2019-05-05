@@ -6,7 +6,7 @@
 /*   By: ratin <ratin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/02 19:09:09 by ratin             #+#    #+#             */
-/*   Updated: 2019/05/03 22:31:58 by ratin            ###   ########.fr       */
+/*   Updated: 2019/05/04 22:00:03 by ratin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ static char	*read_result(t_visu *visu)
 		return (0);
 	while (1)
 	{
-		if (get_next_line(0, &str) == -1)
+		if (get_next_line(0, &str) != 1)
 		{
 			free(result);
 			return (0);

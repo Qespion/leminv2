@@ -40,6 +40,7 @@ SRCS_2	=	srcs/visu.c \
 			srcs/visu_bresenham.c \
 			srcs/visu_pixel.c \
 			srcs/visu_mlx.c \
+			srcs/visu_place_party.c \
 
 LIBFT	=	libft/libft.a
 INC		= 	-I mlx/

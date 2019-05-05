@@ -6,7 +6,7 @@
 /*   By: ratin <ratin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/06 16:27:53 by oespion           #+#    #+#             */
-/*   Updated: 2019/05/03 23:09:30 by ratin            ###   ########.fr       */
+/*   Updated: 2019/05/05 03:08:17 by ratin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,6 +137,8 @@ typedef	struct			s_party
 	int					turn;
 	int					pause;
 	int					i;
+	int					space;
+	int					zoom;
 	struct s_mlx		mlx;
 }						t_party;
 

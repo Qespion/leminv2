@@ -6,7 +6,7 @@
 /*   By: ratin <ratin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/06 16:27:53 by oespion           #+#    #+#             */
-/*   Updated: 2019/05/04 00:15:27 by ratin            ###   ########.fr       */
+/*   Updated: 2019/05/05 02:57:12 by ratin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,9 @@
 # define ROADGESTION	(1U << 4U)
 # define LINENB			(1U << 5U)
 # define WIDTH			2560
-# define HEIGHT			1440
-# define BACKSCREEN		1
+# define HEIGHT			1390
+# define BACKSCREEN		0x51556C
+# define ROOM			0xffffff
 
 int		get_max_roads(t_map *map);
 t_solve	*create_base_routes(t_map *map);
@@ -92,4 +93,8 @@ int		put_line(t_point *point1, t_point *point2, t_mlx *mlx, int color);
 int		quit_visu(t_party *party);
 int		init_mlx(t_party *party);
 int		draw(t_party *party, t_visu *visu);
+int		handle_key(int key, t_party *party);
+void	place_party(t_visu *visu, t_party *party);
+void	put_square(t_party *party, t_point corner, int x, int y);
+void 	DrawCircle(t_party *party, int centreX, int centreY, int radius);
 #endif

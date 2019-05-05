@@ -6,7 +6,7 @@
 /*   By: ratin <ratin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/19 14:59:07 by ratin             #+#    #+#             */
-/*   Updated: 2019/05/04 00:12:00 by ratin            ###   ########.fr       */
+/*   Updated: 2019/05/05 03:35:12 by ratin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,25 @@ int			quit_visu(t_party *party)
 	exit(1);
 	return (0);
 }
+
+int		handle_key(int key, t_party *party)
+{
+	if (key == 53)
+		quit_visu(party);
+	if (key == 49)
+	{
+		if (party->pause == 0)
+			party->pause = 1;
+		else
+			party->pause = 0;
+	}
+	if (key == 123 && party->i > 0)
+		party->i--;
+	if (key == 124 && party->i < party->turn - 1)
+		party->i++;
+	return (1);
+}
+
 
 int			init_mlx(t_party *party)
 {
@@ -70,12 +89,17 @@ int			draw(t_party *party, t_visu *visu)
 		party->mlx.img.data = (int *)mlx_get_data_addr(party->mlx.img.img_ptr
 		, &party->mlx.img.bpp,
 		&party->mlx.img.size_l, &party->mlx.img.endian);
+		back_screen(party);
+
+		place_party(visu, party);
 
 		mlx_put_image_to_window(party->mlx.mlx_ptr, party->mlx.win_ptr
 		, party->mlx.img.img_ptr, 0, 0);
 		mlx_do_sync(party->mlx.mlx_ptr);
+
 		if (party->pause == 0 && party->i < party->turn - 1)
 			party->i += 1;
+
 	}
 	(void)visu;
 	return (1);
