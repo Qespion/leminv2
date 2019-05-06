@@ -6,7 +6,7 @@
 /*   By: ratin <ratin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/06 16:27:53 by oespion           #+#    #+#             */
-/*   Updated: 2019/05/06 02:15:36 by ratin            ###   ########.fr       */
+/*   Updated: 2019/05/06 05:03:02 by ratin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,6 +141,11 @@ typedef	struct			s_party
 	int					zoom;
 	int					translate_x;
 	int					translate_y;
+	int					press_x;
+	int					press_y;
+	int					x_save;
+	int					y_save;
+	int					is_pressed;
 	struct s_mlx		mlx;
 }						t_party;
 
