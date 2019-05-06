@@ -6,7 +6,7 @@
 /*   By: ratin <ratin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/19 14:59:07 by ratin             #+#    #+#             */
-/*   Updated: 2019/05/05 03:35:12 by ratin            ###   ########.fr       */
+/*   Updated: 2019/05/06 00:27:22 by ratin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,11 @@ int		handle_key(int key, t_party *party)
 		party->i--;
 	if (key == 124 && party->i < party->turn - 1)
 		party->i++;
+	if (key == 78)// && party->zoom > 1)
+		party->zoom -= 2;
+	if (key == 69)
+		party->zoom += 2;
+	printf("key = %d\n", key);
 	return (1);
 }
 
@@ -82,24 +87,22 @@ int			draw(t_party *party, t_visu *visu)
 	mlx = &party->mlx;
 	while (1)
 	{
-		mlx_clear_window(party->mlx.mlx_ptr, party->mlx.win_ptr);
+		//mlx_clear_window(party->mlx.mlx_ptr, party->mlx.win_ptr);
 		mlx_destroy_image(party->mlx.mlx_ptr, party->mlx.img.img_ptr);
 		party->mlx.img.img_ptr = mlx_new_image(party->mlx.mlx_ptr, WIDTH
 		, HEIGHT);
 		party->mlx.img.data = (int *)mlx_get_data_addr(party->mlx.img.img_ptr
 		, &party->mlx.img.bpp,
 		&party->mlx.img.size_l, &party->mlx.img.endian);
-		back_screen(party);
+		//back_screen(party);
 
 		place_party(visu, party);
 
 		mlx_put_image_to_window(party->mlx.mlx_ptr, party->mlx.win_ptr
 		, party->mlx.img.img_ptr, 0, 0);
 		mlx_do_sync(party->mlx.mlx_ptr);
-
 		if (party->pause == 0 && party->i < party->turn - 1)
 			party->i += 1;
-
 	}
 	(void)visu;
 	return (1);

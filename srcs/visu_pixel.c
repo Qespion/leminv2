@@ -6,7 +6,7 @@
 /*   By: ratin <ratin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/24 18:39:11 by ratin             #+#    #+#             */
-/*   Updated: 2019/05/05 03:56:07 by ratin            ###   ########.fr       */
+/*   Updated: 2019/05/05 23:49:39 by ratin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,20 +55,17 @@ void DrawCircle(t_party *party, int centreX, int centreY, int radius)
 	{
 		ft_put_pixel(&party->mlx, centreX + x, centreY - y, ROOM);
 		ft_put_pixel(&party->mlx, centreX + x, centreY + y, ROOM);
-
 		ft_put_pixel(&party->mlx, centreX - x, centreY - y, ROOM);
 		ft_put_pixel(&party->mlx, centreX - x, centreY + y, ROOM);
-
 		ft_put_pixel(&party->mlx, centreX + y, centreY - x, ROOM);
 		ft_put_pixel(&party->mlx, centreX - y, centreY - x, ROOM);
-
 		ft_put_pixel(&party->mlx, centreX + y, centreY + x, ROOM);
 		ft_put_pixel(&party->mlx, centreX - y, centreY + x, ROOM);
 		if (error <= 0)
 		{
 			++y;
 			error += ty;
-	//		ty += 2;
+			ty += 2;
 		}
 		if (error > 0)
 		{

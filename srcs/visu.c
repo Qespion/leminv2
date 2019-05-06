@@ -6,7 +6,7 @@
 /*   By: ratin <ratin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/02 19:02:10 by ratin             #+#    #+#             */
-/*   Updated: 2019/05/05 03:08:57 by ratin            ###   ########.fr       */
+/*   Updated: 2019/05/06 02:25:06 by ratin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@ void		init_visu(t_visu *visu, t_party *party)
 	visu->room = NULL;
 	visu->nbr_room = 0;
 	party->zoom = 1;
+	party->translate_x = 0;
+	party->translate_y = 0;
 }
 
 int			main(void)
