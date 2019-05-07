@@ -6,7 +6,7 @@
 /*   By: ratin <ratin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/06 16:27:53 by oespion           #+#    #+#             */
-/*   Updated: 2019/05/06 05:03:02 by ratin            ###   ########.fr       */
+/*   Updated: 2019/05/07 03:00:07 by ratin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,6 +146,7 @@ typedef	struct			s_party
 	int					x_save;
 	int					y_save;
 	int					is_pressed;
+	int					is_bigmap;
 	struct s_mlx		mlx;
 }						t_party;
 

@@ -6,7 +6,7 @@
 /*   By: ratin <ratin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/02 23:52:21 by ratin             #+#    #+#             */
-/*   Updated: 2019/05/03 22:50:31 by ratin            ###   ########.fr       */
+/*   Updated: 2019/05/07 03:49:06 by ratin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,12 +90,13 @@ void			print_rooms(t_visu *visu)
 	last = visu->room;
 	while (last)
 	{
-		printf("room %s r%d: start = %d end = %d cordo = {%d, %d} linked with:\n"
-		, last->name, last->index, last->start, last->end, last->x, last->y);
+/* 		printf("room %s r%d: start = %d end = %d cordo = {%d, %d} linked with:\n"
+		, last->name, last->index, last->start, last->end, last->x, last->y); */
+		printf("room %s {%d, %d}---------------\n", last->name, last->x, last->y);
 		link = last->link;
 		while(link)
 		{
-			printf("%s\n", link->room->name);
+			printf("%s->%s\n", last->name, link->room->name);
 			link = link->next;
 		}
 		last = last->next;

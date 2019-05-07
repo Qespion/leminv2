@@ -41,6 +41,7 @@ SRCS_2	=	srcs/visu.c \
 			srcs/visu_pixel.c \
 			srcs/visu_mlx.c \
 			srcs/visu_place_party.c \
+			srcs/visu_element.c \
 
 LIBFT	=	libft/libft.a
 MLX 	=	mlx/ -lmlx -framework OpenGL -framework AppKit

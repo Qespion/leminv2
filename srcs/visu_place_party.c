@@ -6,21 +6,20 @@
 /*   By: ratin <ratin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/04 17:58:36 by ratin             #+#    #+#             */
-/*   Updated: 2019/05/06 05:33:58 by ratin            ###   ########.fr       */
+/*   Updated: 2019/05/07 03:48:17 by ratin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libft/includes/libft.h"
 #include "lem_in.h"
 
-int			draw_room(t_visu *visu, t_party *party, t_room *last)
+int			draw_room(t_party *party, t_room *last)
 {
 	int		x;
 	int		y;
 	int		circle;
 
-	if ((visu->room->next->x - visu->room->y) + (visu->room->next->y
-	- visu->room->y) > 100)
+	if (party->is_bigmap == 1)
 	{
 		x = last->x - party->space;
 		y = last->y - party->space;
@@ -64,13 +63,17 @@ void		put_room_zero(t_visu *visu)
 {
 	t_room	*min;
 	t_room	*last;
+	int		x;
+	int		y;
 
 	last = visu->room;
 	min = get_min_room(visu);
+	x = min->x;
+	y = min->y;
 	while (last)
 	{
-		last->x -= min->x;
-		last->y -= min->y;
+		last->x -= x;
+		last->y -= y;
 		last = last->next;
 	}
 }
@@ -79,13 +82,19 @@ void	place_room(t_visu *visu, t_party *party)
 {
 	t_room	*last;
 	int		circle;
+	t_tube	*tube;
 
 	last = visu->room;
 	put_room_zero(visu);
 	while (last)
 	{
-		circle = draw_room(visu, party, last);
-		//draw_link(visu, party, last, circle);
+		tube = last->link;
+		circle = draw_room(party, last);
+		while (tube)
+		{
+	//		draw_link(party, last, tube, circle);
+			tube = tube->next;
+		}
 		last = last->next;
 	}
 }
@@ -93,5 +102,10 @@ void	place_room(t_visu *visu, t_party *party)
 void	place_party(t_visu *visu, t_party *party)
 {
 	party->space = 60 + party->zoom;
+	if ((visu->room->next->x - visu->room->y) + (visu->room->next->y
+	- visu->room->y) > 100)
+		party->is_bigmap = 1;
+	else
+		party->is_bigmap = 0;
 	place_room(visu, party);
 }

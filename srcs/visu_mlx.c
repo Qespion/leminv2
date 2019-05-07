@@ -6,7 +6,7 @@
 /*   By: ratin <ratin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/19 14:59:07 by ratin             #+#    #+#             */
-/*   Updated: 2019/05/06 05:32:34 by ratin            ###   ########.fr       */
+/*   Updated: 2019/05/07 02:32:08 by ratin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,12 @@ int		handle_key(int key, t_party *party)
 		party->i--;
 	if (key == 124 && party->i < party->turn - 1)
 		party->i++;
-	if (key == 78)// && party->zoom > 1)
+	if (key == 78 && party->zoom > -42)
+	{
 		party->zoom -= 2;
+		printf("zoom = %d\n", party->zoom);
+
+	}
 	if (key == 69)
 		party->zoom += 2;
 	if (key == 123)
@@ -49,7 +53,7 @@ int		handle_key(int key, t_party *party)
 		party->translate_y -= 10;
 	if (key == 124)
 		party->translate_x += 10;
-	printf("key = %d\n", key);
+	//printf("key = %d\n", key);
 	return (1);
 }
 

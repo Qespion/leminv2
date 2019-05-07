@@ -6,7 +6,7 @@
 /*   By: ratin <ratin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/06 16:27:53 by oespion           #+#    #+#             */
-/*   Updated: 2019/05/06 02:48:53 by ratin            ###   ########.fr       */
+/*   Updated: 2019/05/07 03:10:39 by ratin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,4 +97,6 @@ int		handle_key(int key, t_party *party);
 void	place_party(t_visu *visu, t_party *party);
 void	put_square(t_party *party, t_point corner, int x, int y);
 void 	DrawCircle(t_party *party, int centreX, int centreY, int radius);
+int		draw_link(t_party *party, t_room *last, t_tube *tube, int circle);
+int		print_lines(t_point *point1, t_point *point2, t_mlx *mlx, int color);
 #endif
