@@ -6,7 +6,7 @@
 /*   By: ratin <ratin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/03 18:25:52 by ratin             #+#    #+#             */
-/*   Updated: 2019/05/03 20:51:19 by ratin            ###   ########.fr       */
+/*   Updated: 2019/05/07 10:57:12 by ratin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,5 +54,4 @@ void			add_link(t_visu *visu, t_room *room, char *name)
 			last = last->next;
 		last->next = new_link;
 	}
-	//printf("room %s link = %s\n", room->name, room->link->room->name);
 }

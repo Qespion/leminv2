@@ -6,7 +6,7 @@
 /*   By: ratin <ratin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/02 19:02:10 by ratin             #+#    #+#             */
-/*   Updated: 2019/05/07 02:32:17 by ratin            ###   ########.fr       */
+/*   Updated: 2019/05/07 09:31:22 by ratin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ void		init_visu(t_visu *visu, t_party *party)
 	visu->nbr_of_ants = 0;
 	visu->map_finished = 0;
 	visu->tube_finished = 0;
+	visu->reponse_finished = 0;
 	visu->room = NULL;
 	visu->nbr_room = 0;
 	party->zoom = 1;
@@ -69,3 +70,6 @@ int			main(void)
 	draw(&party, &visu);
 	return (0);
 }
+
+//zoom on big map
+//link on big map

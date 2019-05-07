@@ -6,7 +6,7 @@
 /*   By: ratin <ratin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/06 16:27:53 by oespion           #+#    #+#             */
-/*   Updated: 2019/05/07 03:00:07 by ratin            ###   ########.fr       */
+/*   Updated: 2019/05/07 09:54:27 by ratin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,13 @@ typedef	struct			s_tube
 	int					test;
 }						t_tube;
 
+typedef	struct			s_reponse
+{
+	char 				**step;
+	int					lines;
+	struct s_reponse	*next;
+}						t_reponse;
+
 typedef struct			s_visu
 {
 	char				**turn;
@@ -106,7 +113,9 @@ typedef struct			s_visu
 	int					nbr_of_ants;
 	int					map_finished;
 	int					tube_finished;
+	int					reponse_finished;
 	struct s_room		*room;
+	struct s_reponse	*reponse;
 	int					nbr_room;
 }						t_visu;
 

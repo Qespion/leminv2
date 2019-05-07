@@ -6,37 +6,12 @@
 /*   By: ratin <ratin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/04 17:58:36 by ratin             #+#    #+#             */
-/*   Updated: 2019/05/07 03:48:17 by ratin            ###   ########.fr       */
+/*   Updated: 2019/05/07 09:19:30 by ratin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libft/includes/libft.h"
 #include "lem_in.h"
-
-int			draw_room(t_party *party, t_room *last)
-{
-	int		x;
-	int		y;
-	int		circle;
-
-	if (party->is_bigmap == 1)
-	{
-		x = last->x - party->space;
-		y = last->y - party->space;
-		circle = 20;
-	}
-	else
-	{
-		x = last->x * party->space + (WIDTH - party->zoom * 5) / 4;
-		y = last->y * party->space + (HEIGHT + party->zoom * 1) / 3;
-		circle = 20 + party->zoom / 4;
-	}
-	x += party->translate_x - party->press_x;
-	y += party->translate_y - party->press_y;
-	DrawCircle(party, x, y, circle);
-	mlx_string_put(party->mlx.mlx_ptr, party->mlx.win_ptr, x, y, ROOM, "salut\n");
-	return (circle);
-}
 
 t_room		*get_min_room(t_visu *visu)
 {
@@ -92,9 +67,21 @@ void	place_room(t_visu *visu, t_party *party)
 		circle = draw_room(party, last);
 		while (tube)
 		{
-	//		draw_link(party, last, tube, circle);
+			draw_link(party, last, tube, circle);
 			tube = tube->next;
 		}
+		last = last->next;
+	}
+}
+
+void	add_color(t_visu *visu, t_party *party)
+{
+	t_room	*last;
+
+	last = visu->room;
+	while (last)
+	{
+		color_room(party, last);
 		last = last->next;
 	}
 }
@@ -108,4 +95,5 @@ void	place_party(t_visu *visu, t_party *party)
 	else
 		party->is_bigmap = 0;
 	place_room(visu, party);
+	add_color(visu, party);
 }

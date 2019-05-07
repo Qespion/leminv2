@@ -6,7 +6,7 @@
 /*   By: ratin <ratin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/06 16:27:53 by oespion           #+#    #+#             */
-/*   Updated: 2019/05/07 03:10:39 by ratin            ###   ########.fr       */
+/*   Updated: 2019/05/07 10:32:53 by ratin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@
 # define HEIGHT			1390
 # define BACKSCREEN		0x51556C
 # define ROOM			0xffffff
+# define ROOM_COLOR		0x00b9f7
 
 int		get_max_roads(t_map *map);
 t_solve	*create_base_routes(t_map *map);
@@ -96,7 +97,12 @@ int		draw(t_party *party, t_visu *visu);
 int		handle_key(int key, t_party *party);
 void	place_party(t_visu *visu, t_party *party);
 void	put_square(t_party *party, t_point corner, int x, int y);
-void 	DrawCircle(t_party *party, int centreX, int centreY, int radius);
+void 	draw_circle(t_party *party, int centreX, int centreY, int radius, int color);
 int		draw_link(t_party *party, t_room *last, t_tube *tube, int circle);
 int		print_lines(t_point *point1, t_point *point2, t_mlx *mlx, int color);
+void 	fill_circle(t_party *party, int centreX, int centreY, int radius, int color);
+int		draw_room(t_party *party, t_room *last);
+void	color_room(t_party *party, t_room *last);
+void	add_reponse(t_visu *visu, char *str);
+char	**ft_strsplit(const char *str, char c);
 #endif
