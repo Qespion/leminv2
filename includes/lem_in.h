@@ -6,7 +6,7 @@
 /*   By: ratin <ratin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/06 16:27:53 by oespion           #+#    #+#             */
-/*   Updated: 2019/05/07 10:32:53 by ratin            ###   ########.fr       */
+/*   Updated: 2019/05/09 09:38:35 by ratin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@
 # define BACKSCREEN		0x51556C
 # define ROOM			0xffffff
 # define ROOM_COLOR		0x00b9f7
+# define ANT			0xff0000
 
 int		get_max_roads(t_map *map);
 t_solve	*create_base_routes(t_map *map);
@@ -105,4 +106,7 @@ int		draw_room(t_party *party, t_room *last);
 void	color_room(t_party *party, t_room *last);
 void	add_reponse(t_visu *visu, char *str);
 char	**ft_strsplit(const char *str, char c);
+void	add_ant(t_visu *visu, int i);
+void	place_ants(t_visu *visu, t_party *party);
+void	draw_dest(t_visu *visu, t_party *party, t_ant *ant, t_room *dest);
 #endif

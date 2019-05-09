@@ -6,7 +6,7 @@
 /*   By: ratin <ratin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/06 16:27:53 by oespion           #+#    #+#             */
-/*   Updated: 2019/05/07 09:54:27 by ratin            ###   ########.fr       */
+/*   Updated: 2019/05/09 09:59:16 by ratin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,8 @@ typedef struct			s_room
 	int					index;
 	int					x;
 	int					y;
+	int					new_x;
+	int					new_y;
 	int					start;
 	int					end;
 	struct s_room		*next;
@@ -99,10 +101,16 @@ typedef	struct			s_tube
 	int					test;
 }						t_tube;
 
+typedef	struct			s_ant
+{
+	int					index;
+	struct s_room		*position;
+	struct s_ant		*next;
+}						t_ant;
+
 typedef	struct			s_reponse
 {
 	char 				**step;
-	int					lines;
 	struct s_reponse	*next;
 }						t_reponse;
 
@@ -116,6 +124,7 @@ typedef struct			s_visu
 	int					reponse_finished;
 	struct s_room		*room;
 	struct s_reponse	*reponse;
+	struct s_ant		*ants;
 	int					nbr_room;
 }						t_visu;
 

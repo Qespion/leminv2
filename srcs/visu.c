@@ -6,7 +6,7 @@
 /*   By: ratin <ratin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/02 19:02:10 by ratin             #+#    #+#             */
-/*   Updated: 2019/05/07 09:31:22 by ratin            ###   ########.fr       */
+/*   Updated: 2019/05/09 06:10:54 by ratin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,12 @@
 void		init_visu(t_visu *visu, t_party *party)
 {
 	visu->result = NULL;
+	visu->room = NULL;
+	visu->ants = NULL;
 	visu->nbr_of_ants = 0;
 	visu->map_finished = 0;
 	visu->tube_finished = 0;
 	visu->reponse_finished = 0;
-	visu->room = NULL;
 	visu->nbr_room = 0;
 	party->zoom = 1;
 	party->translate_x = 0;
@@ -55,6 +56,32 @@ int			mouse_press(int button, int x, int y, t_party *party)
 	return (0);
 }
 
+void		printant(t_visu *visu)
+{
+	t_ant	*last = visu->ants;
+	while (last)
+	{
+		printf("ant %d position = %s\n", last->index, last->position->name);
+		last = last->next;
+	}
+}
+
+void		init_ants(t_visu *visu)
+{
+	int		nbr;
+	int		i;
+
+	nbr = visu->nbr_of_ants;
+	i = 1;
+	while (nbr)
+	{
+		add_ant(visu, i);
+		i++;
+		nbr--;
+	}
+	printant(visu);
+}
+
 int			main(void)
 {
 	t_visu	visu;
@@ -63,6 +90,7 @@ int			main(void)
 	init_visu(&visu, &party);
 	get_result(&visu);
 	init_mlx(&party);
+	init_ants(&visu);
 	mlx_hook(party.mlx.win_ptr, 17, 1L<<6, quit_visu, &party);
 	mlx_hook(party.mlx.win_ptr, 2, 1L<<6, handle_key, &party);
 	mlx_hook(party.mlx.win_ptr, 6, 1L<<6, handle_mouse, &party);
