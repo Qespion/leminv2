@@ -6,7 +6,7 @@
 /*   By: ratin <ratin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/04 17:58:36 by ratin             #+#    #+#             */
-/*   Updated: 2019/05/09 05:37:15 by ratin            ###   ########.fr       */
+/*   Updated: 2019/05/13 13:28:25 by ratin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,19 @@ void	add_color(t_visu *visu, t_party *party)
 	while (last)
 	{
 		color_room(party, last);
+		last = last->next;
+	}
+}
+
+void	add_name(t_visu *visu, t_party *party)
+{
+	t_room	*last;
+
+	last = visu->room;
+	while (last)
+	{
+		mlx_string_put(party->mlx.mlx_ptr, party->mlx.win_ptr, last->new_x
+		, last->new_y - 40, ROOM, last->name);
 		last = last->next;
 	}
 }

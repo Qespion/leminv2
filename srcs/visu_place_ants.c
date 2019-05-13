@@ -6,7 +6,7 @@
 /*   By: ratin <ratin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/09 05:46:17 by ratin             #+#    #+#             */
-/*   Updated: 2019/05/09 11:02:55 by ratin            ###   ########.fr       */
+/*   Updated: 2019/05/13 13:37:27 by ratin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ t_ant		*create_ant(t_visu *visu, int i)
 	new_ant->position = get_start_room(visu);
 	new_ant->index = i;
 	new_ant->next = NULL;
+	new_ant->move = NULL;
 	return (new_ant);
 }
 
@@ -69,10 +70,10 @@ t_ant	*get_ant(t_visu *visu, int index)
 			return (ant);
 		ant = ant->next;
 	}
-	return (ant);
+	return (0);
 }
 
-void	place_ants(t_visu *visu, t_party *party)
+int				place_ants(t_visu *visu, t_party *party)
 {
 	int			i;
 	int			y;
@@ -82,6 +83,7 @@ void	place_ants(t_visu *visu, t_party *party)
 	t_ant		*ant;
 
 	current = visu->reponse;
+	printf("start result-----------------------------\n");
 	while (current)
 	{
 		i = 0;
@@ -89,16 +91,23 @@ void	place_ants(t_visu *visu, t_party *party)
 		{
 			y = 0;
 			step = current->step[i];
-			ant = get_ant(visu, ft_atoi(&step[1]));
+			if (!(ant = get_ant(visu, ft_atoi(&step[1]))))
+				return (0);
 			while (step[y] != '-' && step[y])
 				y++;
 			destination = get_room_by_name(visu, &step[++y]);
-			//printf("step = %s\n", step);
-			draw_dest(visu, party, ant, destination);
+/* 			printf("step = %d going %s{%d,%d}-->>%s{%d,%d}	",ant->index
+			, ant->position->name, ant->position->x, ant->position->y,
+			 destination->name, destination->x, destination->y); */
+			get_move(visu, party, &ant, destination);
 			i++;
 		}
-		//printf("step-------------------------------------\n");
+		printf("\n");
+		make_a_move(visu, party);
+		// free proprement la chaine;
 		current = current->next;
 	}
+	printf("end result-----------------------------\n\n");
 	(void)party;
+	return (1);
 }

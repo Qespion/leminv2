@@ -45,6 +45,9 @@ SRCS_2	=	srcs/visu.c \
 			srcs/visu_get_reponse.c \
 			srcs/ft_strsplit.c \
 			srcs/visu_place_ants.c \
+			srcs/visu_move.c \
+			srcs/visu_bresenmove.c \
+			srcs/visu_move_ant.c \
 
 LIBFT	=	libft/libft.a
 MLX 	=	mlx/ -lmlx -framework OpenGL -framework AppKit

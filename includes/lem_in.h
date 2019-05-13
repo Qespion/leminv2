@@ -6,7 +6,7 @@
 /*   By: ratin <ratin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/06 16:27:53 by oespion           #+#    #+#             */
-/*   Updated: 2019/05/09 09:38:35 by ratin            ###   ########.fr       */
+/*   Updated: 2019/05/13 13:27:25 by ratin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,32 +81,42 @@ t_pack	*remove_from_field(t_pack *start, t_pack *rm);
 **	visu
 */
 
-int		get_result(t_visu *visu);
-void	fill_map(t_visu *visu, char *str);
-void	add_room(t_visu *visu, char *str, int special);
-void	print_rooms(t_visu *visu);
-void	count_room(t_visu *visu);
-t_room	*get_room_by_name(t_visu *visu, char *name);
-void	add_link(t_visu *visu, t_room *room, char *name);
-void	get_link(t_visu *visu, char *str);
-int		ft_put_pixel(t_mlx *mlx, int x, int y, int color);
-void	vertical_limit(t_point *point1, t_point *point2, t_mlx *mlx, int color);
+char	**ft_strsplit(const char *str, char c);
 int		put_line(t_point *point1, t_point *point2, t_mlx *mlx, int color);
+int		ft_put_pixel(t_mlx *mlx, int x, int y, int color);
+int		get_result(t_visu *visu);
 int		quit_visu(t_party *party);
 int		init_mlx(t_party *party);
 int		draw(t_party *party, t_visu *visu);
 int		handle_key(int key, t_party *party);
+int		draw_link(t_party *party, t_room *last, t_tube *tube, int circle);
+int		print_lines(t_point *point1, t_point *point2, t_mlx *mlx, int color);
+int		add_room(t_visu *visu, char *str, int special);
+int		draw_room(t_party *party, t_room *last);
+int		add_reponse(t_visu *visu, char *str);
+int		add_move(t_ant *ant, int x, int y);
+int		add_link(t_visu *visu, t_room *room, char *name);
+void	fill_map(t_visu *visu, char *str);
+void	print_rooms(t_visu *visu);
+void	count_room(t_visu *visu);
+void	get_link(t_visu *visu, char *str);
+void	vertical_limit(t_point *point1, t_point *point2, t_mlx *mlx, int color);
 void	place_party(t_visu *visu, t_party *party);
 void	put_square(t_party *party, t_point corner, int x, int y);
 void 	draw_circle(t_party *party, int centreX, int centreY, int radius, int color);
-int		draw_link(t_party *party, t_room *last, t_tube *tube, int circle);
-int		print_lines(t_point *point1, t_point *point2, t_mlx *mlx, int color);
 void 	fill_circle(t_party *party, int centreX, int centreY, int radius, int color);
-int		draw_room(t_party *party, t_room *last);
 void	color_room(t_party *party, t_room *last);
-void	add_reponse(t_visu *visu, char *str);
-char	**ft_strsplit(const char *str, char c);
 void	add_ant(t_visu *visu, int i);
-void	place_ants(t_visu *visu, t_party *party);
-void	draw_dest(t_visu *visu, t_party *party, t_ant *ant, t_room *dest);
+int		place_ants(t_visu *visu, t_party *party);
+void	get_move(t_visu *visu, t_party *party, t_ant **ant, t_room *dest);
+t_room	*get_room_by_name(t_visu *visu, char *name);
+void	bresenmove(t_point *point1, t_point *point2, t_ant *ant);
+void	make_a_move(t_visu *visu, t_party *party);
+void 	draw_ant(t_party *party, int centreX, int centreY, int radius, int color);
+void	vertical_move(t_point *point1, t_point *point2, t_ant *ant);
+void 	fill_ant(t_party *party, int centreX, int centreY, int radius, int color);
+void	add_name(t_visu *visu, t_party *party);
+
+//DEBUG
+void	print_move(t_move *move);
 #endif

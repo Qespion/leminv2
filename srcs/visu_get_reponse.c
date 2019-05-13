@@ -6,7 +6,7 @@
 /*   By: ratin <ratin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/07 09:52:14 by ratin             #+#    #+#             */
-/*   Updated: 2019/05/07 10:56:43 by ratin            ###   ########.fr       */
+/*   Updated: 2019/05/10 12:36:07 by ratin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,13 +44,14 @@ t_reponse		*create_reponse(char *str)
 	return (new_reponse);
 }
 
-void			add_reponse(t_visu *visu, char *str)
+int				add_reponse(t_visu *visu, char *str)
 {
 	t_reponse	*last;
 	t_reponse	*new_reponse;
 
 	last = visu->reponse;
-	new_reponse = create_reponse(str);
+	if (!(new_reponse = create_reponse(str)))
+		return (0);
 	if (visu->reponse == NULL)
 		visu->reponse = new_reponse;
 	else
@@ -59,4 +60,5 @@ void			add_reponse(t_visu *visu, char *str)
 			last = last->next;
 		last->next = new_reponse;
 	}
+	return (1);
 }

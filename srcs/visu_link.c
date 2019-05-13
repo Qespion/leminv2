@@ -6,7 +6,7 @@
 /*   By: ratin <ratin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/03 18:25:52 by ratin             #+#    #+#             */
-/*   Updated: 2019/05/07 10:57:12 by ratin            ###   ########.fr       */
+/*   Updated: 2019/05/11 10:43:12 by ratin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,13 +39,14 @@ t_tube			*create_link(t_visu *visu, char *name)
 	return (tube);
 }
 
-void			add_link(t_visu *visu, t_room *room, char *name)
+int				add_link(t_visu *visu, t_room *room, char *name)
 {
 	t_tube		*last;
 	t_tube		*new_link;
 
 	last = room->link;
-	new_link = create_link(visu, name);
+	if (!(new_link = create_link(visu, name)))
+		return (0);
 	if (room->link == NULL)
 		room->link = new_link;
 	else
@@ -54,4 +55,5 @@ void			add_link(t_visu *visu, t_room *room, char *name)
 			last = last->next;
 		last->next = new_link;
 	}
+	return (1);
 }

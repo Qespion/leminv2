@@ -6,7 +6,7 @@
 /*   By: ratin <ratin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/06 16:27:53 by oespion           #+#    #+#             */
-/*   Updated: 2019/05/09 09:59:16 by ratin            ###   ########.fr       */
+/*   Updated: 2019/05/13 11:48:05 by ratin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,16 @@ typedef	struct			s_ant
 	int					index;
 	struct s_room		*position;
 	struct s_ant		*next;
+	struct s_move		*move_cursor;
+	struct s_move		*move;
 }						t_ant;
+
+typedef struct			s_move
+{
+	int					x;
+	int					y;
+	struct s_move		*next;
+}						t_move;
 
 typedef	struct			s_reponse
 {
@@ -166,6 +175,7 @@ typedef	struct			s_party
 	int					is_pressed;
 	int					is_bigmap;
 	struct s_mlx		mlx;
+	struct s_mlx		ant_image;
 }						t_party;
 
 typedef struct			s_line
