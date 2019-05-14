@@ -6,7 +6,7 @@
 /*   By: ratin <ratin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/19 14:59:07 by ratin             #+#    #+#             */
-/*   Updated: 2019/05/13 13:37:22 by ratin            ###   ########.fr       */
+/*   Updated: 2019/05/14 20:23:31 by ratin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,6 @@ int		handle_key(int key, t_party *party)
 		party->translate_y -= 10;
 	if (key == 124)
 		party->translate_x += 10;
-	//printf("key = %d\n", key);
 	return (1);
 }
 
@@ -101,8 +100,8 @@ int			draw(t_party *party, t_visu *visu)
 	t_mlx	*mlx;
 
 	mlx = &party->mlx;
-	while (1)
-	{
+/* 	while (1)
+	{ */
 		mlx_clear_window(party->mlx.mlx_ptr, party->mlx.win_ptr);
 		mlx_destroy_image(party->mlx.mlx_ptr, party->mlx.img.img_ptr);
 		party->mlx.img.img_ptr = mlx_new_image(party->mlx.mlx_ptr, WIDTH
@@ -118,10 +117,10 @@ int			draw(t_party *party, t_visu *visu)
 		mlx_put_image_to_window(party->mlx.mlx_ptr, party->mlx.win_ptr
 		, party->mlx.img.img_ptr, 0, 0);
 		mlx_do_sync(party->mlx.mlx_ptr);
-/* 		mlx_put_image_to_window(party->mlx.mlx_ptr, party->mlx.win_ptr
+		mlx_put_image_to_window(party->mlx.mlx_ptr, party->mlx.win_ptr
 		, party->mlx.img.img_ptr, 0, 0);
-		mlx_do_sync(party->mlx.mlx_ptr); */
-	}
+		mlx_do_sync(party->mlx.mlx_ptr);
+	//}
 	(void)visu;
 	return (1);
 }

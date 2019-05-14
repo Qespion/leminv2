@@ -6,7 +6,7 @@
 /*   By: ratin <ratin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/09 05:46:17 by ratin             #+#    #+#             */
-/*   Updated: 2019/05/13 13:37:27 by ratin            ###   ########.fr       */
+/*   Updated: 2019/05/14 20:00:49 by ratin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ int				place_ants(t_visu *visu, t_party *party)
 	t_ant		*ant;
 
 	current = visu->reponse;
-	printf("start result-----------------------------\n");
+	printf("\nstart result-----------------------------\n");
 	while (current)
 	{
 		i = 0;
@@ -99,7 +99,10 @@ int				place_ants(t_visu *visu, t_party *party)
 /* 			printf("step = %d going %s{%d,%d}-->>%s{%d,%d}	",ant->index
 			, ant->position->name, ant->position->x, ant->position->y,
 			 destination->name, destination->x, destination->y); */
+			printf("step = %s\n", current->step[i]);
 			get_move(visu, party, &ant, destination);
+/* 			printf("&L%d ----------------------------\n", ant->index);
+			print_move(ant->move); */
 			i++;
 		}
 		printf("\n");

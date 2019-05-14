@@ -6,7 +6,7 @@
 /*   By: ratin <ratin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/02 19:09:09 by ratin             #+#    #+#             */
-/*   Updated: 2019/05/07 09:57:04 by ratin            ###   ########.fr       */
+/*   Updated: 2019/05/14 16:38:10 by ratin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,6 @@ static char	*read_result(t_visu *visu)
 		}
 		result = ft_strfjoin(result, str);
 		result = ft_strfjoin(result, "\n");
-		//ft_printf("strcmp donne %d pour |%s|\n", ft_strcmp(str, ""), str);
 		parse(visu, str, turn);
 		if (ft_strstr(str, "FINISHED") != NULL)
 			break ;
@@ -82,7 +81,6 @@ int			get_result(t_visu *visu)
 
 	result = read_result(visu);
 	ft_printf("%s", result);
-	print_rooms(visu);
 	visu->result = result;
 	return (1);
 }

@@ -6,7 +6,7 @@
 /*   By: ratin <ratin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/06 16:27:53 by oespion           #+#    #+#             */
-/*   Updated: 2019/05/13 13:27:25 by ratin            ###   ########.fr       */
+/*   Updated: 2019/05/14 17:21:44 by ratin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,9 @@
 # define ROOM			0xffffff
 # define ROOM_COLOR		0x00b9f7
 # define ANT			0xff0000
+
+//DEBUG
+# define MAKEAMOVE		1
 
 int		get_max_roads(t_map *map);
 t_solve	*create_base_routes(t_map *map);
@@ -116,6 +119,8 @@ void 	draw_ant(t_party *party, int centreX, int centreY, int radius, int color);
 void	vertical_move(t_point *point1, t_point *point2, t_ant *ant);
 void 	fill_ant(t_party *party, int centreX, int centreY, int radius, int color);
 void	add_name(t_visu *visu, t_party *party);
+int		handle_mouse(int x, int y, t_party *party);
+int		mouse_press(int button, int x, int y, t_party *party);
 
 //DEBUG
 void	print_move(t_move *move);
