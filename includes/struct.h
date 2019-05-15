@@ -6,7 +6,7 @@
 /*   By: ratin <ratin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/06 16:27:53 by oespion           #+#    #+#             */
-/*   Updated: 2019/05/14 18:23:12 by ratin            ###   ########.fr       */
+/*   Updated: 2019/05/15 16:15:50 by ratin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ typedef struct			s_pack
 	struct s_journey	*player;
 	struct s_pack		*nxt;
 }						t_pack;
-
+/////////////////////////////////////////////////////////////////////////////
 typedef struct			s_room
 {
 	char				*name;
@@ -101,21 +101,28 @@ typedef	struct			s_tube
 	int					test;
 }						t_tube;
 
-typedef	struct			s_ant
-{
-	int					index;
-	struct s_room		*position;
-	struct s_ant		*next;
-	struct s_move		*move_cursor;
-	struct s_move		*move;
-}						t_ant;
-
 typedef struct			s_move
 {
 	int					x;
 	int					y;
 	struct s_move		*next;
 }						t_move;
+
+typedef struct			s_rstep
+{
+	int					index;
+	struct s_move		*move_cursor;
+	struct s_move		*move;
+	struct s_rstep		*next;
+}						t_rstep;
+
+typedef	struct			s_ant
+{
+	int					index;
+	struct s_room		*position;
+	struct s_rstep		*rstep;
+	struct s_ant		*next;
+}						t_ant;
 
 typedef	struct			s_reponse
 {
@@ -127,6 +134,7 @@ typedef struct			s_visu
 {
 	char				**turn;
 	char				*result;
+	int					ant_start;
 	int					nbr_of_ants;
 	int					map_finished;
 	int					tube_finished;
@@ -161,6 +169,7 @@ typedef struct 			s_mlx
 
 typedef	struct			s_party
 {
+	int					g_step;
 	int					turn;
 	int					pause;
 	int					i;

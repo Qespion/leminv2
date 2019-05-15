@@ -6,7 +6,7 @@
 /*   By: ratin <ratin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/09 05:46:17 by ratin             #+#    #+#             */
-/*   Updated: 2019/05/14 20:00:49 by ratin            ###   ########.fr       */
+/*   Updated: 2019/05/15 17:24:20 by ratin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,8 @@ t_ant		*create_ant(t_visu *visu, int i)
 		return (0);
 	new_ant->position = get_start_room(visu);
 	new_ant->index = i;
+	new_ant->rstep = NULL;
 	new_ant->next = NULL;
-	new_ant->move = NULL;
 	return (new_ant);
 }
 
@@ -73,17 +73,34 @@ t_ant	*get_ant(t_visu *visu, int index)
 	return (0);
 }
 
+void			static_step(t_visu *visu, int step)
+{
+	t_ant		*last;
+
+	last = visu->ants;
+	while (last)
+	{
+		if (last->rstep == NULL)
+		{
+			add_rstep(last, step);
+			add_move(last->rstep, last->position->x, last->position->y);
+		}
+		last = last->next;
+	}
+}
+
 int				place_ants(t_visu *visu, t_party *party)
 {
 	int			i;
 	int			y;
+	int			i_step;
 	char		*step;
 	t_reponse	*current;
 	t_room		*destination;
 	t_ant		*ant;
 
 	current = visu->reponse;
-	printf("\nstart result-----------------------------\n");
+	i_step = 1;
 	while (current)
 	{
 		i = 0;
@@ -96,21 +113,14 @@ int				place_ants(t_visu *visu, t_party *party)
 			while (step[y] != '-' && step[y])
 				y++;
 			destination = get_room_by_name(visu, &step[++y]);
-/* 			printf("step = %d going %s{%d,%d}-->>%s{%d,%d}	",ant->index
-			, ant->position->name, ant->position->x, ant->position->y,
-			 destination->name, destination->x, destination->y); */
-			printf("step = %s\n", current->step[i]);
-			get_move(visu, party, &ant, destination);
-/* 			printf("&L%d ----------------------------\n", ant->index);
-			print_move(ant->move); */
+			add_rstep(ant, i_step);
+			get_move(visu, &ant, destination, i_step);
 			i++;
 		}
-		printf("\n");
-		make_a_move(visu, party);
-		// free proprement la chaine;
+		//static_step(visu, i_step);
 		current = current->next;
+		i_step++;
 	}
-	printf("end result-----------------------------\n\n");
 	(void)party;
 	return (1);
 }

@@ -6,7 +6,7 @@
 /*   By: ratin <ratin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/19 14:59:07 by ratin             #+#    #+#             */
-/*   Updated: 2019/05/14 20:23:31 by ratin            ###   ########.fr       */
+/*   Updated: 2019/05/15 17:15:30 by ratin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,8 +100,8 @@ int			draw(t_party *party, t_visu *visu)
 	t_mlx	*mlx;
 
 	mlx = &party->mlx;
-/* 	while (1)
-	{ */
+	while (1)
+	{
 		mlx_clear_window(party->mlx.mlx_ptr, party->mlx.win_ptr);
 		mlx_destroy_image(party->mlx.mlx_ptr, party->mlx.img.img_ptr);
 		party->mlx.img.img_ptr = mlx_new_image(party->mlx.mlx_ptr, WIDTH
@@ -112,15 +112,17 @@ int			draw(t_party *party, t_visu *visu)
 		back_screen(party);
 
 		place_party(visu, party);
-		place_ants(visu, party);
+		//if (visu->ant_start == 0)
+		start_ants(visu, party);
+		//make_a_move(party, visu);
 
-		mlx_put_image_to_window(party->mlx.mlx_ptr, party->mlx.win_ptr
-		, party->mlx.img.img_ptr, 0, 0);
+		draw_all_ants(party, visu);
+
+		//si move_cursor == NULL draw ant a ant->position;
+		add_name(visu, party);
 		mlx_do_sync(party->mlx.mlx_ptr);
-		mlx_put_image_to_window(party->mlx.mlx_ptr, party->mlx.win_ptr
-		, party->mlx.img.img_ptr, 0, 0);
-		mlx_do_sync(party->mlx.mlx_ptr);
-	//}
+		free_ant_move(visu);
+	}
 	(void)visu;
 	return (1);
 }

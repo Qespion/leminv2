@@ -6,7 +6,7 @@
 /*   By: ratin <ratin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/06 16:27:53 by oespion           #+#    #+#             */
-/*   Updated: 2019/05/14 17:21:44 by ratin            ###   ########.fr       */
+/*   Updated: 2019/05/15 16:43:27 by ratin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@
 # define ROOM			0xffffff
 # define ROOM_COLOR		0x00b9f7
 # define ANT			0xff0000
+# define NAME			0x000000
 
 //DEBUG
 # define MAKEAMOVE		1
@@ -84,6 +85,9 @@ t_pack	*remove_from_field(t_pack *start, t_pack *rm);
 **	visu
 */
 
+t_room	*get_room_by_name(t_visu *visu, char *name);
+t_rstep	*get_rstep(int step, t_rstep *rstep);
+t_room	*get_start_room(t_visu *visu);
 char	**ft_strsplit(const char *str, char c);
 int		put_line(t_point *point1, t_point *point2, t_mlx *mlx, int color);
 int		ft_put_pixel(t_mlx *mlx, int x, int y, int color);
@@ -97,7 +101,7 @@ int		print_lines(t_point *point1, t_point *point2, t_mlx *mlx, int color);
 int		add_room(t_visu *visu, char *str, int special);
 int		draw_room(t_party *party, t_room *last);
 int		add_reponse(t_visu *visu, char *str);
-int		add_move(t_ant *ant, int x, int y);
+int		add_move(t_rstep *rstep, int x, int y);
 int		add_link(t_visu *visu, t_room *room, char *name);
 void	fill_map(t_visu *visu, char *str);
 void	print_rooms(t_visu *visu);
@@ -111,16 +115,19 @@ void 	fill_circle(t_party *party, int centreX, int centreY, int radius, int colo
 void	color_room(t_party *party, t_room *last);
 void	add_ant(t_visu *visu, int i);
 int		place_ants(t_visu *visu, t_party *party);
-void	get_move(t_visu *visu, t_party *party, t_ant **ant, t_room *dest);
-t_room	*get_room_by_name(t_visu *visu, char *name);
-void	bresenmove(t_point *point1, t_point *point2, t_ant *ant);
+void	get_move(t_visu *visu, t_ant **ant, t_room *dest, int step);
+void	bresenmove(t_point *point1, t_point *point2, t_rstep *rstep);
 void	make_a_move(t_visu *visu, t_party *party);
 void 	draw_ant(t_party *party, int centreX, int centreY, int radius, int color);
-void	vertical_move(t_point *point1, t_point *point2, t_ant *ant);
+void	vertical_move(t_point *point1, t_point *point2, t_rstep *rstep);
 void 	fill_ant(t_party *party, int centreX, int centreY, int radius, int color);
 void	add_name(t_visu *visu, t_party *party);
 int		handle_mouse(int x, int y, t_party *party);
 int		mouse_press(int button, int x, int y, t_party *party);
+void	start_ants(t_visu *visu, t_party *party);
+void	add_rstep(t_ant *ant, int step);
+void	draw_all_ants(t_party *party, t_visu *visu);
+void	free_ant_move(t_visu *visu);
 
 //DEBUG
 void	print_move(t_move *move);

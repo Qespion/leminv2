@@ -6,26 +6,25 @@
 /*   By: ratin <ratin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/10 12:13:05 by ratin             #+#    #+#             */
-/*   Updated: 2019/05/14 20:00:46 by ratin            ###   ########.fr       */
+/*   Updated: 2019/05/15 14:26:48 by ratin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libft/includes/libft.h"
 #include "lem_in.h"
 
-static int	line1(t_point *point1, t_point *point2, t_ant *ant)
+static int	line1(t_point *point1, t_point *point2, t_rstep *rstep)
 {
 	int		x;
 	int		y;
 	t_line	line;
 
-	printf("passage in 1\n");
 	x = point1->x;
 	y = point1->y;
 	line.dp = 2 * (point2->y - point1->y) - (point2->x - point1->x);
 	line.delta_e = 2 * (point2->y - point1->y);
 	line.delta_ne = 2 * ((point2->y - point1->y) - (point2->x - point1->x));
-	add_move(ant, x, y);
+	add_move(rstep, x, y);
 	while (x < point2->x)
 	{
 		if (line.dp <= 0)
@@ -36,26 +35,25 @@ static int	line1(t_point *point1, t_point *point2, t_ant *ant)
 			y++;
 		}
 		x++;
-		add_move(ant, x, y);
+		add_move(rstep, x, y);
 	}
 	return (1);
 }
 
-static int	line2(t_point *point1, t_point *point2, t_ant *ant)
+static int	line2(t_point *point1, t_point *point2, t_rstep *rstep)
 {
 	int		x;
 	int		y;
 	t_line	line;
 
-	printf("passage in 2\n");
 	x = point1->x;
 	y = point1->y;
 	line.dp = 2 * (point2->x - point1->x) - (point2->y - point1->y);
 	line.delta_e = 2 * (point2->x - point1->x);
 	line.delta_ne = 2 * ((point2->x - point1->x) - (point2->y - point1->y));
-	add_move(ant, x, y);
+	add_move(rstep, x, y);
 	if (x == point2->x)
-		vertical_move(point1, point2, ant);
+		vertical_move(point1, point2, rstep);
 	while (x < point2->x)
 	{
 		if (line.dp <= 0)
@@ -66,24 +64,23 @@ static int	line2(t_point *point1, t_point *point2, t_ant *ant)
 			x++;
 		}
 		y++;
-		add_move(ant, x, y);
+		add_move(rstep, x, y);
 	}
 	return (0);
 }
 
-static int	line3(t_point *point1, t_point *point2, t_ant *ant)
+static int	line3(t_point *point1, t_point *point2, t_rstep *rstep)
 {
 	int		x;
 	int		y;
 	t_line	line;
 
-	printf("passage in 3\n");
 	x = point1->x;
 	y = point1->y;
 	line.dp = 2 * (point2->y - point1->y) - (point1->x - point2->x);
 	line.delta_e = 2 * (point2->y - point1->y);
 	line.delta_ne = 2 * ((point2->y - point1->y) - (point1->x - point2->x));
-	add_move(ant, x, y);
+	add_move(rstep, x, y);
 	while (x > point2->x)
 	{
 		if (line.dp <= 0)
@@ -94,24 +91,23 @@ static int	line3(t_point *point1, t_point *point2, t_ant *ant)
 			y++;
 		}
 		x--;
-		add_move(ant, x, y);
+		add_move(rstep, x, y);
 	}
 	return (0);
 }
 
-static int	line4(t_point *point1, t_point *point2, t_ant *ant)
+static int	line4(t_point *point1, t_point *point2, t_rstep *rstep)
 {
 	int		x;
 	int		y;
 	t_line	line;
 
-	printf("passage in 4\n");
 	x = point1->x;
 	y = point1->y;
 	line.dp = 2 * (point1->x - point2->x) - (point2->y - point1->y);
 	line.delta_e = 2 * (point1->x - point2->x);
 	line.delta_ne = 2 * ((point1->x - point2->x) - (point2->y - point1->y));
-	add_move(ant, x, y);
+	add_move(rstep, x, y);
 	while (x > point2->x)
 	{
 		if (line.dp <= 0)
@@ -122,25 +118,25 @@ static int	line4(t_point *point1, t_point *point2, t_ant *ant)
 			x--;
 		}
 		y++;
-		add_move(ant, x, y);
+		add_move(rstep, x, y);
 	}
 	return (0);
 }
 
-void		bresenmove(t_point *point1, t_point *point2, t_ant *ant)
+void		bresenmove(t_point *point1, t_point *point2, t_rstep *rstep)
 {
 	if (point2->x >= point1->x)
 	{
 		if ((point2->x - point1->x) >= (point2->y - point1->y))
-			line1(point1, point2, ant);
+			line1(point1, point2, rstep);
 		if ((point2->x - point1->x) < (point2->y - point1->y))
-			line2(point1, point2, ant);
+			line2(point1, point2, rstep);
 	}
 	if (point2->x < point1->x)
 	{
 		if ((point1->x - point2->x) >= (point2->y - point1->y))
-			line3(point1, point2, ant);
+			line3(point1, point2, rstep);
 		if ((point1->x - point2->x) < (point2->y - point1->y))
-			line4(point1, point2, ant);
+			line4(point1, point2, rstep);
 	}
 }

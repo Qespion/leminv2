@@ -6,7 +6,7 @@
 /*   By: ratin <ratin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/02 19:02:10 by ratin             #+#    #+#             */
-/*   Updated: 2019/05/14 16:50:43 by ratin            ###   ########.fr       */
+/*   Updated: 2019/05/15 16:54:54 by ratin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@ void		init_visu(t_visu *visu, t_party *party)
 	visu->tube_finished = 0;
 	visu->reponse_finished = 0;
 	visu->nbr_room = 0;
+	visu->ant_start = 0;
+	party->g_step = 1;
 	party->zoom = 1;
 	party->translate_x = 0;
 	party->translate_y = 0;
@@ -100,5 +102,6 @@ int			main(void)
 
 //zoom on big map
 //link on big map
-//vertical limit for move
-//free le itoa de l'index des formis
+
+//probleme de creation d'une salle si un commentaire est present en premiere
+//	ligne

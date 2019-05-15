@@ -48,6 +48,9 @@ SRCS_2	=	srcs/visu.c \
 			srcs/visu_move.c \
 			srcs/visu_bresenmove.c \
 			srcs/visu_move_ant.c \
+			srcs/visu_start_ants.c \
+			srcs/visu_make_a_move.c \
+			srcs/visu_draw_ants.c \
 
 LIBFT	=	libft/libft.a
 MLX 	=	mlx/ -lmlx -framework OpenGL -framework AppKit
