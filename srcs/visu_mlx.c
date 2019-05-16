@@ -6,7 +6,7 @@
 /*   By: ratin <ratin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/19 14:59:07 by ratin             #+#    #+#             */
-/*   Updated: 2019/05/15 17:15:30 by ratin            ###   ########.fr       */
+/*   Updated: 2019/05/16 18:15:48 by ratin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,16 +33,8 @@ int		handle_key(int key, t_party *party)
 		else
 			party->pause = 0;
 	}
-	if (key == 123 && party->i > 0)
-		party->i--;
-	if (key == 124 && party->i < party->turn - 1)
-		party->i++;
 	if (key == 78 && party->zoom > -42)
-	{
 		party->zoom -= 2;
-		printf("zoom = %d\n", party->zoom);
-
-	}
 	if (key == 69)
 		party->zoom += 2;
 	if (key == 123)
@@ -53,6 +45,11 @@ int		handle_key(int key, t_party *party)
 		party->translate_y -= 10;
 	if (key == 124)
 		party->translate_x += 10;
+	if (key == 116)
+		party->g_step++;
+	if (key == 121 && party->g_step > 1)
+		party->g_step--;
+	//printf("key = %d\n", key);
 	return (1);
 }
 
@@ -95,6 +92,50 @@ void		back_screen(t_party *party)
 	}
 }
 
+void		add_ant_name(t_visu *visu, t_party *party)
+{
+	t_ant	*last;
+	t_rstep *rstep;
+	char	*ant_in;
+
+	last = visu->ants;
+	while (last)
+	{
+		rstep = get_rstep(party->g_step, last->rstep);
+		if (rstep)
+		{
+			ant_in = ft_itoa(last->index);
+			mlx_string_put(party->mlx.mlx_ptr, party->mlx.win_ptr
+			, rstep->move_cursor->x, rstep->move_cursor->y, ANT, ant_in);
+			free(ant_in);
+		}
+		last = last->next;
+	}
+}
+
+void		print_ant_pos(t_visu *visu, t_party *party)
+{
+	t_ant		*last;
+	t_rstep		*rstep;
+
+	last = visu->ants;
+	while (last)
+	{
+		printf("pour ant %d:\n", last->index);
+		rstep = last->rstep;
+		while (rstep)
+		{
+			printf("	g_step %d\n", rstep->index);
+			printf("	L%d positinon = {%d, %d}\n", last->index,
+			rstep->move->x,	rstep->move->y);
+			rstep = rstep->next;
+		}
+		last = last->next;
+	}
+	printf("\n\n");
+	(void)party;
+}
+
 int			draw(t_party *party, t_visu *visu)
 {
 	t_mlx	*mlx;
@@ -110,19 +151,21 @@ int			draw(t_party *party, t_visu *visu)
 		, &party->mlx.img.bpp,
 		&party->mlx.img.size_l, &party->mlx.img.endian);
 		back_screen(party);
-
 		place_party(visu, party);
-		//if (visu->ant_start == 0)
 		start_ants(visu, party);
 		//make_a_move(party, visu);
+		print_ant_pos(visu, party);
 
 		draw_all_ants(party, visu);
-
-		//si move_cursor == NULL draw ant a ant->position;
+		mlx_put_image_to_window(party->mlx.mlx_ptr, party->mlx.win_ptr
+		, party->mlx.img.img_ptr, 0, 0);
+		printf("***********passsage\n");
+		add_ant_name(visu, party);
 		add_name(visu, party);
+
 		mlx_do_sync(party->mlx.mlx_ptr);
+
 		free_ant_move(visu);
 	}
-	(void)visu;
 	return (1);
 }

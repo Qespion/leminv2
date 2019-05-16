@@ -6,7 +6,7 @@
 /*   By: ratin <ratin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/15 14:53:10 by ratin             #+#    #+#             */
-/*   Updated: 2019/05/15 17:24:29 by ratin            ###   ########.fr       */
+/*   Updated: 2019/05/16 17:11:59 by ratin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,6 @@ void		draw_all_ants(t_party *party, t_visu *visu)
 {
 	t_ant	*last;
 	t_rstep *rstep;
-	char	*ant_in;
 
 	last = visu->ants;
 	while (last)
@@ -110,18 +109,14 @@ void		draw_all_ants(t_party *party, t_visu *visu)
 		rstep = get_rstep(party->g_step, last->rstep);
 		if (rstep)
 		{
-			ant_in = ft_itoa(last->index);
+/* 			printf("at step %d\n", party->g_step);
+			if (last->index == 2)
+				printf("ant %d is at %s\n\n", last->index, last->position->name); */
 			draw_ant(party, rstep->move_cursor->x, rstep->move_cursor->y, 5
 			, ANT);
 			fill_ant(party, rstep->move_cursor->x, rstep->move_cursor->y, 5
 			, ANT);
-			mlx_put_image_to_window(party->mlx.mlx_ptr, party->mlx.win_ptr
-			, party->mlx.img.img_ptr, 0, 0);
-			mlx_string_put(party->mlx.mlx_ptr, party->mlx.win_ptr
-			, rstep->move_cursor->x, rstep->move_cursor->y, ANT, ant_in);
-			free(ant_in);
 		}
 		last = last->next;
 	}
-	(void)ant_in;
 }

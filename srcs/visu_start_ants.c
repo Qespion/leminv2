@@ -6,12 +6,30 @@
 /*   By: ratin <ratin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/14 20:46:02 by ratin             #+#    #+#             */
-/*   Updated: 2019/05/15 17:13:42 by ratin            ###   ########.fr       */
+/*   Updated: 2019/05/16 18:09:31 by ratin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libft/includes/libft.h"
 #include "lem_in.h"
+
+void		init_rstep(t_visu *visu, int step)
+{
+	t_ant	*last;
+	t_rstep	*rstep;
+
+	last = visu->ants;
+	while (last)
+	{
+		add_rstep(last, step);
+		rstep = get_rstep(step, last->rstep);
+		add_move(rstep, last->position->new_x, last->position->new_y);
+		printf("ant %d first move is {%d, %d} at step %d\n", last->index, 
+		rstep->move->x, rstep->move->y, step);
+		rstep->move_cursor = rstep->move;
+		last = last->next;
+	}
+}
 
 void		start_ants(t_visu *visu, t_party *party)
 {

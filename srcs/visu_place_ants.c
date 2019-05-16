@@ -6,7 +6,7 @@
 /*   By: ratin <ratin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/09 05:46:17 by ratin             #+#    #+#             */
-/*   Updated: 2019/05/15 17:24:20 by ratin            ###   ########.fr       */
+/*   Updated: 2019/05/16 18:03:28 by ratin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,22 +73,6 @@ t_ant	*get_ant(t_visu *visu, int index)
 	return (0);
 }
 
-void			static_step(t_visu *visu, int step)
-{
-	t_ant		*last;
-
-	last = visu->ants;
-	while (last)
-	{
-		if (last->rstep == NULL)
-		{
-			add_rstep(last, step);
-			add_move(last->rstep, last->position->x, last->position->y);
-		}
-		last = last->next;
-	}
-}
-
 int				place_ants(t_visu *visu, t_party *party)
 {
 	int			i;
@@ -104,6 +88,7 @@ int				place_ants(t_visu *visu, t_party *party)
 	while (current)
 	{
 		i = 0;
+		init_rstep(visu, i_step);
 		while (current->step[i] != 0)
 		{
 			y = 0;
@@ -113,11 +98,10 @@ int				place_ants(t_visu *visu, t_party *party)
 			while (step[y] != '-' && step[y])
 				y++;
 			destination = get_room_by_name(visu, &step[++y]);
-			add_rstep(ant, i_step);
+			//add_rstep(ant, i_step);
 			get_move(visu, &ant, destination, i_step);
 			i++;
 		}
-		//static_step(visu, i_step);
 		current = current->next;
 		i_step++;
 	}

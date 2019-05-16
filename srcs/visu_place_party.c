@@ -6,7 +6,7 @@
 /*   By: ratin <ratin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/04 17:58:36 by ratin             #+#    #+#             */
-/*   Updated: 2019/05/15 14:33:46 by ratin            ###   ########.fr       */
+/*   Updated: 2019/05/16 14:18:21 by ratin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,6 +108,6 @@ void	place_party(t_visu *visu, t_party *party)
 	else
 		party->is_bigmap = 0;
 	place_room(visu, party);
-	print_rooms(visu);
+	//print_rooms(visu);
 	add_color(visu, party);
 }

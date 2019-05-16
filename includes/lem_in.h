@@ -6,7 +6,7 @@
 /*   By: ratin <ratin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/06 16:27:53 by oespion           #+#    #+#             */
-/*   Updated: 2019/05/15 16:43:27 by ratin            ###   ########.fr       */
+/*   Updated: 2019/05/16 16:54:29 by ratin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,6 +128,7 @@ void	start_ants(t_visu *visu, t_party *party);
 void	add_rstep(t_ant *ant, int step);
 void	draw_all_ants(t_party *party, t_visu *visu);
 void	free_ant_move(t_visu *visu);
+void	init_rstep(t_visu *visu, int step);
 
 //DEBUG
 void	print_move(t_move *move);
