@@ -6,7 +6,7 @@
 /*   By: ratin <ratin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/06 16:27:53 by oespion           #+#    #+#             */
-/*   Updated: 2019/05/16 16:54:37 by ratin            ###   ########.fr       */
+/*   Updated: 2019/05/16 19:02:12 by ratin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,9 +132,8 @@ typedef	struct			s_reponse
 
 typedef struct			s_visu
 {
-	char				**turn;
 	char				*result;
-	int					ant_start;
+	int					nbr_of_step;
 	int					nbr_of_ants;
 	int					map_finished;
 	int					tube_finished;
@@ -169,6 +168,7 @@ typedef struct 			s_mlx
 
 typedef	struct			s_party
 {
+	int					nbr_of_ants;
 	int					g_step;
 	int					turn;
 	int					pause;

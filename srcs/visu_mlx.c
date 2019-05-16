@@ -6,7 +6,7 @@
 /*   By: ratin <ratin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/19 14:59:07 by ratin             #+#    #+#             */
-/*   Updated: 2019/05/16 18:15:48 by ratin            ###   ########.fr       */
+/*   Updated: 2019/05/16 19:23:28 by ratin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ int		handle_key(int key, t_party *party)
 		party->translate_y -= 10;
 	if (key == 124)
 		party->translate_x += 10;
-	if (key == 116)
+	if (key == 116 && party->g_step < party->nbr_of_ants + 1)
 		party->g_step++;
 	if (key == 121 && party->g_step > 1)
 		party->g_step--;
@@ -54,7 +54,7 @@ int		handle_key(int key, t_party *party)
 }
 
 
-int			init_mlx(t_party *party)
+int			init_mlx(t_visu *visu, t_party *party)
 {
 	if (!(party->mlx.mlx_ptr = mlx_init()))
 		quit_visu(party);
@@ -71,6 +71,7 @@ int			init_mlx(t_party *party)
 	party->ant_image.img.data = (int *)mlx_get_data_addr(party->ant_image
 		.img.img_ptr, &party->ant_image.img.bpp, &party->ant_image.img.size_l
 		, &party->ant_image.img.endian);
+	party->nbr_of_ants = visu->nbr_of_ants;
 	return (1);
 }
 
@@ -153,13 +154,12 @@ int			draw(t_party *party, t_visu *visu)
 		back_screen(party);
 		place_party(visu, party);
 		start_ants(visu, party);
-		//make_a_move(party, visu);
-		print_ant_pos(visu, party);
+		make_a_move(visu, party);
+		//print_ant_pos(visu, party);
 
 		draw_all_ants(party, visu);
 		mlx_put_image_to_window(party->mlx.mlx_ptr, party->mlx.win_ptr
 		, party->mlx.img.img_ptr, 0, 0);
-		printf("***********passsage\n");
 		add_ant_name(visu, party);
 		add_name(visu, party);
 

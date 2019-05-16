@@ -6,7 +6,7 @@
 /*   By: ratin <ratin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/02 19:09:09 by ratin             #+#    #+#             */
-/*   Updated: 2019/05/14 16:38:10 by ratin            ###   ########.fr       */
+/*   Updated: 2019/05/16 18:51:17 by ratin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,11 +75,27 @@ static char	*read_result(t_visu *visu)
 	return (result);
 }
 
+int				count_step(t_visu *visu)
+{
+	t_reponse	*last;
+	int			i;
+	
+	last = visu->reponse;
+	i = 0;
+	while (last)
+	{
+		i++;
+		last = last->next;
+	}
+	return (i);
+}
+
 int			get_result(t_visu *visu)
 {
 	char 	*result;
 
 	result = read_result(visu);
+	visu->nbr_of_step = count_step(visu);
 	ft_printf("%s", result);
 	visu->result = result;
 	return (1);

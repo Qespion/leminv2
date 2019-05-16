@@ -6,7 +6,7 @@
 /*   By: ratin <ratin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/15 14:53:10 by ratin             #+#    #+#             */
-/*   Updated: 2019/05/16 17:11:59 by ratin            ###   ########.fr       */
+/*   Updated: 2019/05/16 19:21:43 by ratin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,9 +109,8 @@ void		draw_all_ants(t_party *party, t_visu *visu)
 		rstep = get_rstep(party->g_step, last->rstep);
 		if (rstep)
 		{
-/* 			printf("at step %d\n", party->g_step);
-			if (last->index == 2)
-				printf("ant %d is at %s\n\n", last->index, last->position->name); */
+/* 			printf("pour L%d -----------------------\n", last->index);
+			print_move(rstep->move_cursor); */
 			draw_ant(party, rstep->move_cursor->x, rstep->move_cursor->y, 5
 			, ANT);
 			fill_ant(party, rstep->move_cursor->x, rstep->move_cursor->y, 5

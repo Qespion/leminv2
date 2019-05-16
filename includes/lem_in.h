@@ -6,7 +6,7 @@
 /*   By: ratin <ratin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/06 16:27:53 by oespion           #+#    #+#             */
-/*   Updated: 2019/05/16 16:54:29 by ratin            ###   ########.fr       */
+/*   Updated: 2019/05/16 19:02:39 by ratin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ int		put_line(t_point *point1, t_point *point2, t_mlx *mlx, int color);
 int		ft_put_pixel(t_mlx *mlx, int x, int y, int color);
 int		get_result(t_visu *visu);
 int		quit_visu(t_party *party);
-int		init_mlx(t_party *party);
+int		init_mlx(t_visu *visu, t_party *party);
 int		draw(t_party *party, t_visu *visu);
 int		handle_key(int key, t_party *party);
 int		draw_link(t_party *party, t_room *last, t_tube *tube, int circle);
