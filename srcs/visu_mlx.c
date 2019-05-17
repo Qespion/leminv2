@@ -6,7 +6,7 @@
 /*   By: ratin <ratin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/19 14:59:07 by ratin             #+#    #+#             */
-/*   Updated: 2019/05/16 19:23:28 by ratin            ###   ########.fr       */
+/*   Updated: 2019/05/17 11:24:56 by ratin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,7 @@ int			quit_visu(t_party *party)
 	//free_prog(party);
 	exit(1);
 	return (0);
-}
-
+} 
 int		handle_key(int key, t_party *party)
 {
 	if (key == 53)
@@ -46,9 +45,15 @@ int		handle_key(int key, t_party *party)
 	if (key == 124)
 		party->translate_x += 10;
 	if (key == 116 && party->g_step < party->nbr_of_ants + 1)
+	{
+		party->mouv = 0;
 		party->g_step++;
+	}
 	if (key == 121 && party->g_step > 1)
+	{
+		party->mouv = 0;
 		party->g_step--;
+	}
 	//printf("key = %d\n", key);
 	return (1);
 }
@@ -154,7 +159,6 @@ int			draw(t_party *party, t_visu *visu)
 		back_screen(party);
 		place_party(visu, party);
 		start_ants(visu, party);
-		make_a_move(visu, party);
 		//print_ant_pos(visu, party);
 
 		draw_all_ants(party, visu);
@@ -166,6 +170,7 @@ int			draw(t_party *party, t_visu *visu)
 		mlx_do_sync(party->mlx.mlx_ptr);
 
 		free_ant_move(visu);
+		party->mouv += 3;
 	}
 	return (1);
 }

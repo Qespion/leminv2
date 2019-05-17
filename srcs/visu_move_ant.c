@@ -6,7 +6,7 @@
 /*   By: ratin <ratin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/13 12:04:08 by ratin             #+#    #+#             */
-/*   Updated: 2019/05/16 19:18:49 by ratin            ###   ########.fr       */
+/*   Updated: 2019/05/17 12:16:17 by ratin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,19 @@ t_rstep		*get_rstep(int step, t_rstep *rstep)
 	return (last);
 }
 
-void		get_move(t_visu *visu, t_ant **ant, t_room *dest, int step)
+void		check_move(t_move **move)
+{
+	t_move	*tmp;
+
+	if ((*move)->next)
+	{
+		tmp = (*move)->next;
+		free((*move));
+		(*move) = tmp;
+	}
+}
+
+void		get_move(t_ant **ant, t_room *dest, int step)
 {
 	t_point	src;
 	t_point	dst;
@@ -96,9 +108,9 @@ void		get_move(t_visu *visu, t_ant **ant, t_room *dest, int step)
 	else
 	{
 		bresenmove(&dst, &src, move_step);
+		check_move(&move_step->move);
 		reverse_move(&move_step->move);
 	}
 	move_step->move_cursor = move_step->move;
 	(*ant)->position = dest;
- 	(void)visu;
 }

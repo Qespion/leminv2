@@ -6,7 +6,7 @@
 /*   By: ratin <ratin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/06 16:27:53 by oespion           #+#    #+#             */
-/*   Updated: 2019/05/16 19:02:39 by ratin            ###   ########.fr       */
+/*   Updated: 2019/05/17 12:16:23 by ratin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,7 +115,7 @@ void 	fill_circle(t_party *party, int centreX, int centreY, int radius, int colo
 void	color_room(t_party *party, t_room *last);
 void	add_ant(t_visu *visu, int i);
 int		place_ants(t_visu *visu, t_party *party);
-void	get_move(t_visu *visu, t_ant **ant, t_room *dest, int step);
+void	get_move(t_ant **ant, t_room *dest, int step);
 void	bresenmove(t_point *point1, t_point *point2, t_rstep *rstep);
 void	make_a_move(t_visu *visu, t_party *party);
 void 	draw_ant(t_party *party, int centreX, int centreY, int radius, int color);

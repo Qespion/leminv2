@@ -6,7 +6,7 @@
 /*   By: ratin <ratin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/02 19:02:10 by ratin             #+#    #+#             */
-/*   Updated: 2019/05/16 19:02:54 by ratin            ###   ########.fr       */
+/*   Updated: 2019/05/17 11:13:28 by ratin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ void		init_visu(t_visu *visu, t_party *party)
 	party->is_pressed = 0;
 	party->x_save = 0;
 	party->y_save = 0;
+	party->mouv = 0;
 }
 
 int		handle_mouse(int x, int y, t_party *party) 
