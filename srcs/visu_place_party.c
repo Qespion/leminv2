@@ -6,7 +6,7 @@
 /*   By: ratin <ratin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/04 17:58:36 by ratin             #+#    #+#             */
-/*   Updated: 2019/05/16 14:18:21 by ratin            ###   ########.fr       */
+/*   Updated: 2019/05/18 18:23:39 by ratin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,12 +102,6 @@ void	add_name(t_visu *visu, t_party *party)
 void	place_party(t_visu *visu, t_party *party)
 {
 	party->space = 60 + party->zoom;
-	if ((visu->room->next->x - visu->room->y) + (visu->room->next->y
-	- visu->room->y) > 100)
-		party->is_bigmap = 1;
-	else
-		party->is_bigmap = 0;
 	place_room(visu, party);
-	//print_rooms(visu);
 	add_color(visu, party);
 }

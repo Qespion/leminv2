@@ -6,7 +6,7 @@
 /*   By: ratin <ratin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/06 16:27:53 by oespion           #+#    #+#             */
-/*   Updated: 2019/05/17 11:13:12 by ratin            ###   ########.fr       */
+/*   Updated: 2019/05/18 18:45:09 by ratin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -170,6 +170,7 @@ typedef	struct			s_party
 {
 	int					mouv;
 	int					nbr_of_ants;
+	int					nbr_of_step;
 	int					g_step;
 	int					turn;
 	int					pause;

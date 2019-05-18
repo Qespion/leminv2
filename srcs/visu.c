@@ -6,7 +6,7 @@
 /*   By: ratin <ratin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/02 19:02:10 by ratin             #+#    #+#             */
-/*   Updated: 2019/05/17 11:13:28 by ratin            ###   ########.fr       */
+/*   Updated: 2019/05/18 18:16:47 by ratin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,20 @@ void		init_ants(t_visu *visu)
 	}
 }
 
+void		init_zoom(t_visu *visu, t_party *party)
+{
+	if ((visu->room->next->x - visu->room->x) + (visu->room->next->y
+	- visu->room->y) > 100)
+	{
+		party->is_bigmap = 1;
+		party->zoom = -57;
+	}
+	else
+	{
+		party->is_bigmap = 0;
+	}
+}
+
 int			main(void)
 {
 	t_visu	visu;
@@ -96,9 +110,12 @@ int			main(void)
 	mlx_hook(party.mlx.win_ptr, 2, 1L<<6, handle_key, &party);
 	mlx_hook(party.mlx.win_ptr, 6, 1L<<6, handle_mouse, &party);
 	mlx_hook(party.mlx.win_ptr, 4, 1L<<6, mouse_press, &party);
+	init_zoom(&visu, &party);
 	draw(&party, &visu);
 	return (0);
 }
+
+//no start map error
 
 //zoom on big map
 //link on big map

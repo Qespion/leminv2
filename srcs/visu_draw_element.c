@@ -6,7 +6,7 @@
 /*   By: ratin <ratin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/07 02:34:48 by ratin             #+#    #+#             */
-/*   Updated: 2019/05/15 14:33:29 by ratin            ###   ########.fr       */
+/*   Updated: 2019/05/18 17:49:10 by ratin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,22 @@ int			draw_link(t_party *party, t_room *last, t_tube *tube, int circle)
 	int		i;
 
 	i = 0;
-	room1.x = last->x * party->space + (WIDTH - party->zoom * 5) / 4;
-	room1.y = last->y * party->space + (HEIGHT + party->zoom * 1) / 3;
-	room2.x = tube->room->x * party->space + (WIDTH - party->zoom * 5) / 4;
-	room2.y = tube->room->y * party->space + (HEIGHT + party->zoom * 1) / 3;
+
+	if (party->is_bigmap == 1)
+	{
+		room1.x = last->x / party->space + (WIDTH - party->zoom * 5) / 4;
+		room1.y = last->y / party->space + (HEIGHT + party->zoom * 1) / 3;
+		room2.x = tube->room->x / party->space + (WIDTH - party->zoom * 5) / 4;
+		room2.y = tube->room->y / party->space + (HEIGHT + party->zoom * 1) / 3;
+	}
+	else
+	{
+		room1.x = last->x * party->space + (WIDTH - party->zoom * 5) / 4;
+		room1.y = last->y * party->space + (HEIGHT + party->zoom * 1) / 3;
+		room2.x = tube->room->x * party->space + (WIDTH - party->zoom * 5) / 4;
+		room2.y = tube->room->y * party->space + (HEIGHT + party->zoom * 1) / 3;
+	}
+
 	room1.x += party->translate_x - party->press_x;
 	room1.y += party->translate_y - party->press_y;
 	room2.x += party->translate_x - party->press_x;
@@ -41,8 +53,8 @@ int			draw_room(t_party *party, t_room *last)
 
 	if (party->is_bigmap == 1)
 	{
-		x = last->x - party->space;
-		y = last->y - party->space;
+		x = last->x / party->space + (WIDTH - party->zoom * 5) / 4;
+		y = last->y / party->space + (HEIGHT + party->zoom * 1) / 3;
 		circle = 20;
 	}
 	else
@@ -69,8 +81,8 @@ void		color_room(t_party *party, t_room *last)
 	i = 0;
 	if (party->is_bigmap == 1)
 	{
-		x = last->x - party->space;
-		y = last->y - party->space;
+		x = last->x / party->space + (WIDTH - party->zoom * 5) / 4;
+		y = last->y / party->space + (HEIGHT + party->zoom * 1) / 3;
 		circle = 20;
 	}
 	else

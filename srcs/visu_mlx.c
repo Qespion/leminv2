@@ -6,7 +6,7 @@
 /*   By: ratin <ratin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/19 14:59:07 by ratin             #+#    #+#             */
-/*   Updated: 2019/05/17 11:24:56 by ratin            ###   ########.fr       */
+/*   Updated: 2019/05/18 18:45:45 by ratin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,10 +32,14 @@ int		handle_key(int key, t_party *party)
 		else
 			party->pause = 0;
 	}
-	if (key == 78 && party->zoom > -42)
+	if (key == 78 && party->zoom > -42 && party->is_bigmap == 0)
 		party->zoom -= 2;
-	if (key == 69)
+	if (key == 69 && party->is_bigmap == 0)
 		party->zoom += 2;
+	if (key == 69 && party->is_bigmap == 1 && party->zoom > -59)
+		party->zoom--;
+	if (key == 78 && party->is_bigmap == 1 && party->zoom < 0)
+		party->zoom++;
 	if (key == 123)
 		party->translate_x -= 10;
 	if (key == 125)
@@ -44,7 +48,7 @@ int		handle_key(int key, t_party *party)
 		party->translate_y -= 10;
 	if (key == 124)
 		party->translate_x += 10;
-	if (key == 116 && party->g_step < party->nbr_of_ants + 1)
+	if (key == 116 && party->g_step < party->nbr_of_step)
 	{
 		party->mouv = 0;
 		party->g_step++;
@@ -77,6 +81,7 @@ int			init_mlx(t_visu *visu, t_party *party)
 		.img.img_ptr, &party->ant_image.img.bpp, &party->ant_image.img.size_l
 		, &party->ant_image.img.endian);
 	party->nbr_of_ants = visu->nbr_of_ants;
+	party->nbr_of_step = visu->nbr_of_step;
 	return (1);
 }
 
@@ -149,6 +154,7 @@ int			draw(t_party *party, t_visu *visu)
 	mlx = &party->mlx;
 	while (1)
 	{
+		printf("gstep = %d\n", party->g_step);
 		mlx_clear_window(party->mlx.mlx_ptr, party->mlx.win_ptr);
 		mlx_destroy_image(party->mlx.mlx_ptr, party->mlx.img.img_ptr);
 		party->mlx.img.img_ptr = mlx_new_image(party->mlx.mlx_ptr, WIDTH
@@ -159,7 +165,6 @@ int			draw(t_party *party, t_visu *visu)
 		back_screen(party);
 		place_party(visu, party);
 		start_ants(visu, party);
-		//print_ant_pos(visu, party);
 
 		draw_all_ants(party, visu);
 		mlx_put_image_to_window(party->mlx.mlx_ptr, party->mlx.win_ptr
