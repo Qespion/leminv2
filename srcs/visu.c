@@ -6,7 +6,7 @@
 /*   By: ratin <ratin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/02 19:02:10 by ratin             #+#    #+#             */
-/*   Updated: 2019/05/18 18:16:47 by ratin            ###   ########.fr       */
+/*   Updated: 2019/05/19 01:04:43 by ratin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,14 +15,14 @@
 
 void		init_visu(t_visu *visu, t_party *party)
 {
-	visu->result = NULL;
 	visu->room = NULL;
 	visu->ants = NULL;
 	visu->nbr_of_ants = 0;
 	visu->map_finished = 0;
 	visu->tube_finished = 0;
 	visu->reponse_finished = 0;
-	visu->nbr_room = 0;
+	visu->party = party;
+	party->visu = visu;
 	party->g_step = 1;
 	party->zoom = 1;
 	party->translate_x = 0;
@@ -30,8 +30,6 @@ void		init_visu(t_visu *visu, t_party *party)
 	party->press_x = 0;
 	party->press_y = 0;
 	party->is_pressed = 0;
-	party->x_save = 0;
-	party->y_save = 0;
 	party->mouv = 0;
 }
 
@@ -92,9 +90,7 @@ void		init_zoom(t_visu *visu, t_party *party)
 		party->zoom = -57;
 	}
 	else
-	{
 		party->is_bigmap = 0;
-	}
 }
 
 int			main(void)
@@ -106,7 +102,7 @@ int			main(void)
 	get_result(&visu);
 	init_mlx(&visu, &party);
 	init_ants(&visu);
-	mlx_hook(party.mlx.win_ptr, 17, 1L<<6, quit_visu, &party);
+	mlx_hook(party.mlx.win_ptr, 17, 1L<<6, quit_visu, &visu);
 	mlx_hook(party.mlx.win_ptr, 2, 1L<<6, handle_key, &party);
 	mlx_hook(party.mlx.win_ptr, 6, 1L<<6, handle_mouse, &party);
 	mlx_hook(party.mlx.win_ptr, 4, 1L<<6, mouse_press, &party);
@@ -116,9 +112,4 @@ int			main(void)
 }
 
 //no start map error
-
-//zoom on big map
-//link on big map
-
-//probleme de creation d'une salle si un commentaire est present en premiere
-//	ligne
+//faire ath avec print step et legende

@@ -6,7 +6,7 @@
 /*   By: ratin <ratin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/06 16:27:53 by oespion           #+#    #+#             */
-/*   Updated: 2019/05/17 12:16:23 by ratin            ###   ########.fr       */
+/*   Updated: 2019/05/19 00:49:44 by ratin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@
 # define ROOM_COLOR		0x00b9f7
 # define ANT			0xff0000
 # define NAME			0x000000
+# define START			0x08ff00
+# define END			0xff004c
 
 //DEBUG
 # define MAKEAMOVE		1
@@ -105,7 +107,6 @@ int		add_move(t_rstep *rstep, int x, int y);
 int		add_link(t_visu *visu, t_room *room, char *name);
 void	fill_map(t_visu *visu, char *str);
 void	print_rooms(t_visu *visu);
-void	count_room(t_visu *visu);
 void	get_link(t_visu *visu, char *str);
 void	vertical_limit(t_point *point1, t_point *point2, t_mlx *mlx, int color);
 void	place_party(t_visu *visu, t_party *party);
@@ -129,6 +130,7 @@ void	add_rstep(t_ant *ant, int step);
 void	draw_all_ants(t_party *party, t_visu *visu);
 void	free_ant_move(t_visu *visu);
 void	init_rstep(t_visu *visu, int step);
+void	free_prog(t_visu *visu, t_party *party);
 
 //DEBUG
 void	print_move(t_move *move);

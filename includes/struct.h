@@ -6,7 +6,7 @@
 /*   By: ratin <ratin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/06 16:27:53 by oespion           #+#    #+#             */
-/*   Updated: 2019/05/18 18:45:09 by ratin            ###   ########.fr       */
+/*   Updated: 2019/05/19 00:49:53 by ratin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,13 @@ typedef struct			s_pack
 	struct s_pack		*nxt;
 }						t_pack;
 /////////////////////////////////////////////////////////////////////////////
+typedef	struct			s_tube
+{
+	struct s_room		*room;				
+	struct s_tube		*next;
+	int					test;
+}						t_tube;
+
 typedef struct			s_room
 {
 	char				*name;
@@ -90,16 +97,9 @@ typedef struct			s_room
 	int					new_y;
 	int					start;
 	int					end;
-	struct s_room		*next;
 	struct s_tube		*link;
+	struct s_room		*next;
 }						t_room;
-
-typedef	struct			s_tube
-{
-	struct s_room		*room;				
-	struct s_tube		*next;
-	int					test;
-}						t_tube;
 
 typedef struct			s_move
 {
@@ -132,7 +132,6 @@ typedef	struct			s_reponse
 
 typedef struct			s_visu
 {
-	char				*result;
 	int					nbr_of_step;
 	int					nbr_of_ants;
 	int					map_finished;
@@ -141,7 +140,7 @@ typedef struct			s_visu
 	struct s_room		*room;
 	struct s_reponse	*reponse;
 	struct s_ant		*ants;
-	int					nbr_room;
+	struct s_party		*party;
 }						t_visu;
 
 typedef struct 			s_point
@@ -169,10 +168,8 @@ typedef struct 			s_mlx
 typedef	struct			s_party
 {
 	int					mouv;
-	int					nbr_of_ants;
 	int					nbr_of_step;
 	int					g_step;
-	int					turn;
 	int					pause;
 	int					space;
 	int					zoom;
@@ -180,12 +177,10 @@ typedef	struct			s_party
 	int					translate_y;
 	int					press_x;
 	int					press_y;
-	int					x_save;
-	int					y_save;
 	int					is_pressed;
 	int					is_bigmap;
 	struct s_mlx		mlx;
-	struct s_mlx		ant_image;
+	struct s_visu		*visu;
 }						t_party;
 
 typedef struct			s_line

@@ -6,7 +6,7 @@
 /*   By: ratin <ratin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/13 12:04:08 by ratin             #+#    #+#             */
-/*   Updated: 2019/05/17 12:16:17 by ratin            ###   ########.fr       */
+/*   Updated: 2019/05/19 00:19:43 by ratin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,24 +26,6 @@ void		print_move(t_move *move)
 	{
 		printf("{%d, %d}\n", last->x, last->y);
 		last = last->next;
-	}
-}
-
-void		fill_move_screen(t_party *party)
-{
-	int		y;
-	int		x;
-
-	y = 0;
-	while (y < HEIGHT)
-	{
-		x = 0;
-		while (x < WIDTH)
-		{
-			ft_put_pixel(&party->ant_image, x, y, 0xffffff00);
-			x++;
-		}
-		y++;
 	}
 }
 

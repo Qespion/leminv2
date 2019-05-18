@@ -6,7 +6,7 @@
 /*   By: ratin <ratin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/07 09:52:14 by ratin             #+#    #+#             */
-/*   Updated: 2019/05/10 12:36:07 by ratin            ###   ########.fr       */
+/*   Updated: 2019/05/19 00:24:45 by ratin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ int				add_reponse(t_visu *visu, char *str)
 
 	last = visu->reponse;
 	if (!(new_reponse = create_reponse(str)))
-		return (0);
+		quit_visu(visu->party);
 	if (visu->reponse == NULL)
 		visu->reponse = new_reponse;
 	else

@@ -6,18 +6,23 @@
 /*   By: ratin <ratin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/02 19:09:09 by ratin             #+#    #+#             */
-/*   Updated: 2019/05/18 18:42:19 by ratin            ###   ########.fr       */
+/*   Updated: 2019/05/19 01:09:50 by ratin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libft/includes/libft.h"
 #include "lem_in.h"
 
-void		parse(t_visu *visu, char *str, int turn)
+void		parse(t_visu *visu, char *str, int *turn)
 {
 	if (visu->map_finished == 0)
 	{
-		if (turn == 0)
+		if (*turn == 0 && str[0] == '#')
+		{
+			(*turn)--;
+			return ;
+		}
+		if ((*turn) == 0)
 			visu->nbr_of_ants = ft_atoi(str);
 		else if (ft_strchr(str, '-') != NULL && str[0] != '#')
 		{
@@ -29,8 +34,6 @@ void		parse(t_visu *visu, char *str, int turn)
 	}
 	else if (visu->tube_finished == 0)
 	{
-		if (visu->nbr_room == 0)
-			count_room(visu);
 		if (ft_strcmp(str, "") == 0)
 			visu->tube_finished = 1;
 		else
@@ -53,17 +56,17 @@ static char	*read_result(t_visu *visu)
 
 	turn = 0;
 	if (!(result = (char *)malloc(sizeof(char))))
-		return (0);
+		exit (1);
 	while (1)
 	{
 		if (get_next_line(0, &str) != 1)
 		{
 			free(result);
-			return (0);
+			exit (1);
 		}
 		result = ft_strfjoin(result, str);
 		result = ft_strfjoin(result, "\n");
-		parse(visu, str, turn);
+		parse(visu, str, &turn);
 		if (ft_strstr(str, "FINISHED") != NULL)
 			break ;
 		if (str)
@@ -117,6 +120,6 @@ int			get_result(t_visu *visu)
 	visu->nbr_of_step = count_step(visu);
 	ft_printf("%s", result);
 	//print_reponse(visu);
-	visu->result = result;
+	free(result);
 	return (1);
 }

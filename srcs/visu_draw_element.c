@@ -6,7 +6,7 @@
 /*   By: ratin <ratin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/07 02:34:48 by ratin             #+#    #+#             */
-/*   Updated: 2019/05/18 17:49:10 by ratin            ###   ########.fr       */
+/*   Updated: 2019/05/19 00:21:08 by ratin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,10 @@ int			draw_room(t_party *party, t_room *last)
 	last->new_x = x;
 	last->new_y = y;
 	draw_circle(party, x, y, circle, ROOM);
+	if (last->start == 1)
+	draw_circle(party, x, y, circle + 2, START);
+	if (last->end == 1)
+	draw_circle(party, x, y, circle + 2, END);
 	return (circle);
 }
 

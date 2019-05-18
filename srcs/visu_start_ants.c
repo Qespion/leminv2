@@ -6,7 +6,7 @@
 /*   By: ratin <ratin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/14 20:46:02 by ratin             #+#    #+#             */
-/*   Updated: 2019/05/17 11:30:55 by ratin            ###   ########.fr       */
+/*   Updated: 2019/05/19 00:35:13 by ratin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,22 +28,6 @@ void		init_rstep(t_visu *visu, int step)
 		last = last->next;
 	}
 }
-
-/* void		add_end_step(t_visu *visu, int step)
-{
-	t_ant	*last;
-	t_rstep	*rstep;
-
-	last = visu->ants;
-	while (last)
-	{
-		add_rstep(last, visu->nbr_of_step + 1);
-		rstep = get_rstep(step, last->rstep);
-		add_move(rstep, last->position->new_x, last->position->new_y);
-		rstep->move_cursor = rstep->move;
-		last = last->next;
-	}
-} */
 
 void		start_ants(t_visu *visu, t_party *party)
 {

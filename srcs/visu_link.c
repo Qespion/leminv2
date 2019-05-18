@@ -6,7 +6,7 @@
 /*   By: ratin <ratin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/03 18:25:52 by ratin             #+#    #+#             */
-/*   Updated: 2019/05/11 10:43:12 by ratin            ###   ########.fr       */
+/*   Updated: 2019/05/19 00:52:28 by ratin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ int				add_link(t_visu *visu, t_room *room, char *name)
 
 	last = room->link;
 	if (!(new_link = create_link(visu, name)))
-		return (0);
+		quit_visu(visu->party);
 	if (room->link == NULL)
 		room->link = new_link;
 	else

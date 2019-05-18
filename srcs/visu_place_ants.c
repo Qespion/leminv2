@@ -6,7 +6,7 @@
 /*   By: ratin <ratin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/09 05:46:17 by ratin             #+#    #+#             */
-/*   Updated: 2019/05/17 12:16:58 by ratin            ###   ########.fr       */
+/*   Updated: 2019/05/19 00:53:59 by ratin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,8 @@ void		add_ant(t_visu *visu, int i)
 	t_ant	*new_ant;
 	t_ant	*last;
 
-	new_ant = create_ant(visu, i);
+	if (!(new_ant = create_ant(visu, i)))
+		exit(1);
 	last = visu->ants;
 	if (visu->ants == NULL)
 		visu->ants = new_ant;

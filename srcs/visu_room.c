@@ -6,7 +6,7 @@
 /*   By: ratin <ratin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/02 23:52:21 by ratin             #+#    #+#             */
-/*   Updated: 2019/05/16 14:18:10 by ratin            ###   ########.fr       */
+/*   Updated: 2019/05/19 00:49:34 by ratin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ int				add_room(t_visu *visu, char *str, int special)
 
 	last = visu->room;
 	if (!(new_room = create_room(special)))
-		return (0);
+		quit_visu(visu->party);
 	fill_room(str, new_room);
 	if (visu->room == NULL)
 		visu->room = new_room;
@@ -69,19 +69,6 @@ int				add_room(t_visu *visu, char *str, int special)
 		last->next = new_room;
 	}
 	return (1);
-}
-
-void			count_room(t_visu *visu)
-{
-	t_room		*last;
-
-	last = visu->room;
-	while (last->next)
-	{
-		visu->nbr_room++;
-		last = last->next;
-	}
-	visu->nbr_room++;
 }
 
 void			print_rooms(t_visu *visu)
