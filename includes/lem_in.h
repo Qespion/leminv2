@@ -6,7 +6,7 @@
 /*   By: ratin <ratin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/06 16:27:53 by oespion           #+#    #+#             */
-/*   Updated: 2019/05/19 00:49:44 by ratin            ###   ########.fr       */
+/*   Updated: 2019/05/19 20:28:23 by ratin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,8 +111,8 @@ void	get_link(t_visu *visu, char *str);
 void	vertical_limit(t_point *point1, t_point *point2, t_mlx *mlx, int color);
 void	place_party(t_visu *visu, t_party *party);
 void	put_square(t_party *party, t_point corner, int x, int y);
-void 	draw_circle(t_party *party, int centreX, int centreY, int radius, int color);
-void 	fill_circle(t_party *party, int centreX, int centreY, int radius, int color);
+void 	draw_circle(t_party *party, int centre_x, int centre_y, int radius, int color);
+void 	fill_circle(t_party *party, int centre_x, int centre_y, int radius, int color);
 void	color_room(t_party *party, t_room *last);
 void	add_ant(t_visu *visu, int i);
 int		place_ants(t_visu *visu, t_party *party);
