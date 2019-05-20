@@ -6,7 +6,7 @@
 /*   By: ratin <ratin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/02 19:02:10 by ratin             #+#    #+#             */
-/*   Updated: 2019/05/20 15:39:14 by ratin            ###   ########.fr       */
+/*   Updated: 2019/05/20 17:05:02 by ratin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,7 @@ int			main(void)
 {
 	t_visu	visu;
 	t_party	party;
-	
+
 	init_visu(&visu, &party);
 	get_result(&visu);
 	init_mlx(&visu, &party);
@@ -112,4 +112,5 @@ int			main(void)
 }
 
 //no start map error
+//gerer les map error
 //faire ath avec print step et legende

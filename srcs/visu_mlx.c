@@ -6,22 +6,23 @@
 /*   By: ratin <ratin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/19 14:59:07 by ratin             #+#    #+#             */
-/*   Updated: 2019/05/20 15:44:51 by ratin            ###   ########.fr       */
+/*   Updated: 2019/05/20 16:07:00 by ratin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libft/includes/libft.h"
 #include "lem_in.h"
 
-int			quit_visu(t_party *party)
+int		quit_visu(t_party *party)
 {
 	mlx_clear_window(party->mlx.mlx_ptr, party->mlx.win_ptr);
 	mlx_destroy_window(party->mlx.mlx_ptr, party->mlx.win_ptr);
 	free_prog(party->visu, party);
 	exit(1);
-	return (0);
-} 
-int		handle_key(int key, t_party *party)
+	return (1);
+}
+
+int			handle_key(int key, t_party *party)
 {
 	if (key == 53)
 		quit_visu(party);
@@ -48,7 +49,7 @@ int		handle_key(int key, t_party *party)
 		party->translate_y -= 10;
 	if (key == 124)
 		party->translate_x += 10;
-	if (key == 116 && party->g_step < party->nbr_of_step)
+	if (key == 116 && party->g_step < party->nbr_of_step + 1)
 	{
 		party->mouv = 0;
 		party->g_step++;
