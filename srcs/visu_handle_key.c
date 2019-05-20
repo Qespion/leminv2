@@ -6,7 +6,7 @@
 /*   By: ratin <ratin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/20 18:26:40 by ratin             #+#    #+#             */
-/*   Updated: 2019/05/20 18:37:10 by ratin            ###   ########.fr       */
+/*   Updated: 2019/05/20 18:53:20 by ratin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ int		handle_mouse(int x, int y, t_party *party)
 	return (0);
 }
 
-int			mouse_press(int button, int x, int y, t_party *party)
+int		mouse_press(int button, int x, int y, t_party *party)
 {
 	if (button == 1 && party->is_pressed == 0)
 	{

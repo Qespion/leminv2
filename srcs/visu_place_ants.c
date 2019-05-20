@@ -6,7 +6,7 @@
 /*   By: ratin <ratin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/09 05:46:17 by ratin             #+#    #+#             */
-/*   Updated: 2019/05/19 00:53:59 by ratin            ###   ########.fr       */
+/*   Updated: 2019/05/20 19:21:32 by ratin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,36 +76,35 @@ t_ant	*get_ant(t_visu *visu, int index)
 
 int				place_ants(t_visu *visu, t_party *party)
 {
-	int			i;
-	int			y;
-	int			i_step;
+	int			iy_step[3];
 	char		*step;
 	t_reponse	*current;
 	t_room		*destination;
 	t_ant		*ant;
 
 	current = visu->reponse;
-	i_step = 1;
+	iy_step[2] = 1;
 	while (current)
 	{
-		i = 0;
-		init_rstep(visu, i_step);
-		while (current->step[i] != 0)
+		iy_step[0] = 0;
+		init_rstep(visu, iy_step[2]);
+		while (current->step[iy_step[0]] != 0)
 		{
-			y = 0;
-			step = current->step[i];
+			
+			iy_step[1] = 0;
+			step = current->step[iy_step[0]];
 			if (!(ant = get_ant(visu, ft_atoi(&step[1]))))
 				return (0);
-			while (step[y] != '-' && step[y])
-				y++;
-			destination = get_room_by_name(visu, &step[++y]);
-			get_move(&ant, destination, i_step);
-			i++;
+			while (step[iy_step[1]] != '-' && step[iy_step[1]])
+				iy_step[1]++;
+			destination = get_room_by_name(visu, &step[++iy_step[1]]);
+			get_move(&ant, destination, iy_step[2]);
+			iy_step[0]++;
 		}
 		current = current->next;
-		i_step++;
+		iy_step[2]++;
 	}
-	init_rstep(visu, i_step);
+	init_rstep(visu, iy_step[2]);
 	(void)party;
 	return (1);
 }

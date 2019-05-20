@@ -6,14 +6,14 @@
 /*   By: ratin <ratin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/19 14:59:07 by ratin             #+#    #+#             */
-/*   Updated: 2019/05/20 18:27:56 by ratin            ###   ########.fr       */
+/*   Updated: 2019/05/20 19:29:19 by ratin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libft/includes/libft.h"
 #include "lem_in.h"
 
-int		quit_visu(t_party *party)
+int			quit_visu(t_party *party)
 {
 	mlx_clear_window(party->mlx.mlx_ptr, party->mlx.win_ptr);
 	mlx_destroy_window(party->mlx.mlx_ptr, party->mlx.win_ptr);
@@ -101,7 +101,7 @@ int			draw(t_party *party, t_visu *visu)
 		add_name(visu, party);
 		mlx_do_sync(party->mlx.mlx_ptr);
 		free_ant_move(visu);
-		party->mouv += 3;
+		party->mouv += 7;
 	}
 	return (1);
 }

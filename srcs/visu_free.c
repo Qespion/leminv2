@@ -6,7 +6,7 @@
 /*   By: ratin <ratin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/18 19:17:44 by ratin             #+#    #+#             */
-/*   Updated: 2019/05/20 15:44:44 by ratin            ###   ########.fr       */
+/*   Updated: 2019/05/20 18:52:29 by ratin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,10 +47,10 @@ void			free_tube(t_tube *link)
 	}
 }
 
-void	free_room(t_visu *visu)
+void			free_room(t_visu *visu)
 {
-	t_room	*room;
-	t_room	*tmp;
+	t_room		*room;
+	t_room		*tmp;
 
 	room = visu->room;
 	while (room)
@@ -63,7 +63,7 @@ void	free_room(t_visu *visu)
 	}
 }
 
-void	free_prog(t_visu *visu, t_party *party)
+void			free_prog(t_visu *visu, t_party *party)
 {
 	free_ant_move(visu);
 	free_room(visu);
