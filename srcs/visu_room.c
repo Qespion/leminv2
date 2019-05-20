@@ -6,7 +6,7 @@
 /*   By: ratin <ratin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/02 23:52:21 by ratin             #+#    #+#             */
-/*   Updated: 2019/05/20 17:12:02 by ratin            ###   ########.fr       */
+/*   Updated: 2019/05/20 20:05:43 by ratin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void			fill_room(char *str, t_room *room)
 	int			i;
 
 	i = 0;
-	while(str[i] && str[i] != ' ')
+	while (str[i] && str[i] != ' ')
 		i++;
 	if (!(room->name = ft_strsub(str, 0, i)))
 		exit(1);
@@ -49,6 +49,19 @@ void			fill_room(char *str, t_room *room)
 	while (str[i] && str[i] != ' ')
 		i++;
 	room->y = ft_atoi(&str[i]);
+}
+
+void			add_name(t_visu *visu, t_party *party)
+{
+	t_room		*last;
+
+	last = visu->room;
+	while (last)
+	{
+		mlx_string_put(party->mlx.mlx_ptr, party->mlx.win_ptr, last->new_x
+		, last->new_y - 40, NAME, last->name);
+		last = last->next;
+	}
 }
 
 int				add_room(t_visu *visu, char *str, int special)
@@ -69,4 +82,18 @@ int				add_room(t_visu *visu, char *str, int special)
 		last->next = new_room;
 	}
 	return (1);
+}
+
+t_room			*get_start_room(t_visu *visu)
+{
+	t_room		*current;
+
+	current = visu->room;
+	while (current)
+	{
+		if (current->start == 1)
+			return (current);
+		current = current->next;
+	}
+	return (current);
 }

@@ -3,21 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   visu_get_result.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oespion <oespion@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ratin <ratin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/02 19:09:09 by ratin             #+#    #+#             */
-/*   Updated: 2019/05/20 18:56:26 by oespion          ###   ########.fr       */
+/*   Updated: 2019/05/20 19:47:13 by ratin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libft/includes/libft.h"
 #include "lem_in.h"
 
-static char	*read_result(t_visu *visu)
+static char		*read_result(t_visu *visu)
 {
-	char	*str;
-	char	*result;
-	int		turn;
+	char		*str;
+	char		*result;
+	int			turn;
 
 	turn = 0;
 	if (!(result = (char *)malloc(sizeof(char))))
@@ -57,7 +57,7 @@ int				count_step(t_visu *visu)
 	return (i);
 }
 
-void		print_reponse(t_visu *visu)
+void			print_reponse(t_visu *visu)
 {
 	t_reponse	*reponse;
 	int			i;
@@ -76,9 +76,9 @@ void		print_reponse(t_visu *visu)
 	}
 }
 
-int			get_result(t_visu *visu)
+int				get_result(t_visu *visu)
 {
-	char	*result;
+	char		*result;
 
 	result = read_result(visu);
 	visu->nbr_of_step = count_step(visu);

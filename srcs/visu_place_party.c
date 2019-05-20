@@ -6,7 +6,7 @@
 /*   By: ratin <ratin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/04 17:58:36 by ratin             #+#    #+#             */
-/*   Updated: 2019/05/20 19:39:13 by ratin            ###   ########.fr       */
+/*   Updated: 2019/05/20 19:53:20 by ratin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ void		put_room_zero(t_visu *visu)
 	}
 }
 
-void	place_room(t_visu *visu, t_party *party)
+void		place_room(t_visu *visu, t_party *party)
 {
 	t_room	*last;
 	int		circle;
@@ -74,7 +74,7 @@ void	place_room(t_visu *visu, t_party *party)
 	}
 }
 
-void	add_color(t_visu *visu, t_party *party)
+void		add_color(t_visu *visu, t_party *party)
 {
 	t_room	*last;
 
@@ -86,20 +86,7 @@ void	add_color(t_visu *visu, t_party *party)
 	}
 }
 
-void	add_name(t_visu *visu, t_party *party)
-{
-	t_room	*last;
-
-	last = visu->room;
-	while (last)
-	{
-		mlx_string_put(party->mlx.mlx_ptr, party->mlx.win_ptr, last->new_x
-		, last->new_y - 40, NAME, last->name);
-		last = last->next;
-	}
-}
-
-void	place_party(t_visu *visu, t_party *party)
+void		place_party(t_visu *visu, t_party *party)
 {
 	party->space = 60 + party->zoom;
 	place_room(visu, party);
