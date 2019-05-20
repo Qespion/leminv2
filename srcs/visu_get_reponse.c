@@ -6,17 +6,17 @@
 /*   By: ratin <ratin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/07 09:52:14 by ratin             #+#    #+#             */
-/*   Updated: 2019/05/19 00:24:45 by ratin            ###   ########.fr       */
+/*   Updated: 2019/05/20 18:41:07 by ratin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libft/includes/libft.h"
 #include "lem_in.h"
 
-void		ft_print_words_tables(char **tab)
+void			ft_print_words_tables(char **tab)
 {
-	int		i;
-	int		y;
+	int			i;
+	int			y;
 
 	i = 0;
 	y = 0;
@@ -31,7 +31,7 @@ void		ft_print_words_tables(char **tab)
 		i++;
 		ft_putchar('\n');
 	}
-}	
+}
 
 t_reponse		*create_reponse(char *str)
 {

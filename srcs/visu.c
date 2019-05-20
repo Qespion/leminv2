@@ -6,7 +6,7 @@
 /*   By: ratin <ratin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/02 19:02:10 by ratin             #+#    #+#             */
-/*   Updated: 2019/05/20 17:09:29 by ratin            ###   ########.fr       */
+/*   Updated: 2019/05/20 18:38:25 by ratin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,29 +31,6 @@ void		init_visu(t_visu *visu, t_party *party)
 	party->press_y = 0;
 	party->is_pressed = 0;
 	party->mouv = 0;
-}
-
-int		handle_mouse(int x, int y, t_party *party) 
-{
-	if (party->is_pressed == 1)
-	{
-		party->translate_x = x;
-		party->translate_y = y;
-	}
-	return (0);
-}
-
-int			mouse_press(int button, int x, int y, t_party *party)
-{
-	if (button == 1 && party->is_pressed == 0)
-	{
-		party->is_pressed = 1;
-		party->press_x = x;
-		party->press_y = y;
-	}
-	else
-		party->is_pressed = 0;
-	return (0);
 }
 
 void		init_ants(t_visu *visu)
@@ -93,10 +70,10 @@ int			main(void)
 	init_mlx(&visu, &party);
 	init_ants(&visu);
 	init_zoom(&visu, &party);
-	mlx_hook(party.mlx.win_ptr, 17, 1L<<6, quit_visu, &party);
-	mlx_hook(party.mlx.win_ptr, 2, 1L<<6, handle_key, &party);
-	mlx_hook(party.mlx.win_ptr, 6, 1L<<6, handle_mouse, &party);
-	mlx_hook(party.mlx.win_ptr, 4, 1L<<6, mouse_press, &party);
+	mlx_hook(party.mlx.win_ptr, 17, 1L << 6, quit_visu, &party);
+	mlx_hook(party.mlx.win_ptr, 2, 1L << 6, handle_key, &party);
+	mlx_hook(party.mlx.win_ptr, 6, 1L << 6, handle_mouse, &party);
+	mlx_hook(party.mlx.win_ptr, 4, 1L << 6, mouse_press, &party);
 	draw(&party, &visu);
 	return (0);
 }

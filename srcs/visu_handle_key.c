@@ -6,7 +6,7 @@
 /*   By: ratin <ratin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/20 18:26:40 by ratin             #+#    #+#             */
-/*   Updated: 2019/05/20 18:34:01 by ratin            ###   ########.fr       */
+/*   Updated: 2019/05/20 18:37:10 by ratin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,4 +56,27 @@ int		handle_key(int key, t_party *party)
 		party->zoom++;
 	handle_key_2(key, party);
 	return (1);
+}
+
+int		handle_mouse(int x, int y, t_party *party)
+{
+	if (party->is_pressed == 1)
+	{
+		party->translate_x = x;
+		party->translate_y = y;
+	}
+	return (0);
+}
+
+int			mouse_press(int button, int x, int y, t_party *party)
+{
+	if (button == 1 && party->is_pressed == 0)
+	{
+		party->is_pressed = 1;
+		party->press_x = x;
+		party->press_y = y;
+	}
+	else
+		party->is_pressed = 0;
+	return (0);
 }
