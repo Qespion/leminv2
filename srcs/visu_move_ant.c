@@ -6,28 +6,12 @@
 /*   By: ratin <ratin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/13 12:04:08 by ratin             #+#    #+#             */
-/*   Updated: 2019/05/19 00:19:43 by ratin            ###   ########.fr       */
+/*   Updated: 2019/05/20 17:11:35 by ratin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libft/includes/libft.h"
 #include "lem_in.h"
-
-void		print_move(t_move *move)
-{
-	t_move	*last;
-
-	last = move;
-/* 	printf("going {%d, %d} to ", last->x, last->y);
-	while (last->next)
-		last = last->next;
-	printf("{%d, %d}\n", last->x, last->y); */
-	while (last)
-	{
-		printf("{%d, %d}\n", last->x, last->y);
-		last = last->next;
-	}
-}
 
 void		reverse_move(t_move **move)
 {

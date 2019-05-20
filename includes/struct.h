@@ -6,7 +6,7 @@
 /*   By: ratin <ratin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/06 16:27:53 by oespion           #+#    #+#             */
-/*   Updated: 2019/05/19 00:49:53 by ratin            ###   ########.fr       */
+/*   Updated: 2019/05/20 18:26:07 by ratin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,10 +79,10 @@ typedef struct			s_pack
 	struct s_journey	*player;
 	struct s_pack		*nxt;
 }						t_pack;
-/////////////////////////////////////////////////////////////////////////////
+
 typedef	struct			s_tube
 {
-	struct s_room		*room;				
+	struct s_room		*room;
 	struct s_tube		*next;
 	int					test;
 }						t_tube;
@@ -126,7 +126,7 @@ typedef	struct			s_ant
 
 typedef	struct			s_reponse
 {
-	char 				**step;
+	char				**step;
 	struct s_reponse	*next;
 }						t_reponse;
 
@@ -143,10 +143,10 @@ typedef struct			s_visu
 	struct s_party		*party;
 }						t_visu;
 
-typedef struct 			s_point
+typedef struct			s_point
 {
 	int					x;
-	int 				y;
+	int					y;
 }						t_point;
 
 typedef struct			s_img
@@ -158,7 +158,7 @@ typedef struct			s_img
 	int					endian;
 }						t_img;
 
-typedef struct 			s_mlx
+typedef struct			s_mlx
 {
 	void				*mlx_ptr;
 	void				*win_ptr;

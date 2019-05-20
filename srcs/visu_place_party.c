@@ -6,7 +6,7 @@
 /*   By: ratin <ratin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/04 17:58:36 by ratin             #+#    #+#             */
-/*   Updated: 2019/05/18 18:23:39 by ratin            ###   ########.fr       */
+/*   Updated: 2019/05/20 17:31:13 by ratin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ void	place_room(t_visu *visu, t_party *party)
 		circle = draw_room(party, last);
 		while (tube)
 		{
-			draw_link(party, last, tube, circle);
+			draw_link(party, last, tube);
 			tube = tube->next;
 		}
 		last = last->next;

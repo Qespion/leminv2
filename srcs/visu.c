@@ -6,7 +6,7 @@
 /*   By: ratin <ratin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/02 19:02:10 by ratin             #+#    #+#             */
-/*   Updated: 2019/05/20 17:05:02 by ratin            ###   ########.fr       */
+/*   Updated: 2019/05/20 17:09:29 by ratin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,16 +56,6 @@ int			mouse_press(int button, int x, int y, t_party *party)
 	return (0);
 }
 
-void		printant(t_visu *visu)
-{
-	t_ant	*last = visu->ants;
-	while (last)
-	{
-		printf("ant %d position = %s\n", last->index, last->position->name);
-		last = last->next;
-	}
-}
-
 void		init_ants(t_visu *visu)
 {
 	int		nbr;
@@ -113,4 +103,5 @@ int			main(void)
 
 //no start map error
 //gerer les map error
+// gerer les roads not found
 //faire ath avec print step et legende
