@@ -6,7 +6,7 @@
 /*   By: ratin <ratin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/02 19:02:10 by ratin             #+#    #+#             */
-/*   Updated: 2019/05/19 01:04:43 by ratin            ###   ########.fr       */
+/*   Updated: 2019/05/20 15:39:14 by ratin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,11 +102,11 @@ int			main(void)
 	get_result(&visu);
 	init_mlx(&visu, &party);
 	init_ants(&visu);
-	mlx_hook(party.mlx.win_ptr, 17, 1L<<6, quit_visu, &visu);
+	init_zoom(&visu, &party);
+	mlx_hook(party.mlx.win_ptr, 17, 1L<<6, quit_visu, &party);
 	mlx_hook(party.mlx.win_ptr, 2, 1L<<6, handle_key, &party);
 	mlx_hook(party.mlx.win_ptr, 6, 1L<<6, handle_mouse, &party);
 	mlx_hook(party.mlx.win_ptr, 4, 1L<<6, mouse_press, &party);
-	init_zoom(&visu, &party);
 	draw(&party, &visu);
 	return (0);
 }

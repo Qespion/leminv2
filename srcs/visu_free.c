@@ -6,7 +6,7 @@
 /*   By: ratin <ratin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/18 19:17:44 by ratin             #+#    #+#             */
-/*   Updated: 2019/05/19 00:44:54 by ratin            ###   ########.fr       */
+/*   Updated: 2019/05/20 15:44:44 by ratin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,8 +65,8 @@ void	free_room(t_visu *visu)
 
 void	free_prog(t_visu *visu, t_party *party)
 {
+	free_ant_move(visu);
 	free_room(visu);
 	free_reponse(visu);
-	free_ant_move(visu);
 	(void)party;
 }

@@ -6,7 +6,7 @@
 /*   By: ratin <ratin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/19 14:59:07 by ratin             #+#    #+#             */
-/*   Updated: 2019/05/19 01:09:42 by ratin            ###   ########.fr       */
+/*   Updated: 2019/05/20 15:44:51 by ratin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,6 @@ int		handle_key(int key, t_party *party)
 		party->mouv = 0;
 		party->g_step--;
 	}
-	//printf("key = %d\n", key);
 	return (1);
 }
 
@@ -68,10 +67,10 @@ int			init_mlx(t_visu *visu, t_party *party)
 	if (!(party->mlx.mlx_ptr = mlx_init()))
 		quit_visu(party);
 	if (!(party->mlx.win_ptr = mlx_new_window(party->mlx.mlx_ptr, WIDTH, HEIGHT
-	, "Lem-in")))
+			, "Lem-in")))
 		quit_visu(party);
 	if (!(party->mlx.img.img_ptr = mlx_new_image(party->mlx.mlx_ptr, WIDTH
-	, HEIGHT)))
+			, HEIGHT)))
 		quit_visu(party);
 	party->mlx.img.data = (int *)mlx_get_data_addr(party->mlx.img.img_ptr
 		, &party->mlx.img.bpp, &party->mlx.img.size_l, &party->mlx.img.endian);
@@ -118,29 +117,6 @@ void		add_ant_name(t_visu *visu, t_party *party)
 	}
 }
 
-void		print_ant_pos(t_visu *visu, t_party *party)
-{
-	t_ant		*last;
-	t_rstep		*rstep;
-
-	last = visu->ants;
-	while (last)
-	{
-		printf("pour ant %d:\n", last->index);
-		rstep = last->rstep;
-		while (rstep)
-		{
-			printf("	g_step %d\n", rstep->index);
-			printf("	L%d positinon = {%d, %d}\n", last->index,
-			rstep->move->x,	rstep->move->y);
-			rstep = rstep->next;
-		}
-		last = last->next;
-	}
-	printf("\n\n");
-	(void)party;
-}
-
 int			draw(t_party *party, t_visu *visu)
 {
 	t_mlx	*mlx;
@@ -151,16 +127,16 @@ int			draw(t_party *party, t_visu *visu)
 		mlx_clear_window(party->mlx.mlx_ptr, party->mlx.win_ptr);
 		mlx_destroy_image(party->mlx.mlx_ptr, party->mlx.img.img_ptr);
 		party->mlx.img.img_ptr = mlx_new_image(party->mlx.mlx_ptr, WIDTH
-		, HEIGHT);
+				, HEIGHT);
 		party->mlx.img.data = (int *)mlx_get_data_addr(party->mlx.img.img_ptr
-		, &party->mlx.img.bpp,
-		&party->mlx.img.size_l, &party->mlx.img.endian);
+				, &party->mlx.img.bpp, &party->mlx.img.size_l
+				, &party->mlx.img.endian);
 		back_screen(party);
 		place_party(visu, party);
 		start_ants(visu, party);
 		draw_all_ants(party, visu);
 		mlx_put_image_to_window(party->mlx.mlx_ptr, party->mlx.win_ptr
-		, party->mlx.img.img_ptr, 0, 0);
+				, party->mlx.img.img_ptr, 0, 0);
 		add_ant_name(visu, party);
 		add_name(visu, party);
 		mlx_do_sync(party->mlx.mlx_ptr);
