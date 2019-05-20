@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lem_in.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ratin <ratin@student.42.fr>                +#+  +:+       +#+        */
+/*   By: oespion <oespion@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/06 16:27:53 by oespion           #+#    #+#             */
-/*   Updated: 2019/05/20 18:24:31 by ratin            ###   ########.fr       */
+/*   Updated: 2019/05/20 18:57:13 by oespion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,5 +125,6 @@ void	draw_all_ants(t_party *party, t_visu *visu);
 void	free_ant_move(t_visu *visu);
 void	init_rstep(t_visu *visu, int step);
 void	free_prog(t_visu *visu, t_party *party);
+void	parse(t_visu *visu, char *str, int *turn);
 
 #endif
