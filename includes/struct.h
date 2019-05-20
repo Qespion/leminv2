@@ -6,7 +6,7 @@
 /*   By: ratin <ratin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/06 16:27:53 by oespion           #+#    #+#             */
-/*   Updated: 2019/05/20 18:26:07 by ratin            ###   ########.fr       */
+/*   Updated: 2019/05/20 20:15:15 by ratin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -179,6 +179,7 @@ typedef	struct			s_party
 	int					press_y;
 	int					is_pressed;
 	int					is_bigmap;
+	int					speed;
 	struct s_mlx		mlx;
 	struct s_visu		*visu;
 }						t_party;

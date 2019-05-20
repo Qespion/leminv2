@@ -55,7 +55,8 @@ SRCS_2	=	srcs/visu.c \
 			srcs/visu_fill_circle.c \
 			srcs/visu_draw_circle.c \
 			srcs/visu_handle_key.c \
-			srcs/visu_parse.c
+			srcs/visu_parse.c \
+			srcs/visu_print_ath.c \
 
 LIBFT	=	libft/libft.a
 MLX 	=	mlx/ -lmlx -framework OpenGL -framework AppKit

@@ -6,7 +6,7 @@
 /*   By: ratin <ratin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/20 18:26:40 by ratin             #+#    #+#             */
-/*   Updated: 2019/05/20 18:53:20 by ratin            ###   ########.fr       */
+/*   Updated: 2019/05/20 20:29:39 by ratin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	handle_key_2(int key, t_party *party)
 		party->translate_y -= 10;
 	if (key == 124)
 		party->translate_x += 10;
-	if (key == 116 && party->g_step < party->nbr_of_step + 1)
+	if (key == 116 && party->g_step < party->nbr_of_step)
 	{
 		party->mouv = 0;
 		party->g_step++;
@@ -33,6 +33,10 @@ void	handle_key_2(int key, t_party *party)
 		party->mouv = 0;
 		party->g_step--;
 	}
+	if (key == 13)
+		party->speed++;
+	if (key == 1 && party->speed > 0)
+		party->speed--;
 }
 
 int		handle_key(int key, t_party *party)

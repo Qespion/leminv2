@@ -6,7 +6,7 @@
 /*   By: ratin <ratin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/19 14:59:07 by ratin             #+#    #+#             */
-/*   Updated: 2019/05/20 19:29:19 by ratin            ###   ########.fr       */
+/*   Updated: 2019/05/20 20:22:36 by ratin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,11 +97,10 @@ int			draw(t_party *party, t_visu *visu)
 		draw_all_ants(party, visu);
 		mlx_put_image_to_window(party->mlx.mlx_ptr, party->mlx.win_ptr
 				, party->mlx.img.img_ptr, 0, 0);
-		add_ant_name(visu, party);
-		add_name(visu, party);
+		print_ath(visu, party);
 		mlx_do_sync(party->mlx.mlx_ptr);
 		free_ant_move(visu);
-		party->mouv += 7;
+		party->mouv += party->speed;
 	}
 	return (1);
 }
