@@ -6,7 +6,7 @@
 /*   By: ratin <ratin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/02 19:09:09 by ratin             #+#    #+#             */
-/*   Updated: 2019/05/20 19:47:13 by ratin            ###   ########.fr       */
+/*   Updated: 2019/05/21 17:44:38 by ratin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,12 @@ void			print_reponse(t_visu *visu)
 		}
 		reponse = reponse->next;
 	}
+}
+
+void			quit_parsing(t_party *party)
+{
+	free_prog(party->visu, party);
+	exit(1);
 }
 
 int				get_result(t_visu *visu)

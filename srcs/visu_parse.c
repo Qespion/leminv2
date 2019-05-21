@@ -6,7 +6,7 @@
 /*   By: ratin <ratin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/20 18:55:52 by oespion           #+#    #+#             */
-/*   Updated: 2019/05/20 19:48:59 by ratin            ###   ########.fr       */
+/*   Updated: 2019/05/21 18:03:24 by ratin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ void		parse_reponse_finished(t_visu **visu, char **str)
 {
 	if ((*visu)->tube_finished == 0)
 	{
+		if (ft_strstr(*str, "road not found") != NULL)
+			quit_parsing((*visu)->party);
 		if (ft_strcmp(*str, "") == 0)
 			(*visu)->tube_finished = 1;
 		else
@@ -33,6 +35,8 @@ void		parse_reponse_finished(t_visu **visu, char **str)
 
 void		parse(t_visu *visu, char *str, int *turn)
 {
+	if (ft_strstr(str, "ERROR") != NULL || ft_strstr(str, "error") != NULL)
+		quit_parsing(visu->party);
 	if (visu->map_finished == 0)
 	{
 		if (*turn == 0 && str[0] == '#')
