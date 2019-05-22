@@ -6,7 +6,7 @@
 /*   By: ratin <ratin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/02 23:59:34 by ratin             #+#    #+#             */
-/*   Updated: 2019/05/23 00:44:31 by ratin            ###   ########.fr       */
+/*   Updated: 2019/05/23 01:53:03 by ratin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ t_room			*get_end_room(t_visu *visu)
 	return (0);
 }
 
-void	check_start_end(t_visu *visu, int select)
+void			check_start_end(t_visu *visu, int select)
 {
 	if (select == 1)
 	{
@@ -59,6 +59,7 @@ void			fill_map(t_visu *visu, char *str)
 	static int	start = 0;
 	static int	end = 0;
 
+	check_mp_inpt(visu, str);
 	if (str[0] == '#' && str[1] != '#')
 		return ;
 	else if (ft_strcmp("##start", str) == 0)

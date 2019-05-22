@@ -6,7 +6,7 @@
 /*   By: ratin <ratin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/06 16:27:53 by oespion           #+#    #+#             */
-/*   Updated: 2019/05/23 01:46:42 by ratin            ###   ########.fr       */
+/*   Updated: 2019/05/23 01:48:46 by ratin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,4 +132,7 @@ void	print_ath(t_visu *visu, t_party *party);
 void	quit_parsing(t_party *party);
 void	free_double(char **str);
 void	check_mp_inpt(t_visu *visu, char *str);
+int		false_room(t_visu *visu, char *str);
+int		false_name(t_visu *visu, char **line, int y);
+int		false_reponse(t_visu *visu, char *str);
 #endif

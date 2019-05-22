@@ -6,75 +6,12 @@
 /*   By: ratin <ratin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/20 18:55:52 by oespion           #+#    #+#             */
-/*   Updated: 2019/05/23 01:45:54 by ratin            ###   ########.fr       */
+/*   Updated: 2019/05/23 01:52:48 by ratin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libft/includes/libft.h"
 #include "lem_in.h"
-
-int			false_room(t_visu *visu, char *str)
-{
-	int		i;
-	int		len;
-	char	*name;
-	t_room	*room;
-
-	i = 0;
-	len = 0;
-	while (str[i] != '-' && str[i])
-		i++;
-	name = ft_strsub(str, 0, i);
-	if (!(room = get_room_by_name(visu, name)))
-		return (1);
-	free(name);
-	while (str[i + len] != ' ' && str[len])
-		len++;
-	name = ft_strsub(str, ++i, --len);
-	if (!(room = get_room_by_name(visu, name)))
-		return (1);
-	free(name);
-	return (0);
-}
-
-int			false_name(t_visu *visu, char **line, int y)
-{
-	int		i;
-	int		len;
-	char	*name;
-	t_room	*room;
-
-	i = 0;
-	len = 0;
-	while (line[y][i] != '-' && line[y][i])
-		i++;
-	if (!line[y][i])
-		return (1);
-	while (line[y][i + len] != ' ' && line[y][len])
-		len++;
-	name = ft_strsub(line[y], ++i, --len);
-	if (!(room = get_room_by_name(visu, name)))
-		return (1);
-	free(name);
-	return (0);
-}
-
-int			false_reponse(t_visu *visu, char *str)
-{
-	int		y;
-	char	**line;
-
-	y = 0;
-	line = ft_strsplit(str, ' ');
-	while (line[y])
-	{
-		if (false_name(visu, line, y))
-			return (1);
-		y++;
-	}
-	free_double(line);
-	return (0);
-}
 
 void		parse_reponse_finished(t_visu **visu, char **str)
 {
@@ -105,6 +42,17 @@ void		parse_reponse_finished(t_visu **visu, char **str)
 	}
 }
 
+void		get_nbr_ant(t_visu *visu, char *str)
+{
+	visu->nbr_of_ants = ft_atoi(str);
+	if (visu->nbr_of_ants <= 0)
+		quit_parsing(visu->party);
+	if (ft_strlen(str) > 13 || ft_atoi(str) > 2147483647
+		|| ft_atoi(str) < -2147483648
+		|| ((ft_atoi(str) == 0 && str[0] != '0')))
+		quit_parsing(visu->party);
+}
+
 void		parse(t_visu *visu, char *str, int *turn)
 {
 	if (ft_strstr(str, "ERROR") != NULL || ft_strstr(str, "error") != NULL)
@@ -117,15 +65,7 @@ void		parse(t_visu *visu, char *str, int *turn)
 			return ;
 		}
 		if ((*turn) == 0)
-		{
-			visu->nbr_of_ants = ft_atoi(str);
-			if (visu->nbr_of_ants <= 0)
-				quit_parsing(visu->party);
-			if (ft_strlen(str) > 13 || ft_atoi(str) > 2147483647
-				|| ft_atoi(str) < -2147483648
-				|| ((ft_atoi(str) == 0 && str[0] != '0')))
-				quit_parsing(visu->party);
-		}
+			get_nbr_ant(visu, str);
 		else if (ft_strchr(str, '-') != NULL && str[0] != '#')
 		{
 			visu->map_finished = 1;
@@ -134,10 +74,7 @@ void		parse(t_visu *visu, char *str, int *turn)
 			get_link(visu, str);
 		}
 		else
-		{
-			check_mp_inpt(visu, str);
 			fill_map(visu, str);
-		}
 	}
 	else
 		parse_reponse_finished(&visu, &str);

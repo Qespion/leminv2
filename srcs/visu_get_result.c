@@ -6,16 +6,16 @@
 /*   By: ratin <ratin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/02 19:09:09 by ratin             #+#    #+#             */
-/*   Updated: 2019/05/23 00:31:20 by ratin            ###   ########.fr       */
+/*   Updated: 2019/05/23 01:53:13 by ratin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libft/includes/libft.h"
 #include "lem_in.h"
 
-void		free_double(char **str)
+void			free_double(char **str)
 {
-	int		i;
+	int			i;
 
 	i = 0;
 	while (str[i])
