@@ -6,12 +6,36 @@
 /*   By: ratin <ratin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/20 18:55:52 by oespion           #+#    #+#             */
-/*   Updated: 2019/05/21 18:03:24 by ratin            ###   ########.fr       */
+/*   Updated: 2019/05/22 19:26:38 by ratin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libft/includes/libft.h"
 #include "lem_in.h"
+
+int			false_room(t_visu *visu, char *str)
+{
+	int		i;
+	int		len;
+	char	*name;
+	t_room	*room;
+
+	i = 0;
+	len = 0;
+	while (str[i] != '-' && str[i])
+		i++;
+	name = ft_strsub(str, 0, i);
+	if (!(room = get_room_by_name(visu, name)))
+		return (1);
+	free(name);
+	while (str[i + len] != ' ' && str[len])
+		len++;
+	name = ft_strsub(str, ++i, --len);
+	if (!(room = get_room_by_name(visu, name)))
+		return (1);
+	free(name);
+	return (0);
+}
 
 void		parse_reponse_finished(t_visu **visu, char **str)
 {
@@ -49,6 +73,8 @@ void		parse(t_visu *visu, char *str, int *turn)
 		else if (ft_strchr(str, '-') != NULL && str[0] != '#')
 		{
 			visu->map_finished = 1;
+			if (false_room(visu, str))
+				quit_parsing(visu->party);
 			get_link(visu, str);
 		}
 		else

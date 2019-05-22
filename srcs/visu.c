@@ -6,7 +6,7 @@
 /*   By: ratin <ratin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/02 19:02:10 by ratin             #+#    #+#             */
-/*   Updated: 2019/05/21 17:32:04 by ratin            ###   ########.fr       */
+/*   Updated: 2019/05/22 19:05:39 by ratin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,3 @@ int			main(void)
 	draw(&party, &visu);
 	return (0);
 }
-
-//no start map error
-//gerer les map error
-// gerer les roads not found
