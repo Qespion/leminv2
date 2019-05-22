@@ -6,7 +6,7 @@
 /*   By: ratin <ratin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/02 23:52:21 by ratin             #+#    #+#             */
-/*   Updated: 2019/05/20 20:05:43 by ratin            ###   ########.fr       */
+/*   Updated: 2019/05/23 00:22:51 by ratin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,5 +95,5 @@ t_room			*get_start_room(t_visu *visu)
 			return (current);
 		current = current->next;
 	}
-	return (current);
+	return (0);
 }

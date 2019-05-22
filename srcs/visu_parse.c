@@ -6,7 +6,7 @@
 /*   By: ratin <ratin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/20 18:55:52 by oespion           #+#    #+#             */
-/*   Updated: 2019/05/22 22:51:02 by ratin            ###   ########.fr       */
+/*   Updated: 2019/05/23 01:45:54 by ratin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,7 +117,15 @@ void		parse(t_visu *visu, char *str, int *turn)
 			return ;
 		}
 		if ((*turn) == 0)
+		{
 			visu->nbr_of_ants = ft_atoi(str);
+			if (visu->nbr_of_ants <= 0)
+				quit_parsing(visu->party);
+			if (ft_strlen(str) > 13 || ft_atoi(str) > 2147483647
+				|| ft_atoi(str) < -2147483648
+				|| ((ft_atoi(str) == 0 && str[0] != '0')))
+				quit_parsing(visu->party);
+		}
 		else if (ft_strchr(str, '-') != NULL && str[0] != '#')
 		{
 			visu->map_finished = 1;
@@ -126,7 +134,10 @@ void		parse(t_visu *visu, char *str, int *turn)
 			get_link(visu, str);
 		}
 		else
+		{
+			check_mp_inpt(visu, str);
 			fill_map(visu, str);
+		}
 	}
 	else
 		parse_reponse_finished(&visu, &str);

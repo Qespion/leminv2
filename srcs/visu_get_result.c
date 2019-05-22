@@ -6,7 +6,7 @@
 /*   By: ratin <ratin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/02 19:09:09 by ratin             #+#    #+#             */
-/*   Updated: 2019/05/22 22:53:46 by ratin            ###   ########.fr       */
+/*   Updated: 2019/05/23 00:31:20 by ratin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,8 @@ void			quit_parsing(t_party *party)
 int				get_result(t_visu *visu)
 {
 	read_result(visu);
+	if (get_start_room(visu) == 0 || get_end_room(visu) == 0)
+		quit_parsing(visu->party);
 	visu->nbr_of_step = count_step(visu);
 	return (1);
 }

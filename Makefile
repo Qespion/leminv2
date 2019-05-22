@@ -57,6 +57,7 @@ SRCS_2	=	srcs/visu.c \
 			srcs/visu_handle_key.c \
 			srcs/visu_parse.c \
 			srcs/visu_print_ath.c \
+			srcs/visu_map_input.c \
 
 LIBFT	=	libft/libft.a
 MLX 	=	mlx/ -lmlx -framework OpenGL -framework AppKit

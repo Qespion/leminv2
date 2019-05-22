@@ -6,7 +6,7 @@
 /*   By: ratin <ratin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/06 16:27:53 by oespion           #+#    #+#             */
-/*   Updated: 2019/05/22 22:32:18 by ratin            ###   ########.fr       */
+/*   Updated: 2019/05/23 01:46:42 by ratin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,7 @@ t_pack	*remove_from_field(t_pack *start, t_pack *rm);
 t_room	*get_room_by_name(t_visu *visu, char *name);
 t_rstep	*get_rstep(int step, t_rstep *rstep);
 t_room	*get_start_room(t_visu *visu);
+t_room	*get_end_room(t_visu *visu);
 char	**ft_strsplit(const char *str, char c);
 int		put_line(t_point *point1, t_point *point2, t_mlx *mlx, int color);
 int		ft_put_pixel(t_mlx *mlx, int x, int y, int color);
@@ -130,5 +131,5 @@ void	add_ant_name(t_visu *visu, t_party *party);
 void	print_ath(t_visu *visu, t_party *party);
 void	quit_parsing(t_party *party);
 void	free_double(char **str);
-
+void	check_mp_inpt(t_visu *visu, char *str);
 #endif
