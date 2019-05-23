@@ -6,14 +6,14 @@
 /*   By: ratin <ratin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/03 16:58:31 by ratin             #+#    #+#             */
-/*   Updated: 2019/05/07 04:37:50 by ratin            ###   ########.fr       */
+/*   Updated: 2019/05/23 14:15:19 by ratin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libft/includes/libft.h"
 #include "lem_in.h"
 
-char		**get_both_name(char *str)
+char		**get_both_name(t_visu *visu, char *str)
 {
 	char	**name;
 	int		len1;
@@ -32,6 +32,9 @@ char		**get_both_name(char *str)
 		len2++;
 	if (!(name[1] = ft_strsub(str, len1, len2)))
 		return (NULL);
+	if (get_room_by_name(visu, name[0]) == 0 || get_room_by_name(visu, name[1])
+			== 0)
+		quit_parsing(visu->party);
 	return (name);
 }
 
@@ -42,7 +45,7 @@ void		get_link(t_visu *visu, char *str)
 
 	if (str[0] == '#')
 		return ;
-	name = get_both_name(str);
+	name = get_both_name(visu, str);
 	room = get_room_by_name(visu, name[0]);
 	add_link(visu, room, name[1]);
 	room = get_room_by_name(visu, name[1]);
