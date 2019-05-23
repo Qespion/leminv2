@@ -6,7 +6,7 @@
 /*   By: oespion <oespion@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/21 18:08:42 by oespion           #+#    #+#             */
-/*   Updated: 2019/05/23 14:20:25 by oespion          ###   ########.fr       */
+/*   Updated: 2019/05/23 14:31:14 by oespion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,6 @@ t_map	*get_road(char *str, t_map *map)
 	name2 = ft_strchr(str, '-') + 1;
 	if (!error_road(name1, name2, &tmp, &tmp2))
 		map->valid = 0;
-	ft_printf("fdsfs\n");
 	link_on_road(&tmp, &tmp2, map);
 	free(name1);
 	return (map);

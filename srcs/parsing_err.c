@@ -6,7 +6,7 @@
 /*   By: oespion <oespion@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/21 18:11:34 by oespion           #+#    #+#             */
-/*   Updated: 2019/05/23 14:17:13 by oespion          ###   ########.fr       */
+/*   Updated: 2019/05/23 14:24:42 by oespion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,6 @@ int		error_road(char *name1, char *name2, t_node **tmp, t_node **tmp2)
 	{
 		if (!(*tmp)->next)
 		{
-			// ft_printf("\e[31;1mERROR\033[0m\n");
 			return (0);
 		}
 		(*tmp) = (*tmp)->next;
@@ -101,7 +100,6 @@ int		error_road(char *name1, char *name2, t_node **tmp, t_node **tmp2)
 	{
 		if (!(*tmp2)->next)
 		{
-			// ft_printf("\e[31;1mERROR\033[0m\n");
 			return (0);
 		}
 		(*tmp2) = (*tmp2)->next;
