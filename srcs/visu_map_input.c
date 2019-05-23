@@ -6,7 +6,7 @@
 /*   By: ratin <ratin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/23 00:11:31 by ratin             #+#    #+#             */
-/*   Updated: 2019/05/23 01:49:24 by ratin            ###   ########.fr       */
+/*   Updated: 2019/05/23 02:01:42 by ratin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,14 +89,14 @@ void		check_mp_inpt(t_visu *visu, char *str)
 		quit_parsing(visu->party);
 	while (str[++i] != ' ' && str[i])
 	{
-		if (str[i] < 48 && str[i] > 57)
+		if (str[i] < 48 || str[i] > 57)
 			quit_parsing(visu->party);
 	}
 	if (!str[i])
 		quit_parsing(visu->party);
 	while (str[++i] != ' ' && str[i])
 	{
-		if (str[i] < 48 && str[i] > 57)
+		if (str[i] < 48 || str[i] > 57)
 			quit_parsing(visu->party);
 	}
 }
