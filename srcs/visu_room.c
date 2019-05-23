@@ -6,7 +6,7 @@
 /*   By: ratin <ratin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/02 23:52:21 by ratin             #+#    #+#             */
-/*   Updated: 2019/05/23 00:22:51 by ratin            ###   ########.fr       */
+/*   Updated: 2019/05/23 14:44:15 by ratin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ t_room			*create_room(int special)
 	return (room);
 }
 
-void			fill_room(char *str, t_room *room)
+void			fill_room(t_visu *visu, char *str, t_room *room)
 {
 	int			i;
 
@@ -45,9 +45,13 @@ void			fill_room(char *str, t_room *room)
 	if (!(room->name = ft_strsub(str, 0, i)))
 		exit(1);
 	i++;
+	if (ft_atoi(&str[i]) > 10000)
+		quit_parsing(visu->party);
 	room->x = ft_atoi(&str[i]);
 	while (str[i] && str[i] != ' ')
 		i++;
+	if (ft_atoi(&str[i]) > 10000)
+		quit_parsing(visu->party);
 	room->y = ft_atoi(&str[i]);
 }
 
@@ -72,7 +76,7 @@ int				add_room(t_visu *visu, char *str, int special)
 	last = visu->room;
 	if (!(new_room = create_room(special)))
 		quit_visu(visu->party);
-	fill_room(str, new_room);
+	fill_room(visu, str, new_room);
 	if (visu->room == NULL)
 		visu->room = new_room;
 	else
