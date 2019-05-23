@@ -6,7 +6,7 @@
 /*   By: ratin <ratin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/02 19:02:10 by ratin             #+#    #+#             */
-/*   Updated: 2019/05/23 01:53:23 by ratin            ###   ########.fr       */
+/*   Updated: 2019/05/23 13:49:59 by ratin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,5 +78,3 @@ int			main(void)
 	draw(&party, &visu);
 	return (0);
 }
-
-// no error in lem-in if random string at link info
