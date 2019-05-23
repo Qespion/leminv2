@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ratin <ratin@student.42.fr>                +#+  +:+       +#+        */
+/*   By: oespion <oespion@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/28 14:30:27 by oespion           #+#    #+#             */
-/*   Updated: 2019/05/02 23:11:15 by ratin            ###   ########.fr       */
+/*   Updated: 2019/05/23 14:09:32 by oespion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,7 @@ void	check_double_road(t_node *tmp, t_link *last_link, t_map *map)
 	{
 		if (link->node == last_link->node)
 		{
-			ft_printf("\n\e[31;1mERROR: link twice between ");
-			ft_printf("%s and %s\033[0m\n", link->node->name, tmp->name);
+			ft_printf("\n\e[31;1mERROR\033[0m\n");
 			ft_clean_map(map);
 			exit(-1);
 		}

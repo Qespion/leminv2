@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_roads.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ratin <ratin@student.42.fr>                +#+  +:+       +#+        */
+/*   By: oespion <oespion@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/21 18:08:42 by oespion           #+#    #+#             */
-/*   Updated: 2019/05/22 23:57:05 by ratin            ###   ########.fr       */
+/*   Updated: 2019/05/23 14:20:25 by oespion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,10 +66,13 @@ t_map	*get_road(char *str, t_map *map)
 	tmp2 = map->begin;
 	if (str[0] == '#' && str[1] != '#')
 		return (map);
+	if (!ft_strchr(str, '-'))
+		ft_printf("\e[31;1mERROR\033[0m\n");
 	name1 = ft_strsub(str, 0, find_del(str));
 	name2 = ft_strchr(str, '-') + 1;
 	if (!error_road(name1, name2, &tmp, &tmp2))
 		map->valid = 0;
+	ft_printf("fdsfs\n");
 	link_on_road(&tmp, &tmp2, map);
 	free(name1);
 	return (map);
