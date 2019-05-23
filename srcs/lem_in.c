@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lem_in.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ratin <ratin@student.42.fr>                +#+  +:+       +#+        */
+/*   By: oespion <oespion@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/06 16:27:46 by oespion           #+#    #+#             */
-/*   Updated: 2019/05/22 22:51:36 by ratin            ###   ########.fr       */
+/*   Updated: 2019/05/23 14:07:29 by oespion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,8 +56,7 @@ void	short_usage(char *str)
 			print_help();
 		else
 		{
-			ft_printf("\e[31;1mERROR: '%c' ", *str);
-			ft_printf("is not a proper argument\033[0m\n");
+			ft_printf("\e[31;1mERROR\033[0m\n");
 			print_help();
 		}
 		str++;
@@ -105,7 +104,7 @@ int		main(int ac, char **av)
 	map = nget_file();
 	if (!is_valid(map))
 	{
-		ft_printf("Error: Invalid map\n");
+		ft_printf("\n\e[31;1mERROR\033[0m\n");
 		ft_clean_map(map);
 		return (-1);
 	}
